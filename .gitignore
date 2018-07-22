@@ -1,0 +1,15 @@
+# Ignore the node modules folder (created by 'npm install').
+node_modules
+
+# Ignore Sass Cache
+.sass-cache
+
+# Ignore .map files
+*.css.map
+dist/css/map
+
+# Ignore Mac files
+.DS_Store
+
+# Ignore npm debugs
+npm-debug.log

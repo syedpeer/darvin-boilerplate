@@ -1,0 +1,11 @@
+/* ==|============
+   Tools / Mixins
+   =============== */
+
+@mixin clearfix {
+	&:after {
+		display: table;
+		clear: both;
+		content: "";
+	}
+}

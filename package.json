@@ -1,0 +1,57 @@
+{
+  "name": "webpack-boilerplate",
+  "version": "1.0.0",
+  "description": "Webpack Boilerplate",
+  "main": "",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "bourbon": "^4.3.4",
+    "browser-sync": ">=2.13.0",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "colors": ">=1.1.2",
+    "css-loader": "^1.0.0",
+    "debounce": "^1.1.0",
+    "es6-promise": "^4.1.1",
+    "expose-loader": "^0.7.5",
+    "file-loader": "^1.1.11",
+    "js-yaml": ">=3.6.1",
+    "json-loader": "^0.5.7",
+    "mini-css-extract-plugin": "^0.4.1",
+    "modernizr": "^3.6.0",
+    "node-sass": "^4.9.2",
+    "normalize.css": "^7.0.0",
+    "postcss-loader": "^2.1.6",
+    "picturefill": "3.0.2",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "svg-inline-loader": "^0.8.0",
+    "svg-spritemap-webpack-plugin": "^2.7.0",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-modernizr-loader": "^4.0.1",
+    "webpack-spritesmith": "^0.5.1"
+  },
+  "dependencies": {
+    "autoprefixer": ">=6.0.0",
+    "breakpoint-sass": ">=2.7.0",
+    "css-mqpacker": ">=5.0.1",
+    "csswring": ">=5.1.0",
+    "mdn-polyfills": "^5.9.0",
+    "susy": "~2.2.5"
+  },
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/tobiasfrei"
+  },
+  "author": "Tobias Frei",
+  "license": "ISC",
+  "homepage": "tobiasfrei.ch"
+}
