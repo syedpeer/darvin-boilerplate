@@ -19,12 +19,10 @@ npm install
 ## Run setup (prod / dev)
 Run watcher
 ```
-cd site/web/themes/unic/
 npm run dev
 ```
 
 Run production
 ```
-cd site/web/themes/unic/
 npm run prod
 ```
