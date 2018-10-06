@@ -1,12 +1,11 @@
 # Webpack4 Boilerplate
-No-Gulp Boilerplate with ES6 Transpiler, SMACCS based Sass and Sprite Generator (PNG/SVG).
-Hot load with Browsersync.
+Webpack Frontend Boilerplate with Nunjucks, Sprites, SASS and Babel.
 
 ## Prerequisite
-Node 8.9.4
+Node 10.11.0
 
 ## Install Setup
-Load Node.js version
+Load node.js version
 ```
 nvm use
 ```

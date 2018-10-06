@@ -2,12 +2,23 @@
   "name": "webpack-boilerplate",
   "version": "1.0.0",
   "description": "Webpack Boilerplate",
-  "main": "",
+  "email": "mail@tobiasfrei.ch",
+  "author": "Tobias Frei",
+  "license": "MIT",
+  "homepage": "http://tobiasfrei.ch",
+  "keywords": [
+    "webpack4",
+    "boilerplate",
+    "Sass",
+    "Babel",
+    "SVG Sprite"
+  ],
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "bourbon": "^4.3.4",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "autoprefixer": "^9.1.5",
+    "babel-loader": "^8.0.4",
+    "bourbon": "^5.1.0",
     "browser-sync": ">=2.13.0",
     "browser-sync-webpack-plugin": "^2.2.2",
     "clean-webpack-plugin": "^0.1.19",
@@ -16,31 +27,34 @@
     "debounce": "^1.1.0",
     "es6-promise": "^4.1.1",
     "expose-loader": "^0.7.5",
-    "file-loader": "^1.1.11",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "image-webpack-loader": "^4.3.1",
     "js-yaml": ">=3.6.1",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.4.1",
     "modernizr": "^3.6.0",
     "node-sass": "^4.9.2",
-    "normalize.css": "^7.0.0",
-    "postcss-loader": "^2.1.6",
+    "normalize.css": "^8.0.0",
     "picturefill": "3.0.2",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0",
+    "style-loader": "^0.23.0",
     "svg-inline-loader": "^0.8.0",
     "svg-spritemap-webpack-plugin": "^2.7.0",
-    "webpack": "^4.15.1",
+    "webpack": "^4.20.2",
     "webpack-cli": "^3.0.8",
     "webpack-modernizr-loader": "^4.0.1",
     "webpack-spritesmith": "^0.5.1"
   },
   "dependencies": {
-    "autoprefixer": ">=6.0.0",
     "breakpoint-sass": ">=2.7.0",
     "css-mqpacker": ">=5.0.1",
     "csswring": ">=5.1.0",
+    "html-webpack-plugin": "^3.2.0",
     "mdn-polyfills": "^5.9.0",
-    "susy": "~2.2.5"
+    "nunjucks-html-loader": "^1.1.0",
+    "nunjucks-loader": "^3.0.0"
   },
   "scripts": {
     "dev": "webpack --mode development --watch",
@@ -50,8 +64,5 @@
   "repository": {
     "type": "git",
     "url": "github.com/tobiasfrei"
-  },
-  "author": "Tobias Frei",
-  "license": "ISC",
-  "homepage": "tobiasfrei.ch"
+  }
 }

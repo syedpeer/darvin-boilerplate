@@ -1,20 +1,44 @@
-// webpack v4
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const SpritesmithPlugin = require('webpack-spritesmith');
-const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+const path = require('path'),
+      basePath = process.cwd(),
+      glob = require('glob'),
+      isDev = (process.env.NODE_ENV === 'development') ? true : false;
+
+const CleanWebpackPlugin = require('clean-webpack-plugin'),
+      MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+      HtmlWebpackPlugin = require('html-webpack-plugin'),
+      BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
+      SpritesmithPlugin = require('webpack-spritesmith'),
+      SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin'),
+      nunjucksContext = require('./src/data/index'),
+      nunjucksDevConfig = require('./src/html/config.dev.json'),
+      nunjucksProdConfig = require('./src/html/config.prod.json');
+
+
+nunjucksContext.config = (isDev) ? nunjucksDevConfig : nunjucksProdConfig;
+
+const nunjucksOptions = JSON.stringify({
+  searchPaths: basePath + '/src/html/',
+  context: nunjucksContext
+});
+
+const pages = glob.sync('**/*.njk', {
+  cwd: path.join(basePath, 'src/html/pages/'),
+  root: '/',
+}).map(page => new HtmlWebpackPlugin({
+  filename: page.replace('njk', 'html'),
+  template: `src/html/pages/${page}`,
+}));
+
 
 module.exports = {
-  entry: { main: './js/main.js' },
+  entry: { main: './src/assets/scripts/main.js' },
   output: {
     devtoolLineToLine: true,
-    sourceMapFilename: 'main.js.map',
-    path: path.resolve(__dirname, 'dist/js'),
+    sourceMapFilename: 'js/main.js.map',
+    path: path.resolve(__dirname, 'dist'),
     pathinfo: true,
-    filename: 'main.js',
-    publicPath: '/'
+    filename: 'js/main.js',
+    publicPath: ''
   },
   module: {
     rules: [
@@ -24,11 +48,15 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[ext]',
-              outputPath: '../'
+              name: '[name].[ext]',
+              outputPath: 'js/'
             }
           }
         ]
+      },
+      {
+        test: /\.(njk|nunjucks)$/,
+        loader: ['html-loader', `nunjucks-html-loader?${nunjucksOptions}`]
       },
       {
         test: /modernizrrc\.js$/,
@@ -38,7 +66,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
         }
       },
       {
@@ -71,26 +102,46 @@ module.exports = {
         }]
       },
       {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader'
-      },
-      {
-          test: /\.png$/,
-          use: ['file-loader?name=i/[hash].[ext]']
+        test: /images\/renditions\/.*\.(jpe?g|png|gif)$/,
+        use: [
+            {
+                loader: 'file-loader?name=i/[hash].[ext]'
+            },
+            {
+                loader: 'image-webpack-loader',
+                options: {
+                    mozjpeg: {
+                        progressive: true,
+                        quality: 80
+                    },
+                    optipng: {
+                        enabled: false,
+                    },
+                    pngquant: {
+                        quality: '65-90',
+                        speed: 4
+                    },
+                    gifsicle: {
+                        interlaced: false,
+                    }
+                }
+            }
+        ]
       }
     ]
   },
   resolve: {
-    modules: ["node_modules", "spritesmith-generated"]
-},
+    modules: [path.join(__dirname, 'node_modules'), path.join(__dirname, 'spritesmith-generated')]
+  },
   plugins: [
+      ...pages,
       new CleanWebpackPlugin(['dist'], {
         root: path.resolve(__dirname)
       }),
       new SVGSpritemapPlugin({
-          src: path.resolve(__dirname, 'images/icons/**/*.svg'),
-          styles: path.resolve(__dirname, 'styles/tools/_svg-sprite.scss'),
-          filename: '../sprites/svg-sprite.svg',
+          src: path.resolve(__dirname, 'src/assets/images/icons/**/*.svg'),
+          styles: path.resolve(__dirname, 'src/assets/styles/tools/_svg-sprite.scss'),
+          filename: 'images/sprites/svg-sprite.svg',
           gutter: 3
       }),
       new SpritesmithPlugin({
@@ -99,20 +150,22 @@ module.exports = {
               glob: '*.png'
           },
           target: {
-              image: path.resolve(__dirname, 'dist/sprites/png-sprite.png'),
-              css: path.resolve(__dirname, 'styles/tools/_png-sprite.scss')
+              image: path.resolve(__dirname, 'dist/images/sprites/png-sprite.png'),
+              css: path.resolve(__dirname, 'src/assets/styles/tools/_png-sprite.scss')
           },
           apiOptions: {
               cssImageRef: "~png-sprite.png"
           }
       }),
       new MiniCssExtractPlugin({
-          filename: "../css/styles.css",
+          filename: "css/styles.css",
       }),
       new BrowserSyncPlugin({
-        /*proxy: 'https://cms.local',*/
+        /* proxy: 'https://cms.local', */
+        server: {
+          baseDir: ['dist']
+        },
         port: 8080,
-        startPath: "/dist/templates",
         files: 'css/styles.css',
         open: true,
         https: true,
