@@ -63,8 +63,7 @@
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "start": "npm run dev",
-    "fix": "stylelint **/*.scss --syntax scss --fix"
+    "start": "npm run dev"
   },
   "repository": {
     "type": "git",
