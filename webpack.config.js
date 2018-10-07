@@ -3,11 +3,15 @@ const path = require('path'),
       glob = require('glob'),
       isDev = (process.env.NODE_ENV === 'development') ? true : false;
 
-const CleanWebpackPlugin = require('clean-webpack-plugin'),
+const { VueLoaderPlugin } = require('vue-loader'),
+      CleanWebpackPlugin = require('clean-webpack-plugin'),
+      CopyWebpackPlugin = require('copy-webpack-plugin'),
       MiniCssExtractPlugin = require('mini-css-extract-plugin'),
       HtmlWebpackPlugin = require('html-webpack-plugin'),
       BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
       SpritesmithPlugin = require('webpack-spritesmith'),
+      FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin'),
+      WebpackNotifierPlugin = require('webpack-notifier'),
       SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin'),
       nunjucksContext = require('./src/data/index'),
       nunjucksDevConfig = require('./src/html/config.dev.json'),
@@ -50,6 +54,27 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               outputPath: 'js/'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]?[hash]'
+            }
+          },
+          {
+            loader: 'img-loader',
+            options: {
+              enabled: !isDev
             }
           }
         ]
@@ -100,44 +125,31 @@ module.exports = {
                 outputPath: '/fonts/'
             }
         }]
-      },
-      {
-        test: /images\/renditions\/.*\.(jpe?g|png|gif)$/,
-        use: [
-            {
-                loader: 'file-loader?name=i/[hash].[ext]'
-            },
-            {
-                loader: 'image-webpack-loader',
-                options: {
-                    mozjpeg: {
-                        progressive: true,
-                        quality: 80
-                    },
-                    optipng: {
-                        enabled: false,
-                    },
-                    pngquant: {
-                        quality: '65-90',
-                        speed: 4
-                    },
-                    gifsicle: {
-                        interlaced: false,
-                    }
-                }
-            }
-        ]
       }
     ]
   },
   resolve: {
-    modules: [path.join(__dirname, 'node_modules'), path.join(__dirname, 'spritesmith-generated')]
+    modules: [path.join(__dirname, 'node_modules'), path.join(__dirname, 'spritesmith-generated')],
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      vue$: 'vue/dist/vue.esm.js'
+    }
   },
   plugins: [
       ...pages,
+      new VueLoaderPlugin(),
+      new FriendlyErrorsWebpackPlugin(),
+      new WebpackNotifierPlugin(),
       new CleanWebpackPlugin(['dist'], {
         root: path.resolve(__dirname)
       }),
+      new CopyWebpackPlugin([
+        {
+          from: 'src/assets/images/renditions/**/*.{png,gif,jpg,svg}',
+          to: 'images/',
+          flatten: true
+        }
+      ], {}),
       new SVGSpritemapPlugin({
           src: path.resolve(__dirname, 'src/assets/images/icons/**/*.svg'),
           styles: path.resolve(__dirname, 'src/assets/styles/tools/_svg-sprite.scss'),
@@ -165,7 +177,7 @@ module.exports = {
         server: {
           baseDir: ['dist']
         },
-        port: 8080,
+        port: 1712,
         files: 'css/styles.css',
         open: true,
         https: true,
