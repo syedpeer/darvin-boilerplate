@@ -1,4 +1,4 @@
-[![N|tobiasfrei](http://tobiasfrei.ch/github/webpack-boilerplate/header-2.jpg)](https://tobiasfrei.ch)
+[![N|tobiasfrei](http://tobiasfrei.ch/github/webpack-boilerplate/header-4.jpg)](https://tobiasfrei.ch)
 
 # Webpack4 Boilerplate
 Webpack Frontend Boilerplate with Nunjucks, Sprites, SASS and Babel.
