@@ -1,7 +1,7 @@
-[![N|tobiasfrei](http://tobiasfrei.ch/github/webpack-boilerplate/header-4.jpg)](https://tobiasfrei.ch)
+[![N|tobiasfrei](http://tobiasfrei.ch/github/webpack-boilerplate/header.jpg)](https://tobiasfrei.ch)
 
 # Webpack4 Boilerplate
-Webpack Frontend Boilerplate with Nunjucks, Sprites, SASS and Babel.
+Starterkit for frontend tasks with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites.
 
 ## Prerequisite
 Node 10.11.0
