@@ -18,8 +18,8 @@ const instance = {},
 let container;
 
 // Private Functions
-const delegate = (e) => {
-  console.log(e);
+const onMouseMove = (event) => {
+    container.style.backgroundImage = 'radial-gradient(at ' + event.clientX + 'px ' + event.clientY + 'px, transparent 0, #9cb6e0 40%)';
 };
 
 /**
@@ -34,6 +34,10 @@ instance.init = (options) => {
 
     // Public Code
     console.log("> js ready");
+
+    container = document.querySelector(".m-demo");
+
+    document.addEventListener("mousemove", onMouseMove);
 
     return instance;
 };

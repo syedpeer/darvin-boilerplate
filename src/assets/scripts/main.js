@@ -9,4 +9,7 @@ import style from "../styles/main.scss";
 // Page Defaults
 import config from './main.config.js';
 
-import moduleExample from './modules/demo-module.js';
+import demoModule from './modules/demo-module.js';
+
+// calls
+demoModule.init();
