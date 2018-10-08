@@ -3,70 +3,62 @@
    ======================= */
 
 .m-tabs {
-    overflow: hidden;
-
-    @media #{$large-up} {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
-        position: relative;
-        transition: height 220ms linear;
-    }
-
-    .tab {
-        @media #{$large-up} {
-            flex: 1 1 auto;
-            width: auto;
+   overflow: hidden;
+   @media #{$large-up} {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      transition: height 220ms linear;
+   }
+   .tab {
+      @media #{$large-up} {
+         flex: 1 1 auto;
+         width: auto;
+         padding: 0;
+         border-right: 1px solid #ccc;
+      }
+      &:last-child {
+         @media #{$large-up} {
+            border-right: 0;
+         }
+      }
+      +.tab {
+         @media #{$large-up} {
+            margin: 0;
+         }
+      }
+      .tab__trigger {
+         @media #{$large-up} {
             padding: 0;
-            border-right: 1px solid #ccc;
-        }
-
-        &:last-child {
+            justify-content: center;
+         }
+         &:before,
+         .icon {
             @media #{$large-up} {
-                border-right: 0;
+               display: none;
             }
-        }
-
-        +.tab {
+         }
+         .tab__label {
             @media #{$large-up} {
-                margin: 0;
+               padding: 0;
             }
-        }
-
-        .tab__trigger {
-            @media #{$large-up} {
-                padding: 0;
-                justify-content: center;
+            &:after {
+               @media #{$large-up} {
+                  display: none;
+               }
             }
-
-            &:before,
-            .icon {
-                @media #{$large-up} {
-                    display: none;
-                }
-            }
-
-            .tab__label {
-                @media #{$large-up} {
-                    padding: 0;
-                }
-
-                &:after {
-                    @media #{$large-up} {
-                        display: none;
-                    }
-                }
-            }
-        }
-
-        .tab__contentbox {
-            @media #{$large-up} {
-                width: 100%;
-                left: 0;
-                z-index: 0;
-                position: absolute;
-            }
-        }
-    }
+         }
+      }
+      .tab__contentbox {
+         @media #{$large-up} {
+            width: 100%;
+            left: 0;
+            z-index: 0;
+            position: absolute;
+         }
+      }
+   }
 }
+

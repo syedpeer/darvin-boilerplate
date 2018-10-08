@@ -14,8 +14,8 @@ $font-2: "Anton", Arial, sans-serif;
 
 //== Default Colors
 //
-$color1: #000 !default;
-$color2: #fff !default;
+$color1: #000000 !default;
+$color2: #ffffff !default;
 
 //== Layout
 //
@@ -30,7 +30,6 @@ $gutter-medium: 3vw;
 $gutter-large: 3.2vw;
 $gutter-wide: 2.8vw;
 $gutter-ultra: 2vw;
-
 $gutter-zero-half: $gutter-zero / 2;
 $gutter-micro-half: $gutter-micro / 2;
 $gutter-small-half: $gutter-small / 2;
@@ -61,9 +60,7 @@ $space-ultra: rem(128px);
 //
 $transition-time-default: 340ms;
 $transition-time-fancy: 140ms;
-
-$basic-easing: cubic-bezier(.455, .03, .515, .955);
-$fancy-easing: cubic-bezier(.19, 1, .22, 1);
-
+$basic-easing: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$fancy-easing: cubic-bezier(0.19, 1, 0.22, 1);
 $basic-transition: $transition-time-default $basic-easing;
 $fancy-transition: $transition-time-fancy $fancy-easing;

@@ -15,18 +15,18 @@ const instance = {};
  * @return {HTMLElement} The previous node with the specific classname.
  */
 instance.prevSibling = (element, classname) => {
-    let sibling,
-        temp;
+   let sibling,
+      temp;
 
-    while ((element = element.previousSibling) !== null) {
-        temp = element;
-        if (temp.classList && temp.classList.contains(classname) ) {
-            sibling = temp;
-            break;
-        }
-    }
+   while ((element = element.previousSibling) !== null) {
+      temp = element;
+      if (temp.classList && temp.classList.contains(classname)) {
+         sibling = temp;
+         break;
+      }
+   }
 
-    return sibling;
+   return sibling;
 };
 
 
@@ -38,18 +38,18 @@ instance.prevSibling = (element, classname) => {
  * @return {HTMLElement} The previous node with the specific classname.
  */
 instance.nextSibling = (element, classname) => {
-    let sibling,
-        temp;
+   let sibling,
+      temp;
 
-    while ((element = element.nextSibling) !== null) {
-        temp = element;
-        if (temp.classList && temp.classList.contains(classname) ) {
-            sibling = temp;
-            break;
-        }
-    }
+   while ((element = element.nextSibling) !== null) {
+      temp = element;
+      if (temp.classList && temp.classList.contains(classname)) {
+         sibling = temp;
+         break;
+      }
+   }
 
-    return sibling;
+   return sibling;
 };
 
 
@@ -63,14 +63,14 @@ instance.nextSibling = (element, classname) => {
  * @return {string} The level of the element
  */
 instance.getLevelDepth = (element, id, waypoint, counter) => {
-    counter = counter || 0;
-    if (element.id.indexOf(id) >= 0) {
-        return counter;
-    }
-    if (element.classList.contains(waypoint)) {
-        ++counter;
-    }
-    return element.parentNode && instance.getLevelDepth(element.parentNode, id, waypoint, counter);
+   counter = counter || 0;
+   if (element.id.indexOf(id) >= 0) {
+      return counter;
+   }
+   if (element.classList.contains(waypoint)) {
+      ++counter;
+   }
+   return element.parentNode && instance.getLevelDepth(element.parentNode, id, waypoint, counter);
 };
 
 /**
@@ -81,12 +81,12 @@ instance.getLevelDepth = (element, id, waypoint, counter) => {
  * @return {boolean} The level of the element
  */
 instance.hasParent = (e, id) => {
-    if (!e) return false;
-    let el = e.target || e.srcElement || e || false;
-    while (el && el.id !== id) {
-        el = el.parentNode || false;
-    }
-    return (el !== false);
+   if (!e) return false;
+   let el = e.target || e.srcElement || e || false;
+   while (el && el.id !== id) {
+      el = el.parentNode || false;
+   }
+   return (el !== false);
 };
 
 
