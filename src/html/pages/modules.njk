@@ -3,32 +3,82 @@
 {% import "components/accordion.njk" as accordion %}
 {% import "modules/tabs.njk" as tabs %}
 {% import "components/tab.njk" as tab %}
+{% import "modules/grid-row.njk" as grid %}
 
 {% set title = 'Module Samples' %}
 
 {% block content %}
 
-  {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(
-      basePath = basePath,
-      label = "Collapsible"
-  )) %}
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-  {% endcall %}
+   {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(
+         basePath = basePath,
+         label = "Collapsible"
+   )) %}
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+   {% endcall %}
 
-  {% call tabs.main(basePath=basePath) %}
-    {%call tab.main(basePath=basePath, title="Tab 1") %}
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-    {%endcall%}
-    {%call tab.main(basePath=basePath, title="Tab 2") %}
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-    {%endcall%}
-    {%call tab.main(basePath=basePath, title="Tab 3") %}
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-    {%endcall%}
-    {%call tab.main(basePath=basePath, title="Tab 4") %}
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-    {%endcall%}
-{% endcall %}
+   {% call tabs.main(basePath=basePath) %}
+      {%call tab.main(basePath=basePath, title="Tab 1") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 2") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 3") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 4") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+   {% endcall %}
+
+   {% call grid.container() %}
+      {% call grid.row() %}
+         {% call grid.cell(columns = [12, 12, 12]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 10, 10], offsets = [0, 1, 1]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 6]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 6]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 8, 8]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 4, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 4, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 8, 8]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+      {% endcall %}
+   {% endcall %}
+
 
 {% endblock %}
 
