@@ -9,7 +9,6 @@ const { VueLoaderPlugin } = require('vue-loader'),
       MiniCssExtractPlugin = require('mini-css-extract-plugin'),
       HtmlWebpackPlugin = require('html-webpack-plugin'),
       BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
-      SpritesmithPlugin = require('webpack-spritesmith'),
       FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin'),
       WebpackNotifierPlugin = require('webpack-notifier'),
       SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin'),
@@ -155,19 +154,6 @@ module.exports = {
           styles: path.resolve(__dirname, 'src/assets/styles/tools/_svg-sprite.scss'),
           filename: 'images/sprites/svg-sprite.svg',
           gutter: 3
-      }),
-      new SpritesmithPlugin({
-          src: {
-              cwd: path.resolve(__dirname, 'images/icons'),
-              glob: '*.png'
-          },
-          target: {
-              image: path.resolve(__dirname, 'dist/images/sprites/png-sprite.png'),
-              css: path.resolve(__dirname, 'src/assets/styles/tools/_png-sprite.scss')
-          },
-          apiOptions: {
-              cssImageRef: "~png-sprite.png"
-          }
       }),
       new MiniCssExtractPlugin({
           filename: "css/styles.css",

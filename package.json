@@ -48,8 +48,7 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.0.8",
     "webpack-modernizr-loader": "^4.0.1",
-    "webpack-notifier": "^1.6.0",
-    "webpack-spritesmith": "^0.5.1"
+    "webpack-notifier": "^1.6.0"
   },
   "dependencies": {
     "breakpoint-sass": ">=2.7.0",
