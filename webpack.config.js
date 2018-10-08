@@ -175,10 +175,11 @@ module.exports = {
       new BrowserSyncPlugin({
         /* proxy: 'https://cms.local', */
         server: {
-          baseDir: ['dist']
+          baseDir: ['dist'],
+          directory: true
         },
         port: 1712,
-        files: 'css/styles.css',
+        files: ["css/*.css", "js/*.js", "**/*.njk"],
         open: true,
         https: true,
         notify: false,

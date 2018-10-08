@@ -39,3 +39,42 @@
 @function tan($angle) {
 	@return sin($angle) / cos($angle);
 }
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-units($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+	  @return $number / ($number * 0 + 1);
+	}
+  
+	@return $number;
+  }
+
+
+// Convert pixels to rems
+// eg. for a relational value of 12px write rem(12)
+// Assumes $em-base is the font-size of <html>
+@function rem($pixels, $context: $base-font-size-unit) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return $pixels;
+}
+
+@function em($pixels, $context: $base-font-size-unit) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return ($pixels / $context) * 1em;
+}

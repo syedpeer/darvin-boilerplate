@@ -10,6 +10,11 @@ import style from "../styles/main.scss";
 import config from './main.config.js';
 
 import demoModule from './modules/demo-module.js';
+import tabsModule from './modules/tabs.js';
+
+import accordionComponent from './components/accordion.js';
 
 // calls
 demoModule.init();
+accordionComponent.init({ accordionMode: false });
+tabsModule.init({ accordionMode: false });

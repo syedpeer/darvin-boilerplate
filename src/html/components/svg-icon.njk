@@ -1,0 +1,5 @@
+{% macro main(basePath="", icon="", classes=[]) %}
+    <svg viewBox="0 0 100 100" class="icon icon-{{ icon }}{% for class in classes %} {{ class }}{% endfor %}">
+        <use xlink:href="#sprite-{{ icon }}"></use>
+    </svg>
+{% endmacro %}

@@ -37,6 +37,8 @@ instance.init = (options) => {
 
     container = document.querySelector(".m-demo");
 
+    if(!container) return;
+
     document.addEventListener("mousemove", onMouseMove);
 
     return instance;

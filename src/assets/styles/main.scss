@@ -9,6 +9,7 @@ $output-bourbon-deprecation-warnings: false;
 @import "../../../node_modules/bourbon/core/bourbon";
 @import "../../../node_modules/normalize.css/normalize";
 
+@import "tools/functions";
 @import "settings/settings";
 
 // Settings
@@ -18,7 +19,6 @@ $output-bourbon-deprecation-warnings: false;
 
 // Tools
 @import "tools/placeholders";
-@import "tools/functions";
 @import "tools/mixins";
 @import "tools/transitions";
 @import "tools/helpers";
@@ -36,6 +36,9 @@ $output-bourbon-deprecation-warnings: false;
 
 // Components
 @import "components/example-component";
+@import "components/accordion";
+@import "components/tab";
 
 // Modules
 @import "modules/demo";
+@import "modules/tabs";

@@ -1,0 +1,34 @@
+{% extends "layouts/layout-1.html" %}
+
+{% import "components/accordion.njk" as accordion %}
+{% import "modules/tabs.njk" as tabs %}
+{% import "components/tab.njk" as tab %}
+
+{% set title = 'Module Samples' %}
+
+{% block content %}
+
+  {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(
+      basePath = basePath,
+      label = "Collapsible"
+  )) %}
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+  {% endcall %}
+
+  {% call tabs.main(basePath=basePath) %}
+    {%call tab.main(basePath=basePath, title="Tab 1") %}
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+    {%endcall%}
+    {%call tab.main(basePath=basePath, title="Tab 2") %}
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+    {%endcall%}
+    {%call tab.main(basePath=basePath, title="Tab 3") %}
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+    {%endcall%}
+    {%call tab.main(basePath=basePath, title="Tab 4") %}
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+    {%endcall%}
+{% endcall %}
+
+{% endblock %}
+

@@ -1,0 +1,166 @@
+/* ==|====================
+   Modules / Tabs Navigations
+   ======================= */
+
+$tab-left-space: rem(16px);
+$tab-height: rem(60px);
+
+@keyframes hoveranim {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(2px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.tab {
+    width: 100%;
+    padding-bottom: rem(56px);
+
+    @media #{$large-up} {
+        overflow: hidden;
+    }
+
+    &.is-open {
+        .tab__trigger {
+            color: white;
+            background-color: #c0c0c0;
+
+            @media #{$large-up} {
+                //#ccc: #c0c0c0;
+            }
+
+            .icon {
+                transform: rotate(-180deg);
+                fill: white;
+                //animation-name: none;
+            }
+        }
+
+        .tab__label {
+            &:after {
+                opacity: 1;
+                transition: opacity 440ms linear;
+            }
+        }
+
+        .tab__contentbox {
+            height: auto;
+
+            @media #{$large-up} {
+                visibility: visible;
+                z-index: 1;
+            }
+        }
+
+        .tab__content {
+            opacity: 1;
+            transform: translateY(0);
+
+            @media #{$large-up} {
+                transform: none;
+                opacity: 1;
+            }
+        }
+    }
+
+    + .tab {
+        margin-top: calc(#{rem(-56px)} - 1px);
+    }
+}
+
+.tab__trigger {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: $tab-height;
+    padding-right: rem(12px);
+    padding-left: rem(12px);
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 120ms linear, #ccc 120ms linear;
+
+    @media #{$large-up} {
+        padding-right: rem(70px);
+        padding-left: rem(70px);
+    }
+
+    .no-touchdevice &:hover {
+        .icon {
+            fill: red;
+            //animation-name: hoveranim;
+            //animation-duration: 1s;
+            //animation-iteration-count: infinite;
+            //animation-delay: .05s;
+        }
+    }
+
+    .icon {
+        display: block;
+        margin: 0 auto;
+        width: rem(16px);
+        height: rem(16px);
+        transform: rotate(0deg);
+        transition: transform 120ms linear;
+
+        fill: #000;
+
+        @media #{$large-up} {
+            position: absolute;
+            right: rem(25px);
+            width: rem(16px);
+            height: rem(16px);
+        }
+    }
+}
+
+.tab__label {
+    display: block;
+    padding-bottom: rem(2px);
+
+    @media #{$large-up} {
+        padding-bottom: 0;
+    }
+}
+
+.tab__contentbox {
+    height: 0;
+    overflow: hidden;
+    transition: height 220ms linear;
+
+    &.no-transition {
+        transition: none;
+    }
+
+    @media #{$large-up} {
+        visibility: hidden;
+        height: calc(100% - #{$tab-height});
+    }
+}
+
+.tab__content {
+    padding-top: rem(25px);
+    padding-bottom: rem(36px);
+    padding-left: 0;
+    padding-right: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: transform 240ms linear, opacity 140ms linear;
+
+    @media #{$large-up} {
+        transform: none;
+        transition: opacity 140ms linear;
+        transition-delay: 80ms;
+        opacity: 0;
+    }
+}

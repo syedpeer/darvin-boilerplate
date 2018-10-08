@@ -10,6 +10,7 @@ Base
 
 html {
 	box-sizing: border-box;
+	overflow-y: scroll;
 }
 
 * {
@@ -23,7 +24,7 @@ html {
 }
 
 body {
-	font-size: 100%;
+	font-size: $base-font-size;
 	font-family: $font-1;
 	font-weight: 400;
 	color: $color1;
@@ -31,7 +32,6 @@ body {
 }
 
 body, html {
-	height: 100%;
 	padding: 0;
 	margin: 0;
 }
@@ -108,6 +108,11 @@ a {
 	&:hover {
 		color: $color2;
 	}
+}
+
+.icon {
+	width: 1.25rem;
+	height: 1.25rem;
 }
 
 span {
