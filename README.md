@@ -3,6 +3,15 @@
 # Webpack4 Boilerplate
 Starterkit for frontend tasks with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites.
 
+## Upcoming
+- improve svg sprite inline css.
+- add pre-commit hook for csscomb.
+- modulize in one module directory.
+- add js linter.
+- style sample modules.
+- refresh modernizr customs.
+- add Vue.js Sample.
+
 ## Prerequisite
 Node 10.11.0
 
