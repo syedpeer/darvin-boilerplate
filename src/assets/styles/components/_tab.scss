@@ -5,20 +5,6 @@
 $tab-left-space: rem(16px);
 $tab-height: rem(60px);
 
-@keyframes hoveranim {
-   0% {
-      transform: translateY(0);
-   }
-
-   50% {
-      transform: translateY(2px);
-   }
-
-   100% {
-      transform: translateY(0);
-   }
-}
-
 .tab {
    width: 100%;
    padding-bottom: rem(56px);
@@ -32,15 +18,10 @@ $tab-height: rem(60px);
          color: white;
          background-color: #c0c0c0;
 
-         @media #{$large-up} {
-            //#ccc: #c0c0c0;
-         }
-
          .icon {
             transform: rotate(-180deg);
 
             fill: white;
-            //animation-name: none;
          }
       }
 
@@ -99,10 +80,6 @@ $tab-height: rem(60px);
    .no-touchdevice &:hover {
       .icon {
          fill: red;
-         //animation-name: hoveranim;
-         //animation-duration: 1s;
-         //animation-iteration-count: infinite;
-         //animation-delay: .05s;
       }
    }
 

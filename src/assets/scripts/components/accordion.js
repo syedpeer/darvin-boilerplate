@@ -6,7 +6,7 @@
  *
  */
 
-import pubsub from '../libs/pubsub';
+import observer from '@unic/composite-observer';
 
 const instance = {},
    defaults = {
@@ -24,7 +24,8 @@ const instance = {},
          accordionContentbox: '[data-accordion-contentbox]',
          accordionContent: '[data-accordion-content]'
       }
-   };
+   },
+   pubsub = observer();
 
 let settings,
    containers,
@@ -32,23 +33,22 @@ let settings,
    accordions;
 
 const clickDelegate = (e) => {
-   let accordionTrigger;
+      let accordionTrigger;
 
-   if (accordionTrigger = e.target.closest(settings.hooks.accordionTrigger)) {
-      if (disFlag) {
-         return;
+      if (accordionTrigger = e.target.closest(settings.hooks.accordionTrigger)) {
+         if (disFlag) {
+            return;
+         }
+         disFlag = true;
+         toggleClass({
+            target: accordionTrigger
+         });
       }
-      disFlag = true;
-      toggleClass({
-         target: accordionTrigger
-      });
-   }
-},
-
+   },
    bindEvents = () => {
       accordions.forEach(accordion => {
 
-         // Set the bound Attribute, so that this module doesn't initiate the factory multiple times over the same elements
+         // Set the bound Attribute, so that this module doesn't initiate multiple times over the same elements
          accordion.setAttribute(settings.boundAttr, '');
 
          // flag if accordion is nested in tab
@@ -64,27 +64,22 @@ const clickDelegate = (e) => {
 
       containers.forEach(container => {
 
-         // Set the bound Attribute, so that this module doesn't initiate the factory multiple times over the same elements
+         // Set the bound Attribute, so that this module doesn't initiate multiple times over the same elements
          container.setAttribute(settings.boundAttr, '');
          container.addEventListener('click', clickDelegate);
       });
    },
-
    unbindEvents = () => {
       accordions.forEach(accordion => {
-
-         // Set the bound Attribute, so that this module doesn't initiate the factory multiple times over the same elements
          accordion.removeAttribute(settings.boundAttr);
       });
 
       containers.forEach(container => {
-
-         // Set the bound Attribute, so that this module doesn't initiate the factory multiple times over the same elements
+         // Set the bound Attribute, so that this module doesn't initiate multiple times over the same elements
          container.removeAttribute(settings.boundAttr);
          container.removeEventListener('click', clickDelegate);
       });
    },
-
    toggleClass = (e) => {
       let target = e.target,
          accordionRoot,
@@ -109,7 +104,6 @@ const clickDelegate = (e) => {
          closeSiblings(accordionRoot);
       }
    },
-
    openAccordion = (accordionRoot, height) => {
       let animTarget = accordionRoot.querySelector(settings.hooks.accordionContentbox);
 
@@ -128,7 +122,6 @@ const clickDelegate = (e) => {
          });
       }
    },
-
    closeAccordion = (accordionRoot, cb) => {
       // set height from auto to value for transition close
       let animTarget = accordionRoot.querySelector(settings.hooks.accordionContentbox),
@@ -158,7 +151,6 @@ const clickDelegate = (e) => {
          });
       });
    },
-
    closeSiblings = (rootElement) => {
       if (!settings.accordionMode) {
          return;
@@ -178,14 +170,12 @@ const clickDelegate = (e) => {
             if (!temp.hasAttribute(dataAttr)) {
                break;
             } else {
-
                // close open sibling
                closeAccordion(temp, false);
             }
          }
       }
    },
-
    transitionListener = (e) => {
 
       // remove style after transition ends

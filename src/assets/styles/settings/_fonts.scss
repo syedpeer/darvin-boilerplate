@@ -2,36 +2,20 @@
    Settings / Fonts
    ======================= */
 
-/* anton-regular - latin */
-
 @font-face {
    font-weight: 400;
    font-family: "Anton";
    font-style: normal;
 
-   src: url("../fonts/anton-v9-latin-regular.eot");
-   /* IE9 Compat Modes */
-   src: local("Anton Regular"), local("Anton-Regular"), url("../fonts/anton-v9-latin-regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-   url("../fonts/anton-v9-latin-regular.woff2") format("woff2"), /* Super Modern Browsers */
-   url("../fonts/anton-v9-latin-regular.woff") format("woff"), /* Modern Browsers */
-   url("../fonts/anton-v9-latin-regular.ttf") format("truetype"), /* Safari, Android, iOS */
-   url("../fonts/anton-v9-latin-regular.svg#Anton") format("svg");
-   /* Legacy iOS */
+   src: url("../fonts/anton-v9-latin-regular.woff2") format("woff2"),
+   url("../fonts/anton-v9-latin-regular.woff") format("woff");
 }
-
-/* archivo-black-regular - latin */
 
 @font-face {
    font-weight: 400;
    font-family: "Archivo Black";
    font-style: normal;
 
-   src: url("../fonts/archivo-black-v7-latin-regular.eot");
-   /* IE9 Compat Modes */
-   src: local("Archivo Black Regular"), local("ArchivoBlack-Regular"), url("../fonts/archivo-black-v7-latin-regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-   url("../fonts/archivo-black-v7-latin-regular.woff2") format("woff2"), /* Super Modern Browsers */
-   url("../fonts/archivo-black-v7-latin-regular.woff") format("woff"), /* Modern Browsers */
-   url("../fonts/archivo-black-v7-latin-regular.ttf") format("truetype"), /* Safari, Android, iOS */
-   url("../fonts/archivo-black-v7-latin-regular.svg#ArchivoBlack") format("svg");
-   /* Legacy iOS */
+   src: url("../fonts/archivo-black-v7-latin-regular.woff2") format("woff2"),
+   url("../fonts/archivo-black-v7-latin-regular.woff") format("woff");
 }

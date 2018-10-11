@@ -16,6 +16,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
+    "@unic/composite-observer": "0.0.10",
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "bourbon": "^5.1.0",

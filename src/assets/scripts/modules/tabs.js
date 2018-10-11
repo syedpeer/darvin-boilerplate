@@ -6,26 +6,27 @@
  *
  */
 
-import pubsub from '../libs/pubsub';
+import observer from '@unic/composite-observer';
 
 const instance = {},
-   defaults = {
-      accordionMode: true,
-      tabModule: 'm-tabs',
-      tab: 'tab',
-      tabTrigger: 'tab__trigger',
-      tabContent: 'tab__content',
-      tabContentBox: 'tab__contentbox',
-      openClass: 'is-open',
-      mediaQuery: '(min-width: 1024px)',
-      hooks: {
-         tabModule: '[data-m-tabs]',
-         tab: '[data-tab]',
-         tabTrigger: '[data-tab-trigger]',
-         tabContent: '[data-tab-content]',
-         tabContentBox: '[data-tab-contentbox]'
-      }
-   };
+      defaults = {
+         accordionMode: true,
+         tabModule: 'm-tabs',
+         tab: 'tab',
+         tabTrigger: 'tab__trigger',
+         tabContent: 'tab__content',
+         tabContentBox: 'tab__contentbox',
+         openClass: 'is-open',
+         mediaQuery: '(min-width: 1024px)',
+         hooks: {
+            tabModule: '[data-m-tabs]',
+            tab: '[data-tab]',
+            tabTrigger: '[data-tab-trigger]',
+            tabContent: '[data-tab-content]',
+            tabContentBox: '[data-tab-contentbox]'
+         }
+      },
+      pubsub = observer();
 
 let settings,
    tabModules,

@@ -4,46 +4,55 @@
 
 .m-tabs {
    overflow: hidden;
+
    @media #{$large-up} {
+      position: relative;
       display: flex;
       flex-direction: row;
-      align-items: flex-start;
       justify-content: space-between;
-      position: relative;
+      align-items: flex-start;
       transition: height 220ms linear;
    }
+
+   // component
    .tab {
       @media #{$large-up} {
          flex: 1 1 auto;
          width: auto;
          padding: 0;
-         border-right: 1px solid #ccc;
+         border-right: 1px solid #cccccc;
       }
+
       &:last-child {
          @media #{$large-up} {
             border-right: 0;
          }
       }
-      +.tab {
+
+       + .tab {
          @media #{$large-up} {
             margin: 0;
          }
       }
+
       .tab__trigger {
          @media #{$large-up} {
-            padding: 0;
             justify-content: center;
+            padding: 0;
          }
+
          &:before,
          .icon {
             @media #{$large-up} {
                display: none;
             }
          }
+
          .tab__label {
             @media #{$large-up} {
                padding: 0;
             }
+
             &:after {
                @media #{$large-up} {
                   display: none;
@@ -51,14 +60,14 @@
             }
          }
       }
+
       .tab__contentbox {
          @media #{$large-up} {
-            width: 100%;
+            position: absolute;
             left: 0;
             z-index: 0;
-            position: absolute;
+            width: 100%;
          }
       }
-   }
-}
-
+   } // end component
+} // end module
