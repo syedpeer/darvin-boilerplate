@@ -6,7 +6,6 @@ Starterkit for frontend tasks with Nunjucks templates, ES201X transpiler and Sas
 ## Upcoming
 - improve svg sprites in css.
 - add pre-commit hook for csscomb.
-- modulize in one module directory.
 - add js linter.
 - style sample modules.
 - refresh modernizr customs.
