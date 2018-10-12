@@ -6,7 +6,7 @@
  *
  */
 
-import helperDom from '../helpers/helper-dom';
+import helperDom from '../../assets/js/helpers/helper-dom';
 
 const instance = {},
    defaults = {

@@ -37,7 +37,7 @@ const pages = glob.sync('**/*.njk', {
 
 module.exports = {
    entry: {
-      main: './src/assets/scripts/main.js'
+      main: './src/assets/js/main.js'
    },
    output: {
       devtoolLineToLine: true,

@@ -1,5 +1,3 @@
-{% import "../c-02-tab.njk" as svgIcon %}
-
 {% macro main(basePath='', id = '') %}
    <!-- Tabs -->
    <div class="m-tabs" data-m-tabs {% if id != '' %} data-tab-id="{{ id }}"{% endif %}>
