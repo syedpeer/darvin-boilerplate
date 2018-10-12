@@ -1,9 +1,0 @@
-{% import "components/tab.njk" as tab %}
-
-{% macro main(basePath='', id = '') %}
-    <!-- Tabs -->
-    <div class="m-tabs" data-m-tabs {% if id != '' %} data-tab-id="{{ id }}"{% endif %}>
-        {{ caller() }}
-    </div>
-    <!-- END - Tabs -->
-{% endmacro %}

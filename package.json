@@ -1,62 +1,62 @@
 {
-  "name": "webpack-boilerplate",
-  "version": "1.0.0",
-  "description": "Webpack Boilerplate",
-  "email": "mail@tobiasfrei.ch",
-  "author": "Tobias Frei, Christian Sany",
-  "license": "MIT",
-  "homepage": "http://tobiasfrei.ch",
-  "keywords": [
-    "webpack4",
-    "boilerplate",
-    "Sass",
-    "Babel",
-    "SVG Sprite"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@unic/composite-observer": "0.0.10",
-    "autoprefixer": "^9.1.5",
-    "babel-loader": "^8.0.4",
-    "bourbon": "^5.1.0",
-    "browser-sync": "^2.26.0",
-    "browser-sync-webpack-plugin": "^2.2.2",
-    "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.2",
-    "css-loader": "^1.0.0",
-    "es6-promise": "^4.1.1",
-    "expose-loader": "^0.7.5",
-    "file-loader": "^2.0.0",
-    "friendly-errors-webpack-plugin": "^1.7.0",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.4.1",
-    "node-sass": "^4.9.2",
-    "nunjucks-html-loader": "^1.1.0",
-    "nunjucks-loader": "^3.0.0",
-    "postcss-loader": "^3.0.0",
-    "sass-loader": "^7.0.3",
-    "svg-inline-loader": "^0.8.0",
-    "svg-spritemap-webpack-plugin": "^2.7.0",
-    "vue-loader": "^15.4.2",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.0.8",
-    "webpack-modernizr-loader": "^4.0.1",
-    "webpack-notifier": "^1.6.0"
-  },
-  "dependencies": {
-    "mdn-polyfills": "^5.9.0",
-    "modernizr": "^3.6.0",
-    "normalize.css": "^8.0.0"
-  },
-  "scripts": {
-    "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production",
-    "start": "npm run dev"
-  },
-  "repository": {
-    "type": "git",
-    "url": "github.com/tobiasfrei"
-  }
+   "name": "webpack-boilerplate",
+   "version": "1.0.0",
+   "description": "Webpack Boilerplate",
+   "email": "mail@tobiasfrei.ch",
+   "author": "Tobias Frei, Christian Sany",
+   "license": "MIT",
+   "homepage": "http://tobiasfrei.ch",
+   "keywords": [
+      "webpack4",
+      "boilerplate",
+      "Sass",
+      "Babel",
+      "SVG Sprite"
+   ],
+   "devDependencies": {
+      "@babel/core": "^7.1.2",
+      "@babel/preset-env": "^7.1.0",
+      "@unic/composite-observer": "0.0.10",
+      "autoprefixer": "^9.1.5",
+      "babel-loader": "^8.0.4",
+      "bourbon": "^5.1.0",
+      "browser-sync": "^2.26.0",
+      "browser-sync-webpack-plugin": "^2.2.2",
+      "clean-webpack-plugin": "^0.1.19",
+      "copy-webpack-plugin": "^4.5.2",
+      "css-loader": "^1.0.0",
+      "es6-promise": "^4.1.1",
+      "expose-loader": "^0.7.5",
+      "file-loader": "^2.0.0",
+      "friendly-errors-webpack-plugin": "^1.7.0",
+      "html-loader": "^0.5.5",
+      "html-webpack-plugin": "^3.2.0",
+      "mini-css-extract-plugin": "^0.4.1",
+      "node-sass": "^4.9.2",
+      "nunjucks-html-loader": "^1.1.0",
+      "nunjucks-loader": "^3.0.0",
+      "postcss-loader": "^3.0.0",
+      "sass-loader": "^7.0.3",
+      "svg-inline-loader": "^0.8.0",
+      "svg-spritemap-webpack-plugin": "^2.7.0",
+      "vue-loader": "^15.4.2",
+      "webpack": "^4.20.2",
+      "webpack-cli": "^3.0.8",
+      "webpack-modernizr-loader": "^4.0.1",
+      "webpack-notifier": "^1.6.0"
+   },
+   "dependencies": {
+      "mdn-polyfills": "^5.9.0",
+      "modernizr": "^3.6.0",
+      "normalize.css": "^8.0.0"
+   },
+   "scripts": {
+      "dev": "webpack --mode development --watch",
+      "build": "webpack --mode production",
+      "start": "npm run dev"
+   },
+   "repository": {
+      "type": "git",
+      "url": "github.com/tobiasfrei"
+   }
 }

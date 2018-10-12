@@ -34,10 +34,10 @@ $output-bourbon-deprecation-warnings: false;
 @import "layout/main";
 
 // Components
-@import "components/example-component";
-@import "components/accordion";
-@import "components/tab";
+@import "../components/c-01-example";
+@import "../components/c-02-accordion";
+@import "../components/c-03-tab";
 
 // Modules
-@import "modules/demo";
-@import "modules/tabs";
+@import "../modules/m-02-tabs";
+@import "../modules/m-03-demo";

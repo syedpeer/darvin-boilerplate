@@ -9,24 +9,24 @@
 import observer from '@unic/composite-observer';
 
 const instance = {},
-      defaults = {
-         accordionMode: true,
-         tabModule: 'm-tabs',
-         tab: 'tab',
-         tabTrigger: 'tab__trigger',
-         tabContent: 'tab__content',
-         tabContentBox: 'tab__contentbox',
-         openClass: 'is-open',
-         mediaQuery: '(min-width: 1024px)',
-         hooks: {
-            tabModule: '[data-m-tabs]',
-            tab: '[data-tab]',
-            tabTrigger: '[data-tab-trigger]',
-            tabContent: '[data-tab-content]',
-            tabContentBox: '[data-tab-contentbox]'
-         }
-      },
-      pubsub = observer();
+   defaults = {
+      accordionMode: true,
+      tabModule: 'm-tabs',
+      tab: 'tab',
+      tabTrigger: 'tab__trigger',
+      tabContent: 'tab__content',
+      tabContentBox: 'tab__contentbox',
+      openClass: 'is-open',
+      mediaQuery: '(min-width: 1024px)',
+      hooks: {
+         tabModule: '[data-m-tabs]',
+         tab: '[data-tab]',
+         tabTrigger: '[data-tab-trigger]',
+         tabContent: '[data-tab-content]',
+         tabContentBox: '[data-tab-contentbox]'
+      }
+   },
+   pubsub = observer();
 
 let settings,
    tabModules,
@@ -35,44 +35,44 @@ let settings,
 
 const initStatesBefore = () => {
 
-   // check inital for open states, otherwise set first item open
-   tabModules.forEach((tabModule) => {
-      let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)],
-         openflag = false;
+      // check inital for open states, otherwise set first item open
+      tabModules.forEach((tabModule) => {
+         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)],
+            openflag = false;
 
-      tabTriggers.forEach((tabTrigger) => {
-         // check for initial open
-         if (tabTrigger.classList.contains(settings.openClass)) {
-            openTab(tabTrigger.parentNode, true);
-            openflag = true;
-         }
-      });
+         tabTriggers.forEach((tabTrigger) => {
+            // check for initial open
+            if (tabTrigger.classList.contains(settings.openClass)) {
+               openTab(tabTrigger.parentNode, true);
+               openflag = true;
+            }
+         });
 
-      // inital first tab if nothing else set
-      if (!openflag) {
+         // inital first tab if nothing else set
+         if (!openflag) {
 
-         if (tabModule.hasAttribute('data-tab-id')) {
+            if (tabModule.hasAttribute('data-tab-id')) {
 
-            let storageKey = 'tab-' + tabModule.getAttribute('data-tab-id');
-            let indexToOpen = localStorage.getItem(storageKey);
+               let storageKey = 'tab-' + tabModule.getAttribute('data-tab-id');
+               let indexToOpen = localStorage.getItem(storageKey);
 
-            // Check if index previously set
-            if (indexToOpen !== null) {
-               tabTriggers[indexToOpen].parentNode.classList.add(settings.openClass);
-               openTab(tabTriggers[indexToOpen].parentNode, true);
+               // Check if index previously set
+               if (indexToOpen !== null) {
+                  tabTriggers[indexToOpen].parentNode.classList.add(settings.openClass);
+                  openTab(tabTriggers[indexToOpen].parentNode, true);
+               } else {
+                  tabTriggers[0].parentNode.classList.add(settings.openClass);
+                  openTab(tabTriggers[0].parentNode, true);
+
+                  localStorage.setItem('tab-' + tabModule.getAttribute('data-tab-id'), 0);
+               }
             } else {
                tabTriggers[0].parentNode.classList.add(settings.openClass);
                openTab(tabTriggers[0].parentNode, true);
-
-               localStorage.setItem('tab-' + tabModule.getAttribute('data-tab-id'), 0);
             }
-         } else {
-            tabTriggers[0].parentNode.classList.add(settings.openClass);
-            openTab(tabTriggers[0].parentNode, true);
          }
-      }
-   });
-},
+      });
+   },
 
    // method after modulMode set
    initStatesAfter = () => {
@@ -234,8 +234,7 @@ const initStatesBefore = () => {
       });
    },
 
-   resizeMobile = () => {
-   },
+   resizeMobile = () => {},
 
    cleanStates = () => {
       tabModules.forEach((tabModule) => {
@@ -345,7 +344,7 @@ const initStatesBefore = () => {
 
          // store start root
          mainRoot = rootElement,
-         dataAttr = settings.hooks.tab.replace(/(\[|\])/g, ''),    // strip brackets
+         dataAttr = settings.hooks.tab.replace(/(\[|\])/g, ''), // strip brackets
 
          // set directions for looping
          dirs = ['previousElementSibling', 'nextElementSibling'];
