@@ -26,7 +26,7 @@ const nunjucksOptions = JSON.stringify({
    context: nunjucksContext
 });
 
-const pages = glob.sync('**/*.njk', {
+const htmlTemplates = glob.sync('**/*.njk', {
    cwd: path.join(basePath, 'src/pages/'),
    root: '/',
 }).map(page => new HtmlWebpackPlugin({
@@ -147,7 +147,7 @@ module.exports = {
       }
    },
    plugins: [
-      ...pages,
+      ...htmlTemplates,
       new VueLoaderPlugin(),
       new FriendlyErrorsWebpackPlugin(),
       new WebpackNotifierPlugin(),
