@@ -4,7 +4,6 @@
       "node_modules/**"
    ],
    "always-semicolon": true,
-   "block-indent": "    ",
    "color-case": "lower",
    "color-shorthand": false,
    "element-case": "lower",
@@ -26,7 +25,7 @@
    "strip-spaces": true,
    "tab-size": true,
    "unitless-zero": true,
-   "block-indent": 3,
+   "block-indent": 2,
    "vendor-prefix-align": true,
    "sort-order": [
       "$variable",

@@ -3,9 +3,9 @@
    =============== */
 
 @mixin clearfix {
-	&:after {
-		display: table;
-		clear: both;
-		content: "";
-	}
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }

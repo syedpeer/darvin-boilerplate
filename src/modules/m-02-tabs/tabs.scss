@@ -3,71 +3,71 @@
    ======================= */
 
 .m-tabs {
-   overflow: hidden;
+  overflow: hidden;
 
-   @media #{$large-up} {
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-      transition: height 220ms linear;
-   }
+  @media #{$large-up} {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: height 220ms linear;
+  }
 
-   // component
-   .tab {
+  // component
+  .tab {
+    @media #{$large-up} {
+      flex: 1 1 auto;
+      width: auto;
+      padding: 0;
+      border-right: 1px solid #cccccc;
+    }
+
+    &:last-child {
       @media #{$large-up} {
-         flex: 1 1 auto;
-         width: auto;
-         padding: 0;
-         border-right: 1px solid #cccccc;
+        border-right: 0;
+      }
+    }
+
+     + .tab {
+      @media #{$large-up} {
+        margin: 0;
+      }
+    }
+
+    .tab__trigger {
+      @media #{$large-up} {
+        justify-content: center;
+        padding: 0;
       }
 
-      &:last-child {
-         @media #{$large-up} {
-            border-right: 0;
-         }
+      &:before,
+      .icon {
+        @media #{$large-up} {
+          display: none;
+        }
       }
 
-       + .tab {
-         @media #{$large-up} {
-            margin: 0;
-         }
+      .tab__label {
+        @media #{$large-up} {
+          padding: 0;
+        }
+
+        &:after {
+          @media #{$large-up} {
+            display: none;
+          }
+        }
       }
+    }
 
-      .tab__trigger {
-         @media #{$large-up} {
-            justify-content: center;
-            padding: 0;
-         }
-
-         &:before,
-         .icon {
-            @media #{$large-up} {
-               display: none;
-            }
-         }
-
-         .tab__label {
-            @media #{$large-up} {
-               padding: 0;
-            }
-
-            &:after {
-               @media #{$large-up} {
-                  display: none;
-               }
-            }
-         }
+    .tab__contentbox {
+      @media #{$large-up} {
+        position: absolute;
+        left: 0;
+        z-index: 0;
+        width: 100%;
       }
-
-      .tab__contentbox {
-         @media #{$large-up} {
-            position: absolute;
-            left: 0;
-            z-index: 0;
-            width: 100%;
-         }
-      }
-   } // end component
+    }
+  } // end component
 } // end module
