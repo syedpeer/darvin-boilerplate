@@ -1,4 +1,4 @@
 module.exports = {
   foo: 'bar',
-  user: 'Sir'
-}
+  user: 'Sir',
+};

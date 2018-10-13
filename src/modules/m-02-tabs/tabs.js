@@ -8,376 +8,372 @@
 
 import observer from '@unic/composite-observer';
 
-const instance = {},
-   defaults = {
-      accordionMode: true,
-      tabModule: 'm-tabs',
-      tab: 'tab',
-      tabTrigger: 'tab__trigger',
-      tabContent: 'tab__content',
-      tabContentBox: 'tab__contentbox',
-      openClass: 'is-open',
-      mediaQuery: '(min-width: 1024px)',
-      hooks: {
-         tabModule: '[data-m-tabs]',
-         tab: '[data-tab]',
-         tabTrigger: '[data-tab-trigger]',
-         tabContent: '[data-tab-content]',
-         tabContentBox: '[data-tab-contentbox]'
-      }
-   },
-   pubsub = observer();
+const instance = {};
+const defaults = {
+  accordionMode: true,
+  tabModule: 'm-tabs',
+  tab: 'tab',
+  tabTrigger: 'tab__trigger',
+  tabContent: 'tab__content',
+  tabContentBox: 'tab__contentbox',
+  openClass: 'is-open',
+  mediaQuery: '(min-width: 1024px)',
+  hooks: {
+    tabModule: '[data-m-tabs]',
+    tab: '[data-tab]',
+    tabTrigger: '[data-tab-trigger]',
+    tabContent: '[data-tab-content]',
+    tabContentBox: '[data-tab-contentbox]',
+  },
+};
 
-let settings,
-   tabModules,
-   modulMode,
-   mq;
+const pubsub = observer();
+
+let settings;
+let tabModules;
+let modulMode;
+let mq;
+
+const resizeDesktop = () => {
+  tabModules.forEach((tabModule) => {
+    const tabsOpen = [...tabModule.querySelectorAll(`${settings.hooks.tab}.${settings.openClass}`)];
+
+
+    let height;
+    tabsOpen.forEach((tabOpen) => {
+      height = parseInt(tabOpen.querySelector(settings.hooks.tabContent).offsetHeight + 70, 10);
+      tabModule.style.height = `${height}px`;
+      tabModule.setAttribute('data-height', height);
+    });
+  });
+};
+
+const openTab = (tabRoot, init) => {
+  tabRoot.classList.add(settings.openClass);
+  if (!init) {
+    window.requestAnimationFrame(resizeDesktop);
+  }
+};
 
 const initStatesBefore = () => {
+  // check inital for open states, otherwise set first item open
+  tabModules.forEach((tabModule) => {
+    const tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
 
-      // check inital for open states, otherwise set first item open
-      tabModules.forEach((tabModule) => {
-         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)],
-            openflag = false;
 
-         tabTriggers.forEach((tabTrigger) => {
-            // check for initial open
-            if (tabTrigger.classList.contains(settings.openClass)) {
-               openTab(tabTrigger.parentNode, true);
-               openflag = true;
-            }
-         });
+    let openflag = false;
 
-         // inital first tab if nothing else set
-         if (!openflag) {
-
-            if (tabModule.hasAttribute('data-tab-id')) {
-
-               let storageKey = 'tab-' + tabModule.getAttribute('data-tab-id');
-               let indexToOpen = localStorage.getItem(storageKey);
-
-               // Check if index previously set
-               if (indexToOpen !== null) {
-                  tabTriggers[indexToOpen].parentNode.classList.add(settings.openClass);
-                  openTab(tabTriggers[indexToOpen].parentNode, true);
-               } else {
-                  tabTriggers[0].parentNode.classList.add(settings.openClass);
-                  openTab(tabTriggers[0].parentNode, true);
-
-                  localStorage.setItem('tab-' + tabModule.getAttribute('data-tab-id'), 0);
-               }
-            } else {
-               tabTriggers[0].parentNode.classList.add(settings.openClass);
-               openTab(tabTriggers[0].parentNode, true);
-            }
-         }
-      });
-   },
-
-   // method after modulMode set
-   initStatesAfter = () => {
-      cleanStates();
-      if (modulMode === 1) {
-
-         // set mobile settings
-         resizeMobile();
-      } else if (modulMode === 2) {
-
-         // set desktop settings
-         window.requestAnimationFrame(resizeDesktop);
+    tabTriggers.forEach((tabTrigger) => {
+      // check for initial open
+      if (tabTrigger.classList.contains(settings.openClass)) {
+        openTab(tabTrigger.parentNode, true);
+        openflag = true;
       }
-   },
+    });
 
-   bindModuleEvents = () => {
+    // inital first tab if nothing else set
+    if (!openflag) {
+      if (tabModule.hasAttribute('data-tab-id')) {
+        const storageKey = `tab-${tabModule.getAttribute('data-tab-id')}`;
+        const indexToOpen = localStorage.getItem(storageKey);
 
-      // set initial states
-      initStatesBefore();
+        // Check if index previously set
+        if (indexToOpen !== null) {
+          tabTriggers[indexToOpen].parentNode.classList.add(settings.openClass);
+          openTab(tabTriggers[indexToOpen].parentNode, true);
+        } else {
+          tabTriggers[0].parentNode.classList.add(settings.openClass);
+          openTab(tabTriggers[0].parentNode, true);
 
-      // set mediaQuery Object
-      mq = window.matchMedia(settings.mediaQuery);
-
-      // set listener for tabs/accordion modes
-      mq.addListener(switchMode);
-
-      // set inital mode
-      switchMode(mq);
-
-      // set resize event
-      window.addEventListener('resize', resize);
-   },
-
-   unbindModuleEvents = () => {
-      window.removeEventListener('resize', resize);
-      if (mq) {
-         mq.removeListener(switchMode);
-         mq = null;
-      }
-      unbindDesktopEvents();
-      unbindMobileEvents();
-   },
-
-   switchMode = (mq) => {
-      if (!mq.matches) {
-
-         // window width less or equal 1024
-         modulMode = 1;
-         unbindDesktopEvents();
-         bindMobileEvents();
+          localStorage.setItem(`tab-${tabModule.getAttribute('data-tab-id')}`, 0);
+        }
       } else {
-
-         // window width more than 1024
-         modulMode = 2;
-         unbindMobileEvents();
-
-         // tabs should have one selected tab
-         markFirstItem();
-         bindDesktopEvents();
+        tabTriggers[0].parentNode.classList.add(settings.openClass);
+        openTab(tabTriggers[0].parentNode, true);
       }
-      initStatesAfter();
-   },
+    }
+  });
+};
 
-   markFirstItem = () => {
-      tabModules.forEach((tabModule) => {
-         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)],
-            tabTriggersOpen = [...tabModule.querySelectorAll('.' + settings.openClass + settings.hooks.tab)];
-         if (tabTriggersOpen.length < 1) {
+const markFirstItem = () => {
+  tabModules.forEach((tabModule) => {
+    const tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
 
-            // mark first item
-            tabTriggers[0].parentNode.classList.add(settings.openClass);
-         } else if (tabTriggersOpen.length > 1) {
 
-            // mark only first item
-            for (let i = 1; i < tabTriggersOpen.length; i++) {
-               tabTriggersOpen[i].classList.remove(settings.openClass);
-            }
-         }
-      });
-   },
-
-   bindDesktopEvents = () => {
-      tabModules.forEach((tabModule) => {
-         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
-         tabTriggers.forEach((tabTrigger, index) => {
-            tabTrigger.addEventListener('click', toggleDesktop);
-
-            if (tabModule.hasAttribute('data-tab-id')) {
-               tabTrigger.addEventListener('click', () => {
-                  localStorage.setItem('tab-' + tabModule.getAttribute('data-tab-id'), index);
-               });
-            }
-         });
-      });
-      pubsub.on('accordionTrigger', resizeTab);
-   },
-
-   unbindDesktopEvents = () => {
-      tabModules.forEach((tabModule) => {
-         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
-         tabTriggers.forEach((tabTrigger) => {
-            tabTrigger.removeEventListener('click', toggleDesktop);
-         });
-      });
-      pubsub.off('accordionTrigger');
-   },
-
-   bindMobileEvents = () => {
-      tabModules.forEach((tabModule) => {
-         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
-         tabTriggers.forEach((tabTrigger, index) => {
-            tabTrigger.index = index;
-            tabTrigger.addEventListener('click', toggleMobile);
-         });
-      });
-   },
-
-   unbindMobileEvents = () => {
-      tabModules.forEach((tabModule) => {
-         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
-         tabTriggers.forEach((tabTrigger) => {
-            tabTrigger.removeEventListener('click', toggleMobile);
-         });
-      });
-   },
-
-   resize = () => {
-      initStatesAfter();
-   },
-
-   resizeDesktop = () => {
-      tabModules.forEach((tabModule) => {
-         let tabsOpen = [...tabModule.querySelectorAll(settings.hooks.tab + '.' + settings.openClass)],
-            height;
-         tabsOpen.forEach((tabOpen) => {
-            height = parseInt(tabOpen.querySelector(settings.hooks.tabContent).offsetHeight + 70);
-            tabModule.style.height = height + 'px';
-            tabModule.setAttribute('data-height', height);
-         });
-      });
-   },
-
-   resizeTab = (data) => {
-
-      // wait for next frame on multiple triggers
-      requestAnimationFrame(function () {
-
-         // get values for change
-         let rootTab = data.rootTab,
-            rootModule = rootTab.parentNode,
-            startHeight = parseInt(rootModule.getAttribute('data-height')),
-            endHeight = parseInt(data.value + startHeight);
-
-         // update calc height
-         rootModule.setAttribute('data-height', endHeight);
-
-         // set new height
-         rootModule.style.height = endHeight + 'px';
-      });
-   },
-
-   resizeMobile = () => {},
-
-   cleanStates = () => {
-      tabModules.forEach((tabModule) => {
-         let tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tab)];
-         tabModule.setAttribute('style', '');
-         tabTriggers.forEach((tabTrigger) => {
-            tabTrigger.querySelector(settings.hooks.tabContentBox).setAttribute('style', '');
-         });
-      });
-   },
-
-   toggleDesktop = (e) => {
-      let target = e.target,
-         tabRoot;
-
-      // set origin target
-      if (!target.classList.contains(settings.tabTrigger)) {
-         target = target.closest(settings.hooks.tabTrigger);
+    const tabTriggersOpen = [...tabModule.querySelectorAll(`.${settings.openClass}${settings.hooks.tab}`)];
+    if (tabTriggersOpen.length < 1) {
+      // mark first item
+      tabTriggers[0].parentNode.classList.add(settings.openClass);
+    } else if (tabTriggersOpen.length > 1) {
+      // mark only first item
+      for (let i = 1; i < tabTriggersOpen.length; i += 1) {
+        tabTriggersOpen[i].classList.remove(settings.openClass);
       }
+    }
+  });
+};
 
-      // get root element
-      tabRoot = target.parentNode;
+const resizeTab = (data) => {
+  // wait for next frame on multiple triggers
+  requestAnimationFrame(() => {
+    // get values for change
+    const { rootTab } = data;
+    const rootModule = rootTab.parentNode;
+    const startHeight = parseInt(rootModule.getAttribute('data-height'), 10);
+    const endHeight = parseInt(data.value + startHeight, 10);
 
-      // toggle class
-      if (!tabRoot.classList.contains(settings.openClass)) {
-         openTab(tabRoot, false);
-         closeSiblings(tabRoot, closeTab);
-      }
-   },
+    // update calc height
+    rootModule.setAttribute('data-height', endHeight);
 
-   openTab = (tabRoot, init) => {
-      tabRoot.classList.add(settings.openClass);
-      if (!init) {
-         window.requestAnimationFrame(resizeDesktop);
-      }
-   },
+    // set new height
+    rootModule.style.height = `${endHeight}px`;
+  });
+};
 
-   closeTab = (tabRoot) => {
-      tabRoot.classList.remove(settings.openClass);
-   },
+const resizeMobile = () => {};
 
-   toggleMobile = (e) => {
-      let target = e.target,
-         index = target.index,
-         accordionRoot,
-         accordionContent,
-         height;
+const cleanStates = () => {
+  tabModules.forEach((tabModule) => {
+    const tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tab)];
+    tabModule.setAttribute('style', '');
+    tabTriggers.forEach((tabTrigger) => {
+      tabTrigger.querySelector(settings.hooks.tabContentBox).setAttribute('style', '');
+    });
+  });
+};
 
-      // set origin target
-      if (!target.classList.contains(settings.tabTrigger)) {
-         target = target.closest(settings.hooks.tabTrigger);
-      }
+const closeTab = (tabRoot) => {
+  tabRoot.classList.remove(settings.openClass);
+};
 
-      // get elements
-      accordionRoot = target.parentNode;
-      accordionContent = accordionRoot.querySelector(settings.hooks.tabContent);
-      height = accordionContent.offsetHeight;
+const transitionListener = (e) => {
+  // remove style after transition
+  if (e.target.classList.contains('tab__contentbox') && e.propertyName === 'height' && e.target.offsetHeight > 3) {
+    const { target } = e;
+    target.removeEventListener('transitionend', transitionListener, true);
+    target.classList.add('no-transition');
+    window.requestAnimationFrame(() => {
+      target.setAttribute('style', '');
+    });
+  }
+};
 
-      // toggle class
-      if (accordionRoot.classList.contains(settings.openClass)) {
-         closeAccordion(accordionRoot);
+const openAccordion = (accordionRoot, height) => {
+  const animTarget = accordionRoot.querySelector(settings.hooks.tabContentBox);
+
+  // listen for transition end to set height auto
+  animTarget.addEventListener('transitionend', transitionListener, true);
+
+  // open the accordion to height value
+  accordionRoot.classList.add(settings.openClass);
+  animTarget.style.height = `${height}px`;
+};
+
+
+const closeAccordion = (accordionRoot) => {
+  // set height from auto to value for transition close
+  const animTarget = accordionRoot.querySelector(settings.hooks.tabContentBox);
+
+  animTarget.style.height = `${animTarget.offsetHeight}px`;
+
+  requestAnimationFrame(() => {
+    animTarget.classList.remove('no-transition');
+
+    requestAnimationFrame(() => {
+      accordionRoot.classList.remove(settings.openClass);
+      animTarget.style.height = '0px';
+    });
+  });
+};
+
+const closeSiblings = (rootElement, actionFunc) => {
+  if (modulMode === 1 && !settings.accordionMode) {
+    return false;
+  }
+
+  let temp;
+  // store start root
+  const mainRoot = rootElement;
+  const dataAttr = settings.hooks.tab.replace(/(\[|\])/g, '');
+  // strip brackets
+
+  // set directions for looping
+
+  const dirs = ['previousElementSibling', 'nextElementSibling'];
+
+  // eslint-disable-next-line
+  for (let i = dirs.length; i -= 1;) {
+    rootElement = mainRoot;
+
+    // eslint-disable-next-line
+    while ((rootElement = rootElement[dirs[i]]) !== null) {
+      temp = rootElement;
+
+      if (!temp.hasAttribute(dataAttr)) {
+        break;
       } else {
-         openAccordion(accordionRoot, height);
-
-         // Save index when tab got opened
-         if (accordionRoot.parentNode.hasAttribute('data-tab-id')) {
-            localStorage.setItem('tab-' + accordionRoot.parentNode.getAttribute('data-tab-id'), index);
-         }
-
-         closeSiblings(accordionRoot, closeAccordion);
+        // close open sibling
+        actionFunc(temp);
       }
-   },
+    }
+  }
 
-   openAccordion = (accordionRoot, height) => {
-      let animTarget = accordionRoot.querySelector(settings.hooks.tabContentBox);
+  return undefined;
+};
 
-      // listen for transition end to set height auto
-      animTarget.addEventListener('transitionend', transitionListener, true);
+const toggleDesktop = (e) => {
+  let { target } = e;
 
-      // open the accordion to height value
-      accordionRoot.classList.add(settings.openClass);
-      animTarget.style.height = height + 'px';
-   },
+  // set origin target
+  if (!target.classList.contains(settings.tabTrigger)) {
+    target = target.closest(settings.hooks.tabTrigger);
+  }
 
-   closeAccordion = (accordionRoot) => {
-      // set height from auto to value for transition close
-      let animTarget = accordionRoot.querySelector(settings.hooks.tabContentBox);
+  // get root element
+  const tabRoot = target.parentNode;
 
-      animTarget.style.height = animTarget.offsetHeight + 'px';
+  // toggle class
+  if (!tabRoot.classList.contains(settings.openClass)) {
+    openTab(tabRoot, false);
+    closeSiblings(tabRoot, closeTab);
+  }
+};
 
-      requestAnimationFrame(function () {
-         animTarget.classList.remove('no-transition');
+const toggleMobile = (e) => {
+  let { target } = e;
+  const { index } = target;
 
-         requestAnimationFrame(function () {
-            accordionRoot.classList.remove(settings.openClass);
-            animTarget.style.height = '0px';
-         });
-      });
-   },
+  // set origin target
+  if (!target.classList.contains(settings.tabTrigger)) {
+    target = target.closest(settings.hooks.tabTrigger);
+  }
 
-   closeSiblings = (rootElement, actionFunc) => {
-      if (modulMode === 1 && !settings.accordionMode) {
-         return false;
+  // get elements
+  const accordionRoot = target.parentNode;
+  const accordionContent = accordionRoot.querySelector(settings.hooks.tabContent);
+  const height = accordionContent.offsetHeight;
+
+  // toggle class
+  if (accordionRoot.classList.contains(settings.openClass)) {
+    closeAccordion(accordionRoot);
+  } else {
+    openAccordion(accordionRoot, height);
+
+    // Save index when tab got opened
+    if (accordionRoot.parentNode.hasAttribute('data-tab-id')) {
+      localStorage.setItem(`tab-${accordionRoot.parentNode.getAttribute('data-tab-id')}`, index);
+    }
+
+    closeSiblings(accordionRoot, closeAccordion);
+  }
+};
+
+const bindDesktopEvents = () => {
+  tabModules.forEach((tabModule) => {
+    const tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
+    tabTriggers.forEach((tabTrigger, index) => {
+      tabTrigger.addEventListener('click', toggleDesktop);
+
+      if (tabModule.hasAttribute('data-tab-id')) {
+        tabTrigger.addEventListener('click', () => {
+          localStorage.setItem(`tab-${tabModule.getAttribute('data-tab-id')}`, index);
+        });
       }
+    });
+  });
+  pubsub.on('accordionTrigger', resizeTab);
+};
 
-      let temp,
+const unbindDesktopEvents = () => {
+  tabModules.forEach((tabModule) => {
+    const tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
+    tabTriggers.forEach((tabTrigger) => {
+      tabTrigger.removeEventListener('click', toggleDesktop);
+    });
+  });
+  pubsub.off('accordionTrigger');
+};
 
-         // store start root
-         mainRoot = rootElement,
-         dataAttr = settings.hooks.tab.replace(/(\[|\])/g, ''), // strip brackets
 
-         // set directions for looping
-         dirs = ['previousElementSibling', 'nextElementSibling'];
+const bindMobileEvents = () => {
+  tabModules.forEach((tabModule) => {
+    const tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
+    tabTriggers.forEach((tabTrigger, index) => {
+      tabTrigger.index = index;
+      tabTrigger.addEventListener('click', toggleMobile);
+    });
+  });
+};
 
-      for (let i = dirs.length; i--;) {
-         rootElement = mainRoot;
 
-         while ((rootElement = rootElement[dirs[i]]) !== null) {
-            temp = rootElement;
+const unbindMobileEvents = () => {
+  tabModules.forEach((tabModule) => {
+    const tabTriggers = [...tabModule.querySelectorAll(settings.hooks.tabTrigger)];
+    tabTriggers.forEach((tabTrigger) => {
+      tabTrigger.removeEventListener('click', toggleMobile);
+    });
+  });
+};
 
-            if (!temp.hasAttribute(dataAttr)) {
-               break;
-            } else {
+const initStatesAfter = () => {
+  cleanStates();
+  if (modulMode === 1) {
+    // set mobile settings
+    resizeMobile();
+  } else if (modulMode === 2) {
+    // set desktop settings
+    window.requestAnimationFrame(resizeDesktop);
+  }
+};
 
-               // close open sibling
-               actionFunc(temp);
-            }
-         }
-      }
-   },
+const switchMode = (_mq) => {
+  if (!_mq.matches) {
+    // window width less or equal 1024
+    modulMode = 1;
+    unbindDesktopEvents();
+    bindMobileEvents();
+  } else {
+    // window width more than 1024
+    modulMode = 2;
+    unbindMobileEvents();
 
-   transitionListener = (e) => {
+    // tabs should have one selected tab
+    markFirstItem();
+    bindDesktopEvents();
+  }
+  initStatesAfter();
+};
 
-      // remove style after transition
-      if (e.target.classList.contains('tab__contentbox') && e.propertyName === 'height' && e.target.offsetHeight > 3) {
-         let target = e.target;
-         target.removeEventListener('transitionend', transitionListener, true);
-         target.classList.add('no-transition');
-         window.requestAnimationFrame(function () {
-            target.setAttribute('style', '');
-         });
-      }
-   };
+const resize = () => {
+  initStatesAfter();
+};
+
+const bindModuleEvents = () => {
+  // set initial states
+  initStatesBefore();
+
+  // set mediaQuery Object
+  mq = window.matchMedia(settings.mediaQuery);
+
+  // set listener for tabs/accordion modes
+  mq.addListener(switchMode);
+
+  // set inital mode
+  switchMode(mq);
+
+  // set resize event
+  window.addEventListener('resize', resize);
+};
+
+const unbindModuleEvents = () => {
+  window.removeEventListener('resize', resize);
+  if (mq) {
+    mq.removeListener(switchMode);
+    mq = null;
+  }
+  unbindDesktopEvents();
+  unbindMobileEvents();
+};
 
 /**
  * Initialize module
@@ -387,19 +383,19 @@ const initStatesBefore = () => {
  */
 
 instance.init = (options) => {
-   settings = Object.assign({}, defaults, options);
+  settings = Object.assign({}, defaults, options);
 
-   tabModules = [...document.querySelectorAll(settings.hooks.tabModule)];
+  tabModules = [...document.querySelectorAll(settings.hooks.tabModule)];
 
-   // exit if no tabs found
-   if (tabModules.length < 1) {
-      return {};
-   }
+  // exit if no tabs found
+  if (tabModules.length < 1) {
+    return {};
+  }
 
-   // bind module events
-   bindModuleEvents();
+  // bind module events
+  bindModuleEvents();
 
-   return instance;
+  return instance;
 };
 
 /**
@@ -407,7 +403,7 @@ instance.init = (options) => {
  */
 
 instance.destroy = () => {
-   unbindModuleEvents();
+  unbindModuleEvents();
 };
 
 /**
@@ -415,7 +411,7 @@ instance.destroy = () => {
  */
 
 instance.resize = () => {
-   resize();
+  resize();
 };
 
 // export for cms call

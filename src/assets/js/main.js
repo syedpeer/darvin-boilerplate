@@ -4,21 +4,21 @@ import 'mdn-polyfills/NodeList.prototype.forEach';
 // Bundle Config
 import '../../../.modernizrrc';
 import './libs/modernizr-custom-tests';
-import style from "../styles/main.scss";
+import '../styles/main.scss';
 
 // Page Defaults
-import config from './main.config.js';
+import './main.config';
 
-import demoModule from '../../modules/m-03-demo/demo.js';
-import tabsModule from '../../modules/m-02-tabs/tabs.js';
+import demoModule from '../../modules/m-03-demo/demo';
+import tabsModule from '../../modules/m-02-tabs/tabs';
 
-import accordionComponent from '../../components/c-02-accordion/accordion.js';
+import accordionComponent from '../../components/c-02-accordion/accordion';
 
 // calls
 demoModule.init();
 accordionComponent.init({
-   accordionMode: false
+  accordionMode: false,
 });
 tabsModule.init({
-   accordionMode: false
+  accordionMode: false,
 });
