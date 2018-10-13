@@ -4,6 +4,7 @@ const glob = require('glob');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'development');
 
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { VueLoaderPlugin } = require('vue-loader');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -186,6 +187,10 @@ module.exports = {
         forms: false,
         scroll: false,
       },
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
     }),
   ],
   watchOptions: {
