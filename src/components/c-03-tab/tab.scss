@@ -6,139 +6,139 @@ $tab-left-space: rem(16px);
 $tab-height: rem(60px);
 
 .tab {
-   width: 100%;
-   padding-bottom: rem(56px);
+  width: 100%;
+  padding-bottom: rem(56px);
 
-   @media #{$large-up} {
-      overflow: hidden;
-   }
+  @media #{$large-up} {
+    overflow: hidden;
+  }
 
-   &.is-open {
-      .tab__trigger {
-         color: white;
-         background-color: #c0c0c0;
+  &.is-open {
+    .tab__trigger {
+      color: white;
+      background-color: #c0c0c0;
 
-         .icon {
-            transform: rotate(-180deg);
+      .icon {
+        transform: rotate(-180deg);
 
-            fill: white;
-         }
+        fill: white;
       }
+    }
 
-      .tab__label {
-         &:after {
-            opacity: 1;
-            transition: opacity 440ms linear;
-         }
+    .tab__label {
+      &:after {
+        opacity: 1;
+        transition: opacity 440ms linear;
       }
+    }
 
-      .tab__contentbox {
-         height: auto;
+    .tab__contentbox {
+      height: auto;
 
-         @media #{$large-up} {
-            z-index: 1;
-            visibility: visible;
-         }
+      @media #{$large-up} {
+        z-index: 1;
+        visibility: visible;
       }
+    }
 
-      .tab__content {
-         transform: translateY(0);
-         opacity: 1;
+    .tab__content {
+      transform: translateY(0);
+      opacity: 1;
 
-         @media #{$large-up} {
-            transform: none;
-            opacity: 1;
-         }
+      @media #{$large-up} {
+        transform: none;
+        opacity: 1;
       }
-   }
+    }
+  }
 
-    + .tab {
-      margin-top: calc(#{rem(-56px)} - 1px);
-   }
+   + .tab {
+    margin-top: calc(#{rem(-56px)} - 1px);
+  }
 }
 
 .tab__trigger {
-   position: relative;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 100%;
-   height: $tab-height;
-   padding-right: rem(12px);
-   padding-left: rem(12px);
-   background-color: white;
-   border-top: 1px solid #cccccc;
-   border-bottom: 1px solid #cccccc;
-   cursor: pointer;
-   transition: background-color 120ms linear, #cccccc 120ms linear;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: $tab-height;
+  padding-right: rem(12px);
+  padding-left: rem(12px);
+  background-color: white;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  cursor: pointer;
+  transition: background-color 120ms linear, #cccccc 120ms linear;
 
-   @media #{$large-up} {
-      padding-right: rem(70px);
-      padding-left: rem(70px);
-   }
+  @media #{$large-up} {
+    padding-right: rem(70px);
+    padding-left: rem(70px);
+  }
 
-   .no-touchdevice &:hover {
-      .icon {
-         fill: red;
-      }
-   }
+  .no-touchdevice &:hover {
+    .icon {
+      fill: red;
+    }
+  }
 
-   .icon {
-      display: block;
+  .icon {
+    display: block;
+    width: rem(16px);
+    height: rem(16px);
+    margin: 0 auto;
+    transform: rotate(0deg);
+    transition: transform 120ms linear;
+
+    fill: #000000;
+
+    @media #{$large-up} {
+      position: absolute;
+      right: rem(25px);
       width: rem(16px);
       height: rem(16px);
-      margin: 0 auto;
-      transform: rotate(0deg);
-      transition: transform 120ms linear;
-
-      fill: #000000;
-
-      @media #{$large-up} {
-         position: absolute;
-         right: rem(25px);
-         width: rem(16px);
-         height: rem(16px);
-      }
-   }
+    }
+  }
 }
 
 .tab__label {
-   display: block;
-   padding-bottom: rem(2px);
+  display: block;
+  padding-bottom: rem(2px);
 
-   @media #{$large-up} {
-      padding-bottom: 0;
-   }
+  @media #{$large-up} {
+    padding-bottom: 0;
+  }
 }
 
 .tab__contentbox {
-   height: 0;
-   overflow: hidden;
-   transition: height 220ms linear;
+  height: 0;
+  overflow: hidden;
+  transition: height 220ms linear;
 
-   &.no-transition {
-      transition: none;
-   }
+  &.no-transition {
+    transition: none;
+  }
 
-   @media #{$large-up} {
-      height: calc(100% - #{$tab-height});
-      visibility: hidden;
-   }
+  @media #{$large-up} {
+    height: calc(100% - #{$tab-height});
+    visibility: hidden;
+  }
 }
 
 .tab__content {
-   padding-top: rem(25px);
-   padding-right: 0;
-   padding-bottom: rem(36px);
-   padding-left: 0;
-   transform: translateY(-10px);
-   opacity: 0;
-   transition: transform 240ms linear, opacity 140ms linear;
+  padding-top: rem(25px);
+  padding-right: 0;
+  padding-bottom: rem(36px);
+  padding-left: 0;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 240ms linear, opacity 140ms linear;
 
-   @media #{$large-up} {
-      transform: none;
-      opacity: 0;
-      transition: opacity 140ms linear;
-      transition-delay: 80ms;
-   }
+  @media #{$large-up} {
+    transform: none;
+    opacity: 0;
+    transition: opacity 140ms linear;
+    transition-delay: 80ms;
+  }
 }
