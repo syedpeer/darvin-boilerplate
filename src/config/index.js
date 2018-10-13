@@ -1,3 +1,3 @@
 module.exports = {
-  "imageSrc": "../assets/images/renditions/"
-}
+  imageSrc: '../assets/images/renditions/',
+};
