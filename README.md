@@ -1,4 +1,4 @@
-[![N|tobiasfrei](http://tobiasfrei.ch/github/webpack-boilerplate/header.jpg)](https://tobiasfrei.ch)
+[![N|ketchup](http://tobiasfrei.ch/github/ketchup-starterkit/ketchup-starterkit-logo-01.svg)](https://tobiasfrei.ch)
 
 # Webpack4 Boilerplate
 Starterkit for frontend tasks with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites.
