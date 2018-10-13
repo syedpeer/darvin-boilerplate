@@ -23,6 +23,7 @@
    ],
    "devDependencies": {
       "@babel/core": "^7.1.2",
+      "@babel/plugin-syntax-dynamic-import": "7.0.0",
       "@babel/preset-env": "^7.1.0",
       "autoprefixer": "^9.1.5",
       "babel-eslint": "10.0.1",
@@ -81,5 +82,10 @@
    "repository": {
       "type": "git",
       "url": "github.com/tobiasfrei"
-   }
+   },
+   "browserslist": [
+      "last 2 versions",
+      "ie > 10",
+      "iOS > 9"
+   ]
 }

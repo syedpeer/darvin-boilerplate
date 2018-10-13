@@ -44,6 +44,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     pathinfo: true,
     filename: 'js/main.js',
+    chunkFilename: 'js/async/[name].chunk.js',
     publicPath: '',
   },
   module: {
@@ -90,9 +91,6 @@ module.exports = {
       exclude: /node_modules/,
       use: {
         loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-        },
       },
     },
     {
