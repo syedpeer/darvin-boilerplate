@@ -60,7 +60,10 @@
       "pre-commit": "lint-staged"
    },
    "lint-staged": {
-      "*.scss": ["csscomb --tty-mode", "git add"]
+      "*.scss": [
+         "csscomb --tty-mode",
+         "git add"
+      ]
    },
    "repository": {
       "type": "git",
