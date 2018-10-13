@@ -1,7 +1,7 @@
 {
-   "name": "webpack-boilerplate",
+   "name": "ketchup-webpack-starterkit",
    "version": "1.0.0",
-   "description": "Webpack Boilerplate",
+   "description": "Ketchup is a webpack boilerplate for developing static HTML pages with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites.",
    "email": "mail@tobiasfrei.ch",
    "author": "Tobias Frei, Christian Sany",
    "license": "MIT",
