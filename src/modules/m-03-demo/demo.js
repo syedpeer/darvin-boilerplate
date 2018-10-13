@@ -9,17 +9,17 @@
 import helperDom from '../../assets/js/helpers/helper-dom';
 
 const instance = {},
-   defaults = {
-      container: '.m-boilerplate'
-   },
-   settings = {};
+  defaults = {
+    container: '.m-boilerplate'
+  },
+  settings = {};
 
 // Module Variables
 let container;
 
 // Private Functions
 const onMouseMove = (event) => {
-   container.style.backgroundImage = 'radial-gradient(at ' + event.clientX + 'px ' + event.clientY + 'px, transparent 0, #9cb6e0 40%)';
+  // container.style.backgroundImage = 'radial-gradient(at ' + event.clientX + 'px ' + event.clientY + 'px, transparent 0, #9cb6e0 40%)';
 };
 
 /**
@@ -30,18 +30,14 @@ const onMouseMove = (event) => {
  */
 
 instance.init = (options) => {
-   Object.assign(settings, defaults, options);
+  Object.assign(settings, defaults, options);
 
-   // Public Code
-   console.log("> js ready");
+  // Public Code
+  console.log("> js ready");
 
-   container = document.querySelector(".m-demo");
+  container = document.querySelector(".m-demo");
 
-   if (!container) return;
-
-   document.addEventListener("mousemove", onMouseMove);
-
-   return instance;
+  return instance;
 };
 
 export default instance;
