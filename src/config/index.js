@@ -1,4 +1,3 @@
 module.exports = {
-  foo: 'bar',
-  user: 'Sir',
+  imageSrc: '../assets/images/renditions/',
 };

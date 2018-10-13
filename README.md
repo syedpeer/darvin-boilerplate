@@ -3,14 +3,6 @@
 # Ketchup Webpack Starterkit
 Ketchup is a webpack boilerplate for developing static HTML pages with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites. The project is under development.
 
-## Upcoming
-- improve svg sprites in css.
-- add pre-commit hook for csscomb.
-- add js linter.
-- style sample modules.
-- refresh modernizr customs.
-- add Vue.js sample.
-
 ## Prerequisite
 Node 10.11.0
 
@@ -54,3 +46,6 @@ Inline
     <use xlink:href="#sprite-arrow"></use>
 </svg>
 ```
+
+### Authors
+Tobias Frei, Christian Sany

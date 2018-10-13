@@ -5,6 +5,8 @@
  * @module module-example
  */
 
+// import helperDom from '../../assets/js/helpers/helper-dom';
+
 const instance = {};
 const defaults = {
   container: '.m-boilerplate',
@@ -12,12 +14,13 @@ const defaults = {
 const settings = {};
 
 // Module Variables
-let container;
+let container; // eslint-disable-line
 
-// Private Functions
-const onMouseMove = (event) => {
-  container.style.backgroundImage = `radial-gradient(at ${event.clientX}px ${event.clientY}px, transparent 0, #9cb6e0 40%)`;
-};
+// // Private Functions
+// const onMouseMove = (event) => {
+// eslint-disable-next-line
+//   // container.style.backgroundImage = 'radial-gradient(at ' + event.clientX + 'px ' + event.clientY + 'px, transparent 0, #9cb6e0 40%)';
+// };
 
 /**
  * Initialize module
@@ -30,13 +33,9 @@ instance.init = (options) => {
   Object.assign(settings, defaults, options);
 
   // Public Code
+  console.log('> js ready'); // eslint-disable-line
+
   container = document.querySelector('.m-demo');
-
-  if (!container) {
-    return undefined;
-  }
-
-  document.addEventListener('mousemove', onMouseMove);
 
   return instance;
 };
