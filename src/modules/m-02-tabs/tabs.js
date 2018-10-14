@@ -117,7 +117,9 @@ const resizeTab = (data) => {
   // wait for next frame on multiple triggers
   requestAnimationFrame(() => {
     // get values for change
-    const { rootTab } = data;
+    const {
+      rootTab
+    } = data;
     const rootModule = rootTab.parentNode;
     const startHeight = parseInt(rootModule.getAttribute('data-height'), 10);
     const endHeight = parseInt(data.value + startHeight, 10);
@@ -149,7 +151,9 @@ const closeTab = (tabRoot) => {
 const transitionListener = (e) => {
   // remove style after transition
   if (e.target.classList.contains('tab__contentbox') && e.propertyName === 'height' && e.target.offsetHeight > 3) {
-    const { target } = e;
+    const {
+      target
+    } = e;
     target.removeEventListener('transitionend', transitionListener, true);
     target.classList.add('no-transition');
     window.requestAnimationFrame(() => {
@@ -222,7 +226,9 @@ const closeSiblings = (rootElement, actionFunc) => {
 };
 
 const toggleDesktop = (e) => {
-  let { target } = e;
+  let {
+    target
+  } = e;
 
   // set origin target
   if (!target.classList.contains(settings.tabTrigger)) {
@@ -240,8 +246,12 @@ const toggleDesktop = (e) => {
 };
 
 const toggleMobile = (e) => {
-  let { target } = e;
-  const { index } = target;
+  let {
+    target
+  } = e;
+  const {
+    index
+  } = target;
 
   // set origin target
   if (!target.classList.contains(settings.tabTrigger)) {
@@ -420,5 +430,5 @@ window.resizeTabs = instance.resize;
 export default instance;
 
 // export instance to window
-window.DS = window.DS || {};
-window.DS.tabs = instance;
+window.BOILERPLATE = window.BOILERPLATE || {};
+window.BOILERPLATE.tabs = instance;
