@@ -1,7 +1,7 @@
 [![N|ketchup](http://tobiasfrei.ch/github/ketchup-starterkit/ketchup-starterkit-logo-01.svg)](https://tobiasfrei.ch)
 
 # Ketchup Webpack Starterkit
-Ketchup is a webpack boilerplate for developing static HTML pages with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites. The project is under development.
+Ketchup is a webpack boilerplate for developing static HTML pages with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG sprites. Features precommit hooks with husky for csscomb, custom modernizr and autofix linting.
 
 ## Prerequisite
 Node 10.11.0
