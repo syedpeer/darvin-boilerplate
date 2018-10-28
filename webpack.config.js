@@ -2,15 +2,18 @@ const path = require('path');
 const glob = require('glob');
 
 const basePath = process.cwd();
-const isDev = (process.env.NODE_ENV === 'development');
+const isDev = (process.env.NODE_ENV === 'dev');
 
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { VueLoaderPlugin } = require('vue-loader');
+const {
+  BundleAnalyzerPlugin
+} = require('webpack-bundle-analyzer');
+const {
+  VueLoaderPlugin
+} = require('vue-loader');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
@@ -49,89 +52,89 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.(config.js)$/,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'js/',
-        },
-      }],
-    },
-    {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-    },
-    {
-      test: /\.(png|jpe?g|gif)$/,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: 'images/[name].[ext]?[hash]',
+        test: /\.(config.js)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'js/',
+          },
+        }],
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [{
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]?[hash]',
+            },
+          },
+          {
+            loader: 'img-loader',
+            options: {
+              enabled: !isDev,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(njk|nunjucks)$/,
+        loader: ['html-loader', `nunjucks-html-loader?${nunjucksOptions}`],
+      },
+      {
+        test: /modernizrrc\.js$/,
+        loader: 'expose-loader?Modernizr!webpack-modernizr-loader',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
         },
       },
       {
-        loader: 'img-loader',
-        options: {
-          enabled: !isDev,
-        },
-      },
-      ],
-    },
-    {
-      test: /\.(njk|nunjucks)$/,
-      loader: ['html-loader', `nunjucks-html-loader?${nunjucksOptions}`],
-    },
-    {
-      test: /modernizrrc\.js$/,
-      loader: 'expose-loader?Modernizr!webpack-modernizr-loader',
-    },
-    {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-      },
-    },
-    {
-      test: /\.(css|sass|scss)$/,
-      use: [{
-        loader: MiniCssExtractPlugin.loader,
-      },
-      {
-        loader: 'css-loader',
-        options: {
-          sourceMap: true,
-          importLoaders: 2,
-        },
+        test: /\.(css|sass|scss)$/,
+        use: [{
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [
+                require('autoprefixer'), // eslint-disable-line
+              ],
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
-        loader: 'postcss-loader',
-        options: {
-          plugins: () => [
-            require('autoprefixer'), // eslint-disable-line
-          ],
-          sourceMap: true,
-        },
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: '/fonts/',
+          },
+        }],
       },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true,
-        },
-      },
-      ],
-    },
-    {
-      test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: '/fonts/',
-        },
-      }],
-    },
     ],
   },
   resolve: {
@@ -164,27 +167,6 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: 'css/styles.css',
-    }),
-    new BrowserSyncPlugin({
-      /* proxy: 'https://cms.local', */
-      server: {
-        baseDir: ['dist'],
-        directory: true,
-      },
-      port: 1712,
-      files: ['css/*.css', 'js/*.js', '**/*.njk'],
-      open: true,
-      https: true,
-      notify: false,
-      logConnections: true,
-      reloadOnRestart: true,
-      injectChanges: true,
-      online: true,
-      ghostMode: {
-        clicks: false,
-        forms: false,
-        scroll: false,
-      },
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
