@@ -1,14 +1,19 @@
 const path = require('path');
 const merge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpackConfig = require('./webpack.config');
 
+const {
+  VueLoaderPlugin
+} = require('vue-loader');
+
 module.exports = merge(webpackConfig, {
-  devtool: 'source-map',
   module: {
     rules: [{
       test: /\.vue$/,
       loader: 'vue-loader',
     }]
-  }
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ]
 });

@@ -7,16 +7,12 @@ const isDev = (process.env.NODE_ENV === 'dev');
 const {
   BundleAnalyzerPlugin
 } = require('webpack-bundle-analyzer');
-const {
-  VueLoaderPlugin
-} = require('vue-loader');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const nunjucksContext = require('./src/config/index');
 const nunjucksDevConfig = require('./src/config/config.dev.json');
 const nunjucksProdConfig = require('./src/config/config.prod.json');
@@ -159,12 +155,6 @@ module.exports = {
       to: 'images/',
       flatten: true,
     }], {}),
-    new SVGSpritemapPlugin({
-      src: path.resolve(__dirname, 'src/assets/images/icons/**/*.svg'),
-      styles: path.resolve(__dirname, 'src/assets/styles/tools/_svg-sprite.scss'),
-      filename: 'images/sprites/svg-sprite.svg',
-      gutter: 3,
-    }),
     new MiniCssExtractPlugin({
       filename: 'css/styles.css',
     }),
