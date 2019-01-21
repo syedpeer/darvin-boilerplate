@@ -1,12 +1,13 @@
-[![N|ketchup](http://tobiasfrei.ch/github/ketchup-starterkit/ketchup-starterkit-logo-01.svg)](https://tobiasfrei.ch)
+# Darvin Boilerplate
+![](https://img.shields.io/github/issues-closed-raw/tobiasfrei/darvin-boilerplate.svg?style=popout-square)
+![](https://img.shields.io/github/issues-raw/tobiasfrei/darvin-boilerplate.svg?style=popout-square)
 
-# Ketchup Webpack Starterkit
-Ketchup is a webpack boilerplate for developing static HTML pages with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG sprites. Features precommit hooks with husky for csscomb, custom modernizr and autofix linting.
+Darvin is a non-gulp based leightweight boilerplate to render static HTML. Mozilla Nunjucks templating engine, ES201X transpiler and Sass precompiling with SVG sprites. Features precommit hooks with husky for csscomb, custom modernizr and autofix linting. Hot load based on browsersync.
 
-## Prerequisite
-Node 10.11.0
+## Setup
+Node 11.7.0
 
-## 1. Install Node.js
+### 1. Prepare Node Version Manager
 MacOS/Linux
 ```
 https://github.com/creationix/nvm
@@ -17,35 +18,70 @@ Windows
 https://github.com/coreybutler/nvm-windows
 ```
 
-## 2. Install setup
-Load node.js version
-```
-nvm use
-```
+### 2. Install node version
 
-Install Packages
-```
-npm install
-```
+1. install node version
+```nvm install 11.7.0```
 
-## 3. Run setup
-Run watcher
+2. load node version from .nvmrc
+```nvm use```
+Note: If that not work, do ```nvm use 11.7.0```
+
+3. install dependencies
+```npm install```
+
+## Start
+Load installed node version each time you startup the project:
+```nvm use```
+
+### Develop
+Run watcher and hot load browser on file changes.
 ```
 npm run dev
 ```
 
-Run production
+### Production
+Run this mode for minifyed outstream. Required for SEO purpose and many CMS asset aggregations.
+
 ```
-npm run prod
+npm run build
 ```
 
-### Sprites
-Inline
+## Sprites
+SVG Spritemap will be generated referenced to filenames trough this folder:
+```src/assets/images/icons```
+
+There are two ways to integrate them in templates.
+
+### Inline HTML
+SVG Sprites are prefixed with ```sprite-``` followed by filename.
+
+e.g for Filename
+```src/assets/images/icons/arrow.svg```
+
 ```
-<svg viewBox="0 0 100 100" class="icon icon-arrow">
-    <use xlink:href="#sprite-arrow"></use>
+<svg class="icon">
+    <use xlink:href="/path/to/spritemap.svg#sprite-arrow"></use>
 </svg>
 ```
 
-### Authors
+Note: Render the map in the body and access without filename ```xlink:href="#sprite-arrow"```
+
+### Generic Sass
+
+#### Preparation
+Attribution over CSS needs small file preparation and looses OS preview functionality.
+Add several variables to svg prefixed with 'var:{css-attribute}' as shown in following example:
+```<path fill="none" var:color.stroke="" var:width.stroke-width="" d="M0.3,17.7L17.7,0.3"/>```
+
+#### Usage
+```
+.myElement {
+    @include sprite('arrow', { stroke: 'red', stroke-width: 1px });
+}
+```
+
+Note: 
+
+## Authors
 Tobias Frei, Christian Sany
