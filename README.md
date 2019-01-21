@@ -36,16 +36,12 @@ Load installed node version each time you startup the project:
 
 ### Develop
 Run watcher and hot load browser on file changes.
-```
-npm run dev
-```
+```npm run dev```
 
 ### Production
 Run this mode for minifyed outstream. Required for SEO purpose and many CMS asset aggregations.
 
-```
-npm run build
-```
+```npm run build```
 
 ## Sprites
 SVG Spritemap will be generated referenced to filenames trough this folder:
@@ -96,7 +92,7 @@ Settings for edit keywords:
 
 // screen under 768px
 @media #{$medium-down} {
-  font-size: 1em;s
+  font-size: 1em;
 }
 
 // screen between 768px and 1024px
@@ -104,6 +100,33 @@ Settings for edit keywords:
   width: 100%;
 }
 ```
+
+## Architecture Guidelines
+
+### Layout Elements
+Layout elements are prefixed with 'l-'
+```.l-sidebar```
+
+### Modules
+Module elements are prefixed with 'm-'
+```.m-teaser```
+
+- high order element block.
+- combinations of different components.
+- preferably nested Sass (Smaccs).
+
+### Components
+Component elements are prefixed with 'c-'
+```.c-iconbox```
+
+- won't have a position, position over module.
+- reusable in different modules.
+- preferably unnested Sass (BEM).
+
+### Constrainer
+Modules are mostly fullwidth and constrained by layout constrained element.
+That behaviour save us responsivness on different layouts.
+```.l-constrainer```
 
 ## Authors
 Tobias Frei, Christian Sany
