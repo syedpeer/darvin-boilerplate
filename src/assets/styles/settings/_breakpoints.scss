@@ -2,7 +2,16 @@
    Settings / Breakpoints
    ======================= */
 
-//== define keywords
+//== Variables
+//
+$screen-micro: 375px;
+$screen-small: 540px;
+$screen-medium: 768px;
+$screen-large: 1024px;
+$screen-wide: $max-container-width; // 1420px
+$screen-ultra: 1920px;
+
+//== keywords
 //
 $zero: "only screen";
 $micro: "only screen and (min-width: #{em($screen-micro)})";
@@ -12,7 +21,7 @@ $large: "only screen and (min-width: #{em($screen-large)})";
 $wide: "only screen and (min-width: #{em($screen-wide)})";
 $ultra: "only screen and (min-width: #{em($screen-ultra)})";
 
-//== define keywords range
+//== keywords range
 //
 $zero-up: $zero;
 $zero-only: "#{$zero} and (max-width: #{em($screen-micro - 1px)})";

@@ -68,8 +68,6 @@ e.g for Filename
 Note: Render the map in the body and access without filename ```xlink:href="#sprite-arrow"```
 
 ### Generic Sass
-
-#### Preparation
 Attribution over CSS needs small file preparation and looses OS preview functionality.
 Add several variables to svg prefixed with 'var:{css-attribute}' as shown in following example:
 ```<path fill="none" var:color.stroke="" var:width.stroke-width="" d="M0.3,17.7L17.7,0.3"/>```
@@ -80,8 +78,32 @@ Add several variables to svg prefixed with 'var:{css-attribute}' as shown in fol
     @include sprite('arrow', { stroke: 'red', stroke-width: 1px });
 }
 ```
+Note: The use of SVG Sprite in Sass can affect the loading capacity.
 
-Note: 
+## Breakpoints
+Predefined keywords:
+```zero|micro|small|medium|large|wide|ultra```
+
+Settings for edit keywords:
+```src/assets/styles/settings/_breakpoints.scss```
+
+#### Usage
+```
+// screen exactly or higher 768px
+@media #{$medium-up} {
+  width: 50%;
+}
+
+// screen under 768px
+@media #{$medium-down} {
+  font-size: 1em;s
+}
+
+// screen between 768px and 1024px
+@media #{$medium-only} {
+  width: 100%;
+}
+```
 
 ## Authors
 Tobias Frei, Christian Sany
