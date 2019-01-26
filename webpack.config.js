@@ -17,38 +17,59 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
-const nunjucksContext = require('./src/config/index');
-const nunjucksDevConfig = require('./src/config/config.dev.json');
-const nunjucksProdConfig = require('./src/config/config.prod.json');
+const nunjucksContext = require('./src/templates/config/index');
+const nunjucksDevConfig = require('./src/templates/config/config.dev.json');
+const nunjucksProdConfig = require('./src/templates/config/config.prod.json');
 
 nunjucksContext.config = (isDev) ? nunjucksDevConfig : nunjucksProdConfig;
 
 const nunjucksOptions = JSON.stringify({
-  searchPaths: `${basePath}/src/`,
+  searchPaths: `${basePath}/src/templates/`,
   context: nunjucksContext,
 });
 
-const htmlTemplates = glob.sync('**/*.njk', {
-  cwd: path.join(basePath, 'src/pages/'),
-  root: '/',
-}).map(page => new HtmlWebpackPlugin({
-  filename: page.replace('njk', 'html'),
-  template: `src/pages/${page}`,
-}));
+const htmlTemplates = glob.sync('**/*.preview.njk', {
+  cwd: path.join(basePath, 'src/templates/'),
+  root: '/'
+}).map(page => {
+
+    let chunk = 'js/main';
+
+    // set specific chunk
+    if(page.includes('modules/')||page.includes('components/')) {
+      chunk = page.replace('.preview.njk', '');
+    }
+
+    return new HtmlWebpackPlugin({
+      filename: page.replace('preview.njk', 'html'),
+      template: `src/templates/${page}`,
+      hash: true,
+      cache: true,
+      title: 'test',
+      chunks: [chunk],
+      templateParameters: {
+        'foo': 'bar'
+      }
+    })
+});
 
 
 module.exports = {
   entry: {
-    main: './src/assets/js/main.js',
+    "js/main": ['./src/js/base.js', './src/templates/modules/m02-tabs/main.js', './src/templates/modules/m03-demo/main.js'],
+    "modules/m01-grid_row/m01-grid_row": ['./src/js/base.js'],
+    "modules/m02-tabs/m02-tabs": ['./src/js/base.js', './src/templates/modules/m02-tabs/index.js', './src/templates/modules/m02-tabs/main.js'],
+    "modules/m03-demo/m03-demo": ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js'],
+    "components/c02-accordion/c02-accordion": ['./src/js/base.js', './src/templates/components/c02-accordion/index.js', './src/templates/components/c02-accordion/main.js']
   },
   output: {
     devtoolLineToLine: true,
-    sourceMapFilename: 'js/main.js.map',
+    sourceMapFilename: '[name].[chunkhash].js.map',
     path: path.resolve(__dirname, 'dist'),
     pathinfo: true,
-    filename: 'js/main.js',
-    chunkFilename: 'js/async/[name].chunk.js',
-    publicPath: '',
+    filename: '[name].[chunkhash].js',
+    chunkFilename: 'async/[name].chunk.js',
+    publicPath: '/',
   },
   module: {
     rules: [{
@@ -66,7 +87,7 @@ module.exports = {
         loader: 'vue-loader',
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif|svg)$/,
         use: [{
             loader: 'file-loader',
             options: {
@@ -74,10 +95,28 @@ module.exports = {
             },
           },
           {
-            loader: 'img-loader',
+            loader: 'image-webpack-loader',
             options: {
-              enabled: !isDev,
-            },
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75
+              }
+            }
           },
         ],
       },
@@ -126,12 +165,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [{
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: '/fonts/',
+            outputPath: 'fonts/',
           },
         }],
       },
@@ -161,12 +200,12 @@ module.exports = {
     }], {}),
     new SVGSpritemapPlugin({
       src: path.resolve(__dirname, 'src/assets/images/icons/**/*.svg'),
-      styles: path.resolve(__dirname, 'src/assets/styles/tools/_svg-sprite.scss'),
+      styles: path.resolve(__dirname, 'src/styles/tools/_svg-sprite.scss'),
       filename: 'images/sprites/svg-sprite.svg',
       gutter: 3,
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/styles.css',
+      filename: 'css/style.[contenthash].css',
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',

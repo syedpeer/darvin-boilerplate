@@ -1,0 +1,86 @@
+{% extends "layouts/l01-default/l01-default.njk" %}
+
+{% import "components/c02-accordion/c02-accordion.njk" as accordion %}
+{% import "components/c03-tab/c03-tab.njk" as tab %}
+
+{% import "modules/m01-grid_row/m01-grid_row.njk" as grid %}
+{% import "modules/m02-tabs/m02-tabs.njk" as tabs %}
+
+{% set title = 'Module sd' %}
+
+{% block content %}
+{{ foo }}
+<%= foo %>
+   {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(
+         basePath = basePath,
+         label = "Collapsible"
+   )) %}
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+   {% endcall %}
+
+   {% call tabs.main(basePath=basePath) %}
+      {%call tab.main(basePath=basePath, title="Tab 1") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 2") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 3") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 4") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+   {% endcall %}
+
+   {% call grid.container() %}
+      {% call grid.row() %}
+         {% call grid.cell(columns = [12, 12, 12]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 10, 10], offsets = [0, 1, 1]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 6]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 6]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 8, 8]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 4, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 4, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 8, 8]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+
+         {% call grid.cell(columns = [12, 6, 4]) %}
+               <div style="background-color: #ccc; padding: 20px"></div>
+         {% endcall %}
+      {% endcall %}
+   {% endcall %}
+
+
+{% endblock %}
+

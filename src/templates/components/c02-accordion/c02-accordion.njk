@@ -1,0 +1,33 @@
+{% import "../c01-svg_icon/c01-svg_icon.njk" as svgIcon %}
+
+{#
+    Component Accordion
+#}
+
+{% macro main(basePath='', labelContent='', classes = false) %}
+    <!-- C Accordion Item -->
+
+    <div class="accordion{% if classes %}{% for class in classes %} {{ class }}{% endfor %}{% endif %}" data-accordion>
+        <a class="accordion__trigger" data-accordion-trigger>
+            <div class="accordion__label-wrapper">
+                {{ labelContent }}
+            </div>
+
+            <div class="accordion__icon">
+                {{ svgIcon.main( basePath=basePath, icon='angle-down' ) }}
+            </div>
+        </a>
+
+        <div class="accordion__contentbox" data-accordion-contentbox>
+            <div class="accordion__content" data-accordion-content>
+                {{ caller() }}
+            </div>
+        </div>
+    </div>
+
+    <!-- END - C Accordion Item-->
+{% endmacro %}
+
+{% macro accordionLabel(basePath='', label='') %}
+    <div class="default-label">{{ label }}</div>
+{% endmacro %}

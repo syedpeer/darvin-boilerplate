@@ -1,0 +1,24 @@
+{% extends "layouts/l00-preview/l00-preview.njk" %}
+
+{% import "components/c03-tab/c03-tab.njk" as tab %}
+{% import "modules/m02-tabs/m02-tabs.njk" as tabs %}
+
+
+{% block preview %}
+
+   {% call tabs.main(basePath=basePath) %}
+      {%call tab.main(basePath=basePath, title="Tab 1") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 2") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 3") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      {%endcall%}
+      {%call tab.main(basePath=basePath, title="Tab 4") %}
+         <p>Lorem ipsum dolor sit amet, consectetuer adipiscingsdsd elit.</p>
+      {%endcall%}
+   {% endcall %}
+
+{% endblock %}

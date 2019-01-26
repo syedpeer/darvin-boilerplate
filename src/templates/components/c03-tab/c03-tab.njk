@@ -1,0 +1,21 @@
+{% import "../c01-svg_icon/c01-svg_icon.njk" as svgIcon %}
+
+{% macro main(basePath='', title='', triggerName=false) %}
+    <!-- C Tab -->
+    <div class="tab" data-tab>
+        <a class="tab__trigger" data-tab-trigger{% if triggerName %}="{{ triggerName }}"{% endif %}>
+            <div class="tab__label-wrapper">
+                <span class="tab__label">{{ title }}</span>
+                {{ svgIcon.main( basePath=basePath, icon='angle-down' ) }}
+            </div>
+        </a>
+        <div class="tab__contentbox" data-tab-contentbox>
+            <div class="tab__content" data-tab-content>
+
+                {{ caller() }}
+
+            </div>
+        </div>
+    </div>
+    <!-- END - C Tab -->
+{% endmacro %}
