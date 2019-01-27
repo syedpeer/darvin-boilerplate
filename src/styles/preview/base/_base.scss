@@ -2,42 +2,9 @@
 Base
 ======================= */
 
-// http://stackoverflow.com/questions/17045132/scrollbar-overlay-in-ie10-how-do-you-stop-that
-// Prevents IE from overlapping transparent scrollbar
-@-ms-viewport {
-   width: auto;
-}
-
-html {
-   box-sizing: border-box;
-   overflow-y: scroll;
-}
-
-* {
-   font-variant-ligatures: none;
-   &,
-   &:after,
-   &:before {
-      box-sizing: inherit;
-   }
-}
-
-body {
-   font-weight: 400;
-   font-size: $base-font-size;
-   font-family: $font-1;
-   color: $color1;
-   background-color: $color2;
-}
-
-body,
-html {
-   margin: 0;
-   padding: 0;
-}
 
 ::selection {
-   background: lighten($color5, 15);
+   background: lighten($color2, 30);
 }
 
 .h1-alike,
@@ -93,14 +60,9 @@ p {
 a {
    @extend %paragraph-base;
    text-decoration: none;
-   .small {
-      @extend %text-base-small;
-   }
-   .large {
-      @extend %text-base-large;
-   }
+
    &:hover {
-      color: $color2;
+      color: $color5;
    }
 }
 

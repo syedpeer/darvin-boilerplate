@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <title>{{ darvin.moduleName }}</title>
+      <title>Preview</title>
       <meta name="description" content="Lorem description">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="format-detection" content="telephone=no">
@@ -14,19 +14,6 @@
         <header id="prev-l-header">
           <div class="prev-l-constrainer">
             <div class="prev-m-logo">{{ darvin.moduleName }}</div>
-            <nav class="prev-m-servicenav">
-              {% if darvin.links.length > 1 %}
-                  {% for link in darvin.links %}
-                    <div class="prev-m-servicenav__item">
-                      {% if link.active %}
-                        <a class="prev-m-servicenav__link" href="{{ link.path }}">{{link.variant}}</a>
-                      {% else %}
-                        <span class="prev-m-servicenav__link prev-m-servicenav__link--active">{{link.variant}}</span>
-                      {% endif %}
-                    </div>
-                  {% endfor %}
-              {% endif %}
-            </nav>
           </div>
         </header>
         <!-- start main -->

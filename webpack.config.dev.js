@@ -16,7 +16,7 @@ module.exports = merge(webpackConfig, {
       port: 1712,
       files: ['css/*.css', 'js/*.js', '**/*.njk'],
       open: true,
-      https: true,
+      https: false,
       notify: false,
       logConnections: true,
       reloadOnRestart: true,

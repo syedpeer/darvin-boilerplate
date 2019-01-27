@@ -1,0 +1,77 @@
+{% extends "layouts/l00-preview/l00-index.njk" %}
+
+{% set title = 'ab' %}
+
+{% block preview %}
+
+  <div class="prev-m-index">
+
+      {% if index.modules.length > 1 %}
+        <div class="prev-m-index__col prev-m-index--modules">
+          <h2 class="prev-m-index__title">Modules</h2>
+          <div class="prev-m-index__items">
+          {% for module in index.modules %}
+            {% if module.variant < 2 %}
+              <div class="prev-m-index__item">
+                <div class="prev-m-index__itemrow">
+                  <a href="{{ module.modulePathOutput }}">{{ module.moduleName }}</a>
+                </div>
+                <div class="prev-m-index__itemrow">
+                  <a class="prev-m-index__flag prev-m-index__flag--design">Design</a>
+                  <a class="prev-m-index__flag prev-m-index__flag--jira">Jira</a>
+                  <a class="prev-m-index__flag prev-m-index__flag--confluence">Confluence</a>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if index.components.length > 1 %}
+        <div class="prev-m-index__col prev-m-index--components">
+          <h2 class="prev-m-index__title">Components</h2>
+          <div class="prev-m-index__items">
+            {% for component in index.components %}
+              {% if component.variant < 2 %}
+                <div class="prev-m-index__item">
+                  <div class="prev-m-index__itemrow">
+                    <a href="{{ component.modulePathOutput }}">{{ component.moduleName }}</a>
+                  </div>
+                  <div class="prev-m-index__itemrow">
+                    <a class="prev-m-index__flag prev-m-index__flag--design">Design</a>
+                    <a class="prev-m-index__flag prev-m-index__flag--jira">Jira</a>
+                    <a class="prev-m-index__flag prev-m-index__flag--confluence">Confluence</a>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+      </div>
+      {% endif %}
+
+      {% if index.pagetypes.length > 1 %}
+        <div class="prev-m-index__col prev-m-index--pagetypes">
+          <h2 class="prev-m-index__title">Pagetypes</h2>
+          <div class="prev-m-index__items">
+          {% for pagetype in index.pagetypes %}
+            {% if pagetype.moduleName != "index" %}
+              <div class="prev-m-index__item">
+                <div class="prev-m-index__itemrow">
+                  <a href="{{ pagetype.modulePathOutput }}">{{ pagetype.moduleName }}</a>
+                </div>
+                <div class="prev-m-index__itemrow">
+                  <a class="prev-m-index__flag prev-m-index__flag--design">Design</a>
+                  <a class="prev-m-index__flag prev-m-index__flag--jira">Jira</a>
+                  <a class="prev-m-index__flag prev-m-index__flag--confluence">Confluence</a>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+  </div>
+
+{% endblock %}

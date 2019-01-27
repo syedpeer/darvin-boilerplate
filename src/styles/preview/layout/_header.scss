@@ -1,0 +1,23 @@
+/* ==|====================
+   Layout / Header
+   ======================= */
+
+#prev-l-header {
+  background-color: $color6;
+  border-bottom: 5px solid $color7;
+  height: 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  transform: translateY(0);
+
+  .prev-l-constrainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+    padding: 0 1.25rem;
+  }
+}

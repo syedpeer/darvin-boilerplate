@@ -1,8 +1,8 @@
 /**
- * @file Accordion Component
+ * @file Accordion Module
  * @author mail@tobiasfrei.ch
  *
- * @module components/accordion
+ * @module modules/accordion
  *
  */
 

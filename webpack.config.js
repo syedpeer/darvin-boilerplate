@@ -28,39 +28,16 @@ const nunjucksOptions = JSON.stringify({
   context: nunjucksContext,
 });
 
-const htmlTemplates = glob.sync('**/*.preview.njk', {
-  cwd: path.join(basePath, 'src/templates/'),
-  root: '/'
-}).map(page => {
-
-    let chunk = 'js/main';
-
-    // set specific chunk
-    if(page.includes('modules/')||page.includes('components/')) {
-      chunk = page.replace('.preview.njk', '');
-    }
-
-    return new HtmlWebpackPlugin({
-      filename: page.replace('preview.njk', 'html'),
-      template: `src/templates/${page}`,
-      hash: true,
-      cache: true,
-      title: 'test',
-      chunks: [chunk],
-      templateParameters: {
-        'foo': 'bar'
-      }
-    })
-});
-
+const htmlTemplates = nunjucksContext.htmlTemplates;
 
 module.exports = {
   entry: {
     "js/main": ['./src/js/base.js', './src/templates/modules/m02-tabs/main.js', './src/templates/modules/m03-demo/main.js'],
-    "modules/m01-grid_row/m01-grid_row": ['./src/js/base.js'],
-    "modules/m02-tabs/m02-tabs": ['./src/js/base.js', './src/templates/modules/m02-tabs/index.js', './src/templates/modules/m02-tabs/main.js'],
-    "modules/m03-demo/m03-demo": ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js'],
-    "components/c02-accordion/c02-accordion": ['./src/js/base.js', './src/templates/components/c02-accordion/index.js', './src/templates/components/c02-accordion/main.js']
+    "js/preview": ['./src/js/base.js', './src/js/preview.js'],
+    "modules/m01-grid_row/m01-grid_row": ['./src/js/base.js', './src/js/preview.js'],
+    "modules/m02-tabs/m02-tabs": ['./src/js/base.js', './src/templates/modules/m02-tabs/index.js', './src/templates/modules/m02-tabs/main.js', './src/js/preview.js'],
+    "modules/m03-demo/m03-demo": ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js', './src/js/preview.js'],
+    "modules/m04-accordion/m04-accordion": ['./src/js/base.js', './src/templates/modules/m04-accordion/index.js', './src/templates/modules/m04-accordion/main.js', './src/js/preview.js']
   },
   output: {
     devtoolLineToLine: true,
@@ -122,7 +99,7 @@ module.exports = {
       },
       {
         test: /\.(njk|nunjucks)$/,
-        loader: ['html-loader', `nunjucks-html-loader?${nunjucksOptions}`],
+        loader: ['html-loader', path.resolve('src/js/libs/nunjucks-webpack.js') + `?${nunjucksOptions}`],
       },
       {
         test: /modernizrrc\.js$/,

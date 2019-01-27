@@ -22,13 +22,15 @@ $output-bourbon-deprecation-warnings: false;
 @import "base/base";
 // Layout
 @import "layout/pagewrapper";
+@import "layout/header";
 @import "layout/content";
+@import "layout/footer";
 @import "layout/sidebar";
 @import "layout/main";
 // Components
-@import "../templates/components/c02-accordion/c02-accordion";
 @import "../templates/components/c03-tab/c03-tab";
 @import "../templates/components/c04-demo/c04-demo";
 // Modules
 @import "../templates/modules/m02-tabs/m02-tabs";
 @import "../templates/modules/m03-demo/m03-demo";
+@import "../templates/modules/m04-accordion/m04-accordion";

@@ -1,0 +1,32 @@
+/* ==|====================
+   Layout / Servicenav
+   ======================= */
+
+.prev-m-servicenav {
+  display: flex;
+}
+
+
+.prev-m-servicenav__item {
+  margin-right: 0.5rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.prev-m-servicenav__link {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  background-color: $color7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $color5;
+}
+
+
+.prev-m-servicenav__link--active {
+  color: $color2;
+}

@@ -1,0 +1,82 @@
+/* ==|====================
+   Layout / Servicenav
+   ======================= */
+
+.prev-m-index {
+  display: flex;
+  padding: 0 2rem;
+}
+
+.prev-m-index__col {
+  flex: 1;
+  padding: 2rem;
+}
+
+.prev-m-index__items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.prev-m-index__item {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 10px 10px;
+  min-width: 300px;
+  background-color: $color3;
+  border-radius: 4px 4px 0 0;
+  margin: 0 1rem 1rem 0;
+  border-bottom: 3px solid $color4;
+
+  &.prev-m-index__item--update {
+    border-bottom: 3px solid $color5;
+  }
+}
+
+.prev-m-index__itemrow {
+  display: flex;
+}
+
+.prev-m-index__flag {
+  padding: 1px 8px;
+  background-color: $color6;
+  font-size: 11px;
+  color: $color2;
+  letter-spacing: 0.05rem;
+  border-radius: 2px;
+  margin-right: 0.25rem;
+  cursor: pointer;
+  font-weight: 300;
+  transition: background-color 120ms ease-out, color 120ms ease-in;
+
+  &:hover {
+    color: $color2;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.prev-m-index__flag--design {
+  background-color: $color5;
+
+  &:hover {
+    background-color: darken($color5, 10);
+  }
+}
+
+.prev-m-index__flag--jira {
+  background-color:#0049b0;
+
+  &:hover {
+    background-color: darken(#0049b0, 10);
+  }
+}
+
+.prev-m-index__flag--confluence {
+  background-color: #003366;
+
+  &:hover {
+    background-color: darken(#003366, 10);
+  }
+}

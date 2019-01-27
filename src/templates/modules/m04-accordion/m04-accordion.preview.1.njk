@@ -1,13 +1,13 @@
 {% extends "layouts/l00-preview/l00-preview.njk" %}
 
-{% import "components/c02-accordion/c02-accordion.njk" as accordion %}
+{% import "modules/m04-accordion/m04-accordion.njk" as accordion %}
 
 
 {% block preview %}
 
      {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(
          basePath = basePath,
-         label = "Collapsible"
+         label = "Collapsible VAR 1"
    )) %}
       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
    {% endcall %}
