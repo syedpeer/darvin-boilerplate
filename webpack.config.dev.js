@@ -11,7 +11,7 @@ module.exports = merge(webpackConfig, {
       /* proxy: 'https://cms.local', */
       server: {
         baseDir: ['dist'],
-        directory: true,
+        directory: false,
       },
       port: 1712,
       files: ['css/*.css', 'js/*.js', '**/*.njk'],
