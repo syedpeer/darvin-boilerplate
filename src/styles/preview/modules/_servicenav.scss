@@ -23,10 +23,41 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $color5;
+  color: darken($color7,15);
+  transition: color 120ms linear;
+  flex-direction: column;
+
+  &:hover {
+    color: $color5;
+
+    .prev-m-servicenav__lbl {
+      color: $color2;
+    }
+  }
+
+}
+
+.prev-m-servicenav__lbl {
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  font-weight: 700;
+  opacity: 0;
+  transition: color 120ms linear, opacity 240ms ease-in;
+
+  .fontawesome-i2svg-complete & {
+    opacity: 1;
+  }
 }
 
 
 .prev-m-servicenav__link--active {
   color: $color2;
+}
+
+.prev-m-servicenav__link--bundle {
+  i {
+    width: 44px;
+    font-size: 32px;
+  }
 }

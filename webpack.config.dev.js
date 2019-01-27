@@ -22,6 +22,7 @@ module.exports = merge(webpackConfig, {
       reloadOnRestart: true,
       injectChanges: true,
       online: true,
+      reloadDelay: 50,
       ghostMode: {
         clicks: false,
         forms: false,

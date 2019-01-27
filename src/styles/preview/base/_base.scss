@@ -2,9 +2,13 @@
 Base
 ======================= */
 
+body.preview {
+  font-family: $font-1;
+}
 
 ::selection {
-   background: lighten($color2, 30);
+   background: lighten($color5, 10);
+   color: $color2;
 }
 
 .h1-alike,
@@ -13,7 +17,7 @@ h1 {
    margin: 0;
    padding: $space-medium 0;
    line-height: 1.2;
-   font-family: $font-2;
+   font-size: 26px;
 }
 
 .h2-alike,

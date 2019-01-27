@@ -10,6 +10,8 @@ const {
 const {
   VueLoaderPlugin
 } = require('vue-loader');
+
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -30,14 +32,17 @@ const nunjucksOptions = JSON.stringify({
 
 const htmlTemplates = nunjucksContext.htmlTemplates;
 
-module.exports = {
+
+
+const smp = new SpeedMeasurePlugin();
+
+const webpackConfig = smp.wrap({
   entry: {
-    "js/main": ['./src/js/base.js', './src/templates/modules/m02-tabs/main.js', './src/templates/modules/m03-demo/main.js'],
+    "js/main": ['./src/js/base.js', './src/templates/modules/m03-demo/main.js'],
     "js/preview": ['./src/js/base.js', './src/js/preview.js'],
     "modules/m01-grid_row/m01-grid_row": ['./src/js/base.js', './src/js/preview.js'],
-    "modules/m02-tabs/m02-tabs": ['./src/js/base.js', './src/templates/modules/m02-tabs/index.js', './src/templates/modules/m02-tabs/main.js', './src/js/preview.js'],
     "modules/m03-demo/m03-demo": ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js', './src/js/preview.js'],
-    "modules/m04-accordion/m04-accordion": ['./src/js/base.js', './src/templates/modules/m04-accordion/index.js', './src/templates/modules/m04-accordion/main.js', './src/js/preview.js']
+    "modules/m02-accordion/m02-accordion": ['./src/js/base.js', './src/templates/modules/m02-accordion/index.js', './src/templates/modules/m02-accordion/main.js', './src/js/preview.js']
   },
   output: {
     devtoolLineToLine: true,
@@ -192,4 +197,6 @@ module.exports = {
   watchOptions: {
     aggregateTimeout: 300,
   },
-};
+});
+
+module.exports = webpackConfig;

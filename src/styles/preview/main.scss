@@ -30,5 +30,6 @@ $output-bourbon-deprecation-warnings: false;
 @import "layout/main";
 
 // Modules
+@import "modules/title";
 @import "modules/servicenav";
 @import "modules/index";

@@ -3,19 +3,37 @@
    ======================= */
 
 @font-face {
-  font-weight: 400;
-  font-family: "Anton";
+  font-weight: 300;
+  font-family: "barlow-semi-condensed";
   font-style: normal;
 
-  src: url("../assets/fonts/anton-v9-latin-regular.woff2") format("woff2"),
-  url("../assets/fonts/anton-v9-latin-regular.woff") format("woff");
+  src: url("../assets/fonts/barlow-semi-condensed-v4-latin-300.woff2") format("woff2"),
+  url("../assets/fonts/barlow-semi-condensed-v4-latin-300.woff") format("woff");
 }
 
 @font-face {
   font-weight: 400;
-  font-family: "Archivo Black";
+  font-family: "barlow-semi-condensed";
   font-style: normal;
 
-  src: url("../assets/fonts/archivo-black-v7-latin-regular.woff2") format("woff2"),
-  url("../assets/fonts/archivo-black-v7-latin-regular.woff") format("woff");
+  src: url("../assets/fonts/barlow-semi-condensed-v4-latin-regular.woff2") format("woff2"),
+  url("../assets/fonts/barlow-semi-condensed-v4-latin-regular.woff") format("woff");
+}
+
+@font-face {
+  font-weight: 500;
+  font-family: "barlow-semi-condensed";
+  font-style: normal;
+
+  src: url("../assets/fonts/barlow-semi-condensed-v4-latin-500.woff2") format("woff2"),
+  url("../assets/fonts/barlow-semi-condensed-v4-latin-500.woff") format("woff");
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: "barlow-semi-condensed";
+  font-style: normal;
+
+  src: url("../assets/fonts/barlow-semi-condensed-v4-latin-600.woff2") format("woff2"),
+  url("../assets/fonts/barlow-semi-condensed-v4-latin-600.woff") format("woff");
 }

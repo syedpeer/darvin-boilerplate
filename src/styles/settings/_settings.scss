@@ -6,16 +6,11 @@
 //
 $base-font-size: 16px;
 $base-font-size-unit: 16;
+
 //== Font Family
 //
-$font-1: "Helvetica",
-Arial,
-sans-serif;
-$font-2: "Anton",
-Arial,
-sans-serif;
-//== Default Colors
-//
+$font-1: "barlow-semi-condensed", Arial, sans-serif !default;
+
 $color1: #000000 !default;
 $color2: #ffffff !default;
 $color3: #A8A7A7 !default;
@@ -27,6 +22,7 @@ $color7: #363636 !default;
 //== Layout
 //
 $max-container-width: 1420px;
+
 //== Gutters
 //
 $gutter-zero: 7vw;
@@ -36,6 +32,7 @@ $gutter-medium: 3vw;
 $gutter-large: 3.2vw;
 $gutter-wide: 2.8vw;
 $gutter-ultra: 2vw;
+
 //== Spacings
 //
 $space-micro: rem(8px);
@@ -44,6 +41,7 @@ $space-medium: rem(32px);
 $space-large: rem(48px);
 $space-wide: rem(96px);
 $space-ultra: rem(128px);
+
 //== Transitions
 //
 $transition-time-default: 340ms;

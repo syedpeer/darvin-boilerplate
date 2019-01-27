@@ -10,7 +10,7 @@
 
 %font-title {
   font-weight: 500;
-  font-family: $font-2;
+  font-family: $font-1;
   font-style: italic;
 }
 
@@ -68,8 +68,7 @@
 %header-base {
   @extend %antialiased;
   font-weight: 500;
-  font-family: $font-2;
-  font-style: italic;
+  font-family: $font-1;
 }
 
 %ul-unstyled {
