@@ -48,7 +48,7 @@ const NunjucksLoader = nunjucks.Loader.extend({
   },
 });
 
-module.exports = (content) => {
+module.exports = function(content) {
   this.cacheable();
 
   // const loaderFilename = this.resourcePath.replace(/^.*[\\\/]/, '');
