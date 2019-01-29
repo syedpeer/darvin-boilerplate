@@ -33,7 +33,7 @@ instance.init = (options) => {
   Object.assign(settings, defaults, options);
 
   // Public Code
-  console.log('> js ready'); // eslint-disable-line
+  console.log('> js ready now'); // eslint-disable-line
 
   container = document.querySelector('.m-demo');
 

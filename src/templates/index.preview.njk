@@ -14,6 +14,9 @@
             {% if module.variant < 2 %}
               <div class="prev-m-index__item">
                 <div class="prev-m-index__itemrow">
+                  <div class="prev-m-index__metalbl prev-m-index__lastupdate">Markup Change: {{ module.lastUpdateDate }} <span>{{ module.lastUpdateTime }}</span></div>
+                </div>
+                <div class="prev-m-index__itemrow">
                   <a href="{{ module.modulePathOutput }}">{{ module.moduleName }}</a>
                 </div>
                 <div class="prev-m-index__itemrow">

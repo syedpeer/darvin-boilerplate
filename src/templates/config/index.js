@@ -1,5 +1,6 @@
 const glob = require('glob');
 const path = require('path');
+let fs = require('fs');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = process.cwd();
@@ -26,18 +27,39 @@ let dynamicSort = (property) => {
   }
 }
 
+const getFileUpdatedDate = (path) => {
+  const stats = fs.statSync(path)
+  return stats.mtime
+}
+
+
 const htmlTemplates = glob.sync('**/*.preview*.njk', {
   cwd: path.join(basePath, 'src/templates/'),
-  root: '/'
+  root: '/',
+  realpath: true
 }).map(page => {
 
     let type = 'pagetype',
         chunkName = 'js/main',
-        modulePath = page,
+        modulePath = page.split('src/templates/')[1],
         fileName = modulePath.replace(/^.*[\\\/]/, ''),
         modulePathOutput = modulePath.replace('.preview', '').replace('njk', 'html'),
         fileNameOutput = modulePathOutput.replace(/^.*[\\\/]/, ''),
         moduleName = fileNameOutput.split('.')[0]; // get string in [string].preview.[number].[ext]
+
+    let file = page;
+
+    if(modulePath.includes('modules/')) {
+      file = file.replace('.preview', '');
+      if(file.split('.')[2]) {
+        let split = file.split('.');
+        file = split[0] + '.' + split[2];
+      }
+    }
+
+    let lastUpdated = new Date(getFileUpdatedDate(file));
+    let lastUpdatedPrintDate = lastUpdated.getDate() +'-' + (lastUpdated.getMonth()+1) + '-' + lastUpdated.getFullYear();
+    let lastUpdatedPrintTime = lastUpdated.getHours() + ':' + lastUpdated.getMinutes();
 
     let variant = '0';
     let dotSplit = fileName.split('.');
@@ -47,29 +69,30 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
     }
 
     // set specific chunk
-    if(page.includes('modules/')||page.includes('components/')) {
-      chunkName = page.replace(/.preview.[0-9]{1,3}.njk+$/, '').replace(/.preview.njk+$/, '');
+    if(modulePath.includes('modules/')||modulePath.includes('components/')) {
+      chunkName = modulePath.replace(/.preview.[0-9]{1,3}.njk+$/, '').replace(/.preview.njk+$/, '');
     }
 
-    if(page.includes('index.preview.njk')) {
+    if(modulePath.includes('index.preview.njk')) {
       chunkName = 'js/preview';
     }
 
-    if(page.includes('modules/')) {
+    if(modulePath.includes('modules/')) {
       type = 'module';
     }
 
-    if(page.includes('components/')) {
+    if(modulePath.includes('components/')) {
       type = 'component';
     }
 
-    if(page.includes('page/')) {
+    if(modulePath.includes('page/')) {
       type = 'pagetype';
     }
 
+
     return new HtmlWebpackPlugin({
       filename: modulePathOutput,
-      template: `src/templates/${page}`,
+      template: `src/templates/${modulePath}`,
       hash: true,
       cache: true,
       chunks: [chunkName],
@@ -82,7 +105,9 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         'variant': variant,
         'chunk': chunkName,
         'links': [],
-        'type': type
+        'type': type,
+        'lastUpdateDate': lastUpdatedPrintDate,
+        'lastUpdateTime': lastUpdatedPrintTime
       }
     })
 });

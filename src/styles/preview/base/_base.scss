@@ -75,10 +75,6 @@ a {
    height: 1.25rem;
 }
 
-span {
-   @extend %paragraph-base;
-}
-
 img {
    display: block;
    max-width: 100%;

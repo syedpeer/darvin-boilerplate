@@ -52,7 +52,7 @@ module.exports = function(content) {
 	this.cacheable();
 
 	let loaderFilename = this.resourcePath.replace(/^.*[\\\/]/, '');
-	let loaderPath = this.resourcePath.split('templates/')[1];
+  let loaderPath = this.resourcePath.split('templates/')[1];
 
 	let callback = this.async();
 	let opt = utils.parseQuery(this.query);
@@ -61,7 +61,8 @@ module.exports = function(content) {
 
 	nunjucksContext['htmlTemplates'].forEach((htmlTemplates) => {
 		if(htmlTemplates.options.templateParameters.modulePath === loaderPath) {
-			nunjucksContext['darvin'] = htmlTemplates.options.templateParameters;
+      let context = htmlTemplates.options.templateParameters;
+			nunjucksContext['darvin'] = context;
 		}
 	});
 
