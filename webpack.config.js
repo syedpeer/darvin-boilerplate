@@ -5,10 +5,10 @@ const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
 
 const {
-  VueLoaderPlugin
+  VueLoaderPlugin,
 } = require('vue-loader');
 
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -28,16 +28,15 @@ const nunjucksOptions = JSON.stringify({
 const htmlTemplates = nunjucksContext.htmlTemplates;
 
 
-
 const smp = new SpeedMeasurePlugin();
 
 const webpackConfig = smp.wrap({
   entry: {
-    "js/main": ['./src/js/base.js', './src/templates/modules/m03-demo/main.js'],
-    "js/preview": ['./src/js/base.js', './src/js/preview.js'],
-    "modules/m01-grid_row/m01-grid_row": ['./src/js/base.js', './src/js/preview.js'],
-    "modules/m03-demo/m03-demo": ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js', './src/js/preview.js'],
-    "modules/m02-accordion/m02-accordion": ['./src/js/base.js', './src/templates/modules/m02-accordion/index.js', './src/templates/modules/m02-accordion/main.js', './src/js/preview.js']
+    'js/main': ['./src/js/base.js', './src/templates/modules/m03-demo/main.js'],
+    'js/preview': ['./src/js/base.js', './src/js/preview.js'],
+    'modules/m01-grid_row/m01-grid_row': ['./src/js/base.js', './src/js/preview.js'],
+    'modules/m03-demo/m03-demo': ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js', './src/js/preview.js'],
+    'modules/m02-accordion/m02-accordion': ['./src/js/base.js', './src/templates/modules/m02-accordion/index.js', './src/templates/modules/m02-accordion/main.js', './src/js/preview.js'],
   },
   output: {
     devtoolLineToLine: true,
@@ -50,107 +49,107 @@ const webpackConfig = smp.wrap({
   },
   module: {
     rules: [{
-        test: /\.(config.js)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'js/',
-          },
-        }],
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        use: [{
-            loader: 'file-loader',
-            options: {
-              name: 'images/[name].[ext]?[hash]',
-            },
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              // optipng.enabled: false will disable optipng
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: '65-90',
-                speed: 4
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              // the webp option will enable WEBP
-              webp: {
-                quality: 75
-              }
-            }
-          },
-        ],
-      },
-      {
-        test: /\.(njk|nunjucks)$/,
-        loader: ['html-loader', path.resolve('src/js/libs/nunjucks-webpack.js') + `?${nunjucksOptions}`],
-      },
-      {
-        test: /modernizrrc\.js$/,
-        loader: 'expose-loader?Modernizr!webpack-modernizr-loader',
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader?cacheDirectory'
+      test: /\.(config.js)$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'js/',
+        },
+      }],
+    },
+    {
+      test: /\.vue$/,
+      loader: 'vue-loader',
+    },
+    {
+      test: /\.(png|jpe?g|gif|svg)$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[ext]?[hash]',
         },
       },
       {
-        test: /\.(css|sass|scss)$/,
-        use: [{
-            loader: MiniCssExtractPlugin.loader,
+        loader: 'image-webpack-loader',
+        options: {
+          mozjpeg: {
+            progressive: true,
+            quality: 65,
           },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 2,
-            },
+          // optipng.enabled: false will disable optipng
+          optipng: {
+            enabled: false,
           },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => [
-                require('autoprefixer'), // eslint-disable-line
-              ],
-              sourceMap: true,
-            },
+          pngquant: {
+            quality: '65-90',
+            speed: 4,
           },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
+          gifsicle: {
+            interlaced: false,
           },
-        ],
+          // the webp option will enable WEBP
+          webp: {
+            quality: 75,
+          },
+        },
+      },
+      ],
+    },
+    {
+      test: /\.(njk|nunjucks)$/,
+      loader: ['html-loader', `${path.resolve('src/js/libs/nunjucks-webpack.js')}?${nunjucksOptions}`],
+    },
+    {
+      test: /modernizrrc\.js$/,
+      loader: 'expose-loader?Modernizr!webpack-modernizr-loader',
+    },
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader?cacheDirectory',
+      },
+    },
+    {
+      test: /\.(css|sass|scss)$/,
+      use: [{
+        loader: MiniCssExtractPlugin.loader,
       },
       {
-        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'fonts/',
-          },
-        }],
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          importLoaders: 2,
+        },
       },
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: () => [
+                require('autoprefixer'), // eslint-disable-line
+          ],
+          sourceMap: true,
+        },
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true,
+        },
+      },
+      ],
+    },
+    {
+      test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'fonts/',
+        },
+      }],
+    },
     ],
   },
   resolve: {
@@ -169,11 +168,11 @@ const webpackConfig = smp.wrap({
     new WebpackNotifierPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/style.[contenthash].css',
-    })
+    }),
   ],
   watchOptions: {
     aggregateTimeout: 300,
-    ignored: ['**/*.woff', '**/*.woff2', '**/*.jpg', '**/*.png', '**/*.svg', 'node_modules']
+    ignored: ['**/*.woff', '**/*.woff2', '**/*.jpg', '**/*.png', '**/*.svg', 'node_modules'],
   },
 });
 

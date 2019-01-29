@@ -27,7 +27,7 @@ module.exports = merge(webpackConfig, {
         clicks: false,
         forms: false,
         scroll: false,
-      }
-    })
-  ]
+      },
+    }),
+  ],
 });

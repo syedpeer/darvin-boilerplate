@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpackConfig = require('./webpack.config');
 const {
-  BundleAnalyzerPlugin
+  BundleAnalyzerPlugin,
 } = require('webpack-bundle-analyzer');
 
 module.exports = merge(webpackConfig, {
@@ -28,6 +28,6 @@ module.exports = merge(webpackConfig, {
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       openAnalyzer: false,
-    })
-  ]
+    }),
+  ],
 });

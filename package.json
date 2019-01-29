@@ -8,7 +8,7 @@
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
     "lint": "lint-staged",
     "lint-all": "eslint \"src/**/*.js\" --fix",
-    "pre-commit": "lint-staged; csscomb"
+    "pre-commit": "lint-staged; csscomb; git add --all"
   },
   "email": "mail@tobiasfrei.ch",
   "author": "Tobias Frei, Christian Sany",

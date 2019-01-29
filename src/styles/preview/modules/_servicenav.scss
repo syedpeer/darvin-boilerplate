@@ -16,16 +16,16 @@
 }
 
 .prev-m-servicenav__link {
-  width: 44px;
-  height: 44px;
-  border-radius: 4px;
-  background-color: $color7;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 44px;
+  height: 44px;
   color: darken($color7,15);
+  background-color: $color7;
+  border-radius: 4px;
   transition: color 120ms linear;
-  flex-direction: column;
 
   &:hover {
     color: $color5;
@@ -34,14 +34,13 @@
       color: $color2;
     }
   }
-
 }
 
 .prev-m-servicenav__lbl {
-  font-size: 10px;
-  text-transform: uppercase;
-  line-height: 1.1;
   font-weight: 700;
+  font-size: 10px;
+  line-height: 1.1;
+  text-transform: uppercase;
   opacity: 0;
   transition: color 120ms linear, opacity 240ms ease-in;
 
