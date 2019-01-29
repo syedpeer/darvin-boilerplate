@@ -1,4 +1,4 @@
-import preview from './index.js';
+import preview from './index';
 
 preview.init({
   accordionMode: false,
