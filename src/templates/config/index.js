@@ -1,3 +1,4 @@
+/* eslint-disable */
 const glob = require('glob');
 const path = require('path');
 let fs = require('fs');
@@ -5,8 +6,6 @@ let fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
-
-let test = "tobias";
 
 let indexObj = {
   modules: [],
@@ -89,6 +88,15 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
       type = 'pagetype';
     }
 
+    /*try {
+      config = require(modulePath + '/config.json');
+      console.log(JSON.stringify(config));
+    } catch (e) {
+      if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
+        console.log("Can't load config!");
+      else
+        throw e;
+    }*/
 
     return new HtmlWebpackPlugin({
       filename: modulePathOutput,
