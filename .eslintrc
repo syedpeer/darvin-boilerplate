@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "eslint:recommended"
+    "airbnb-base"
   ],
   "env": {
     "browser": true,
@@ -26,7 +26,8 @@
     }],
     "valid-jsdoc": "error",
     "no-param-reassign": "off",
-    "no-debugger": "off"
+    "no-debugger": "off",
+    "comment-empty-line-before": "always"
   },
   "settings": {
     "import/resolver": "webpack"
