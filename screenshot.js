@@ -1,4 +1,4 @@
-const path = require('path');
+/*const path = require('path');
 
 const basePath = process.cwd();
 
@@ -18,4 +18,4 @@ fs.readdirSync(testFolder).forEach((file) => {
       webpage.render(`${file.split('.')[0]}.png`, { onlyViewport: true });
       slimer.exit();
     });
-});
+});*/

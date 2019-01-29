@@ -1,5 +1,4 @@
 const path = require('path');
-const glob = require('glob');
 
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
@@ -10,10 +9,8 @@ const {
 
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const RunOncePlugin = require('run-once-plugin');
 const nunjucksContext = require('./src/templates/config/index');
 const nunjucksDevConfig = require('./src/templates/config/config.dev.json');
 const nunjucksProdConfig = require('./src/templates/config/config.prod.json');
