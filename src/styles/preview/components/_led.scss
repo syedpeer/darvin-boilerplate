@@ -1,0 +1,25 @@
+/* ==|====================
+   Layout / LED Light
+   ======================= */
+
+.prev-c-ledbox {
+  display: flex;
+}
+
+.prev-c-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: block;
+  background-color: rgba($color3, 0.4);
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.prev-c-led--green {
+  background-color: rgba(171, 255, 0, 1);
+  box-shadow: inset rgba(0, 0, 0, 0.1) 0 0px 0px 0.5px, inset lighten(rgba(171, 255, 0, 1), 10) 0 0px 1px 3px, rgba(171, 255, 0, 0.4) 0 0px 8px 4px;
+}
