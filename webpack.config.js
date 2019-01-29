@@ -29,7 +29,7 @@ const smp = new SpeedMeasurePlugin();
 
 const webpackConfig = smp.wrap({
   entry: {
-    'js/main': ['./src/js/base.js', './src/templates/modules/m03-demo/main.js'],
+    'js/main': ['./src/js/base.js', './src/templates/modules/m02-accordion/index.js', './src/templates/modules/m02-accordion/main.js',],
     'js/preview': ['./src/js/base.js', './src/js/preview.js'],
     'modules/m01-grid_row/m01-grid_row': ['./src/js/base.js', './src/js/preview.js'],
     'modules/m03-demo/m03-demo': ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js', './src/js/preview.js'],

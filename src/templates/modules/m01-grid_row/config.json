@@ -1,5 +1,5 @@
 {
-  "update": true,
+  "update": false,
   "design": "http://someurl",
   "jira": "http://someurl",
   "confluence": "http://someurl"

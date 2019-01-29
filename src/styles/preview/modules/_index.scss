@@ -18,8 +18,8 @@
 }
 
 .prev-m-index__itemcol--grow {
-  padding: 4px 11px 10px;
   flex: 1;
+  padding: 4px 11px 10px;
 }
 
 .prev-m-index__itemcol--meta {
@@ -36,8 +36,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   min-width: 300px;
-  background-color: $color3;
   margin: 0 1rem 1rem 0;
+  background-color: $color3;
   border-bottom: 1px solid $color6;
 
   &.prev-m-index__item--update {
@@ -46,13 +46,12 @@
 }
 
 .prev-m-index__itemfooter {
-  background-color: $color6;
   flex-basis: 100%;
   padding: 4px 11px;
   color: $color3;
-
+  background-color: $color6;
   background-image: linear-gradient(135deg, #474747 25%, #404040 25%, #404040 50%, #474747 50%, #474747 75%, #404040 75%, #404040 100%);
-background-size: 11.31px 11.31px;
+  background-size: 11.31px 11.31px;
 }
 
 .prev-m-index__itemrow {
@@ -60,17 +59,17 @@ background-size: 11.31px 11.31px;
 }
 
 .prev-m-index__flag {
-  padding: 1px 8px;
-  background-color: $color6;
-  font-size: 11px;
-  color: $color2;
-  letter-spacing: 0.05rem;
-  margin-right: 0.25rem;
-  cursor: pointer;
   width: 22px;
   height: 22px;
+  margin-right: 0.25rem;
+  padding: 5px 8px;
   font-weight: 500;
+  font-size: 11px;
+  color: $color2;
   text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  background-color: $color6;
+  cursor: pointer;
   transition: background-color 120ms ease-out, color 120ms ease-in;
 
   &:hover {
@@ -82,6 +81,19 @@ background-size: 11.31px 11.31px;
   }
 }
 
+.prev-m-index__itemtitle {
+  padding: 4px 0 6px;
+  font-weight: 500;
+  font-size: rem(21);
+  color: $color7;
+}
+
+.prev-m-index__metalbl {
+  font-size: 11px;
+  letter-spacing: 0.025rem;
+}
+
+
 .prev-m-index__flag--design {
   background-color: $color5;
 
@@ -91,7 +103,7 @@ background-size: 11.31px 11.31px;
 }
 
 .prev-m-index__flag--jira {
-  background-color:#0049b0;
+  background-color: #0049b0;
 
   &:hover {
     background-color: darken(#0049b0, 10);
@@ -104,9 +116,4 @@ background-size: 11.31px 11.31px;
   &:hover {
     background-color: darken(#003366, 10);
   }
-}
-
-.prev-m-index__metalbl {
-  font-size: 11px;
-  letter-spacing: 0.025rem;
 }

@@ -41,6 +41,7 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
     let type = 'pagetype',
         chunkName = 'js/main',
         modulePath = page.split('src/templates/')[1],
+        incrementalPath = modulePath.substring(0, modulePath.lastIndexOf("/")),
         fileName = modulePath.replace(/^.*[\\\/]/, ''),
         modulePathOutput = modulePath.replace('.preview', '').replace('njk', 'html'),
         fileNameOutput = modulePathOutput.replace(/^.*[\\\/]/, ''),
@@ -62,6 +63,7 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
 
     let variant = '0';
     let dotSplit = fileName.split('.');
+    let config = {};
 
     if(dotSplit[3]) {
       variant = fileName.split('.')[2]; // get nummber in [string].preview.[number].[ext]
@@ -88,15 +90,15 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
       type = 'pagetype';
     }
 
-    /*try {
-      config = require(modulePath + '/config.json');
+    try {
+      config = require('../' + incrementalPath + '/config.json');
       console.log(JSON.stringify(config));
     } catch (e) {
       if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
-        console.log("Can't load config!");
+        console.log("Can't load config! -> " + '../' + incrementalPath + '/config.json');
       else
         throw e;
-    }*/
+    }
 
     return new HtmlWebpackPlugin({
       filename: modulePathOutput,
@@ -115,7 +117,8 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         'links': [],
         'type': type,
         'lastUpdateDate': lastUpdatedPrintDate,
-        'lastUpdateTime': lastUpdatedPrintTime
+        'lastUpdateTime': lastUpdatedPrintTime,
+        'config': config
       }
     })
 });
