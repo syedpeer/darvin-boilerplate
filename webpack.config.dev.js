@@ -4,7 +4,7 @@ const webpackConfig = require('./webpack.config');
 
 module.exports = merge(webpackConfig, {
 
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
 
   plugins: [
     new BrowserSyncPlugin({

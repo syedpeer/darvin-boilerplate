@@ -3,8 +3,8 @@
    ======================= */
 
 #prev-l-header {
-  background-color: $color6;
-  border-bottom: 5px solid $color7;
+  background-color: $color7;
+  border-bottom: 5px solid $color6;
   height: 4rem;
   position: fixed;
   top: 0;
@@ -19,5 +19,6 @@
     height: 100%;
     align-items: center;
     padding: 0 1.25rem;
+    color: $color2;
   }
 }

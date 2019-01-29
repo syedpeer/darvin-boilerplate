@@ -18,11 +18,12 @@
 }
 
 .prev-m-index__itemcol--grow {
+  padding: 4px 11px 10px;
   flex: 1;
 }
 
 .prev-m-index__itemcol--meta {
-  //width: 3rem;
+  // todo
 }
 
 .prev-m-index__items {
@@ -33,16 +34,25 @@
 .prev-m-index__item {
   display: flex;
   flex-direction: row;
-  padding: 4px 10px 10px;
+  flex-wrap: wrap;
   min-width: 300px;
   background-color: $color3;
-  border-radius: 4px 4px 0 0;
   margin: 0 1rem 1rem 0;
-  border-bottom: 3px solid $color4;
+  border-bottom: 1px solid $color6;
 
   &.prev-m-index__item--update {
     border-bottom: 3px solid $color5;
   }
+}
+
+.prev-m-index__itemfooter {
+  background-color: $color6;
+  flex-basis: 100%;
+  padding: 4px 11px;
+  color: $color3;
+
+  background-image: linear-gradient(135deg, #474747 25%, #404040 25%, #404040 50%, #474747 50%, #474747 75%, #404040 75%, #404040 100%);
+background-size: 11.31px 11.31px;
 }
 
 .prev-m-index__itemrow {
@@ -55,9 +65,10 @@
   font-size: 11px;
   color: $color2;
   letter-spacing: 0.05rem;
-  border-radius: 2px;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
   cursor: pointer;
+  width: 22px;
+  height: 22px;
   font-weight: 500;
   text-transform: uppercase;
   transition: background-color 120ms ease-out, color 120ms ease-in;

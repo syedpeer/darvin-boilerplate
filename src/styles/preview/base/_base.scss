@@ -18,6 +18,7 @@ h1 {
    padding: $space-medium 0;
    line-height: 1.2;
    font-size: 26px;
+   font-weight: 300;
 }
 
 .h2-alike,
@@ -27,6 +28,7 @@ h2 {
    padding: $space-small 0;
    font-size: rem(24);
    line-height: 1.2;
+   font-weight: 400;
 }
 
 .h3-alike,
@@ -37,6 +39,7 @@ h3 {
    line-height: 1.5;
    font-family: $font-1;
    font-style: normal;
+   font-weight: 500;
 }
 
 .h4-alike,
@@ -51,6 +54,7 @@ h6 {
    line-height: 1.5;
    font-family: $font-1;
    font-style: normal;
+
    @media #{$medium-up} {
       font-size: em(19);
    }

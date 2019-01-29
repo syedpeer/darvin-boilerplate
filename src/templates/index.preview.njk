@@ -12,12 +12,9 @@
           <div class="prev-m-index__items">
           {% for module in index.modules %}
             {% if module.variant < 2 %}
-              <div class="prev-m-index__item">
+              <article class="prev-m-index__item">
 
                 <div class="prev-m-index__itemcol prev-m-index__itemcol--grow">
-                  <div class="prev-m-index__itemrow">
-                    <div class="prev-m-index__metalbl prev-m-index__lastupdate">Markup Change: {{ module.lastUpdateDate }} <span>{{ module.lastUpdateTime }}</span></div>
-                  </div>
                   <div class="prev-m-index__itemrow">
                     <a href="{{ module.modulePathOutput }}">{{ module.moduleName }}</a>
                   </div>
@@ -27,13 +24,17 @@
                     <a class="prev-m-index__flag prev-m-index__flag--confluence">C</a>
                   </div>
                 </div>
-                <div class="prev-m-index__itemcol prev-m-index__itemcol--meta">
-                  <div class="prev-c-ledbox">
-                    <div class="prev-c-led"></div>
-                  </div>
-                </div>
 
-              </div>
+                <footer class="prev-m-index__itemfooter">
+                  <div class="prev-m-index__itemrow">
+                    <div class="prev-c-ledbox">
+                      <div class="prev-c-led"></div>
+                    </div>
+                    <div class="prev-m-index__metalbl prev-m-index__lastupdate">{{ module.lastUpdateDate }} <span>{{ module.lastUpdateTime }}</span></div>
+                  </div>
+                </footer>
+
+              </article>
             {% endif %}
           {% endfor %}
         </div>

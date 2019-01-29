@@ -5,20 +5,15 @@ const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
 
 const {
-  BundleAnalyzerPlugin
-} = require('webpack-bundle-analyzer');
-const {
   VueLoaderPlugin
 } = require('vue-loader');
 
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+const RunOncePlugin = require('run-once-plugin');
 const nunjucksContext = require('./src/templates/config/index');
 const nunjucksDevConfig = require('./src/templates/config/config.dev.json');
 const nunjucksProdConfig = require('./src/templates/config/config.prod.json');
@@ -48,7 +43,7 @@ const webpackConfig = smp.wrap({
     devtoolLineToLine: true,
     sourceMapFilename: '[name].[chunkhash].js.map',
     path: path.resolve(__dirname, 'dist'),
-    pathinfo: true,
+    pathinfo: false,
     filename: '[name].[chunkhash].js',
     chunkFilename: 'async/[name].chunk.js',
     publicPath: '/',
@@ -114,7 +109,7 @@ const webpackConfig = smp.wrap({
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader?cacheDirectory'
         },
       },
       {
@@ -172,30 +167,13 @@ const webpackConfig = smp.wrap({
     new VueLoaderPlugin(),
     new FriendlyErrorsWebpackPlugin(),
     new WebpackNotifierPlugin(),
-    new CleanWebpackPlugin(['dist'], {
-      root: path.resolve(__dirname),
-    }),
-    new CopyWebpackPlugin([{
-      from: 'src/assets/images/renditions/**/*.{png,gif,jpg,svg}',
-      to: 'images/',
-      flatten: true,
-    }], {}),
-    new SVGSpritemapPlugin({
-      src: path.resolve(__dirname, 'src/assets/images/icons/**/*.svg'),
-      styles: path.resolve(__dirname, 'src/styles/tools/_svg-sprite.scss'),
-      filename: 'images/sprites/svg-sprite.svg',
-      gutter: 3,
-    }),
     new MiniCssExtractPlugin({
       filename: 'css/style.[contenthash].css',
-    }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      openAnalyzer: false,
-    }),
+    })
   ],
   watchOptions: {
     aggregateTimeout: 300,
+    ignored: ['**/*.woff', '**/*.woff2', '**/*.jpg', '**/*.png', '**/*.svg', 'node_modules']
   },
 });
 
