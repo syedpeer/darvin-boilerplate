@@ -6,8 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
 
-let test = "tobias";
-
 let indexObj = {
   modules: [],
   components: [],
@@ -40,6 +38,9 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         fileNameOutput = modulePathOutput.replace(/^.*[\\\/]/, ''),
         moduleName = fileNameOutput.split('.')[0]; // get string in [string].preview.[number].[ext]
 
+    console.log("****");
+
+
     let variant = '0';
     let dotSplit = fileName.split('.');
 
@@ -67,6 +68,16 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
     if(page.includes('page/')) {
       type = 'pagetype';
     }
+
+    /*try {
+      config = require(modulePath + '/config.json');
+      console.log(JSON.stringify(config));
+    } catch (e) {
+      if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
+        console.log("Can't load config!");
+      else
+        throw e;
+    }*/
 
     return new HtmlWebpackPlugin({
       filename: modulePathOutput,

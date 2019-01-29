@@ -12,6 +12,19 @@
   padding: 2rem;
 }
 
+.prev-m-index__itemcol {
+  display: flex;
+  flex-direction: column;
+}
+
+.prev-m-index__itemcol--grow {
+  flex: 1;
+}
+
+.prev-m-index__itemcol--meta {
+  //width: 3rem;
+}
+
 .prev-m-index__items {
   display: flex;
   flex-wrap: wrap;
@@ -19,7 +32,7 @@
 
 .prev-m-index__item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 4px 10px 10px;
   min-width: 300px;
   background-color: $color3;

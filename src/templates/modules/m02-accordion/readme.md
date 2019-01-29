@@ -1,4 +1,5 @@
-# Readme
+ ## Changelog
+* v1.0.0 - inital commit
 
-## Readme
-Test
+## Description
+The accordion module belongs to the default content.
