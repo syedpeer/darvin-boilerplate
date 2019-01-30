@@ -37,8 +37,8 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
   root: '/',
   realpath: true
 }).map(page => {
-
-    let type = 'pagetype',
+    let file = page,
+        type = 'pagetype',
         chunkName = 'js/main',
         modulePath = page.split('src/templates/')[1],
         incrementalPath = modulePath.substring(0, modulePath.lastIndexOf("/")),
@@ -47,14 +47,8 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         fileNameOutput = modulePathOutput.replace(/^.*[\\\/]/, ''),
         moduleName = fileNameOutput.split('.')[0]; // get string in [string].preview.[number].[ext]
 
-    let file = page;
-
     if(modulePath.includes('modules/')) {
-      file = file.replace('.preview', '');
-      if(file.split('.')[2]) {
-        let split = file.split('.');
-        file = split[0] + '.' + split[2];
-      }
+      file = file.substring(0, file.lastIndexOf("/")) + '/' +moduleName + '.njk';
     }
 
     let lastUpdated = new Date(getFileUpdatedDate(file));
@@ -64,6 +58,15 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
     let variant = '0';
     let dotSplit = fileName.split('.');
     let config = {};
+
+    console.log("**********");
+    console.log('file: ' + file);
+    console.log('modulePath: ' + modulePath);
+    console.log('incrementalPath: ' + incrementalPath);
+    console.log('fileName: ' + fileName);
+    console.log('modulePathOutput: ' + modulePathOutput);
+    console.log('fileNameOutput: ' + fileNameOutput);
+    console.log('moduleName: ' + moduleName);
 
     if(dotSplit[3]) {
       variant = fileName.split('.')[2]; // get nummber in [string].preview.[number].[ext]
@@ -122,6 +125,8 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
       }
     })
 });
+
+console.log("FLAG3");
 
 htmlTemplates.forEach((htmlTemplate) => {
   let actualModule = htmlTemplate.options.templateParameters.moduleName;
