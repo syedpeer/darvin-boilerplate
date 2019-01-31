@@ -84,8 +84,7 @@ caption {
 }
 
 button {
-  @extend %clean-button;
-  @extend %paragraph-base;
+  @extend %clean-button;@extend %paragraph-base;
 }
 
 hr {
