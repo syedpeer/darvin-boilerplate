@@ -1,33 +1,11 @@
 const merge = require('webpack-merge');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
 const webpackConfig = require('./webpack.config');
+const webpackDefault = require('./webpack/webpack.default');
+const browserSync = require('./webpack/settings/browsersync');
 
-module.exports = merge(webpackConfig, {
-
+const devSettings = {
   devtool: 'cheap-module-eval-source-map',
+};
 
-  plugins: [
-    new BrowserSyncPlugin({
-      /* proxy: 'https://cms.local', */
-      server: {
-        baseDir: ['dist'],
-        directory: false,
-      },
-      port: 1712,
-      files: ['css/*.css', 'js/*.js', '**/*.njk'],
-      open: true,
-      https: false,
-      notify: false,
-      logConnections: true,
-      reloadOnRestart: true,
-      injectChanges: true,
-      online: true,
-      reloadDelay: 50,
-      ghostMode: {
-        clicks: false,
-        forms: false,
-        scroll: false,
-      },
-    }),
-  ],
-});
+module.exports = merge(webpackConfig, devSettings, browserSync, webpackDefault);

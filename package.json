@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "Darvin is a webpack boilerplate for developing static HTML pages with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites.",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "npm run build; webpack --progress --mode development --config  webpack.config.dev.js --watch",
-    "build": "webpack -p --progress --mode production --config webpack.config.build.js",
+    "start": "npm install; npm run assets-prod; npm run webpack-dev",
+    "dev": "npm run assets-dev; npm run webpack-dev",
+    "build": "npm run assets-prod; npm run webpack-prod",
+    "assets-dev": "webpack -p --progress --mode development --config webpack.config.assets.js --watch",
+    "assets-prod": "webpack -p --progress --mode production --config webpack.config.assets.js",
+    "webpack-dev": "webpack --progress --mode development --config  webpack.config.dev.js --watch",
+    "webpack-prod": "webpack -p --progress --mode production --config webpack.config.prod.js",
     "lint": "lint-staged",
     "lint-all": "eslint \"src/**/*.js\" --fix",
     "pre-commit": "lint-staged; csscomb; git add --all"
@@ -36,6 +40,7 @@
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "csscomb": "4.2.0",
+    "deepmerge": "^3.1.0",
     "es6-promise": "^4.1.1",
     "eslint": "5.7.0",
     "eslint-config-airbnb-base": "13.1.0",
@@ -73,6 +78,9 @@
     "mdn-polyfills": "^5.9.0",
     "modernizr": "^3.6.0",
     "normalize.css": "^8.0.0"
+  },
+  "engines": {
+    "node": "11.7.0"
   },
   "lint-staged": {
     "*.scss": [

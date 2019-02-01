@@ -13,7 +13,9 @@
         <!-- start preview header -->
         <header id="prev-l-header">
           <div class="prev-l-constrainer">
-            <div class="prev-m-title"><h1>{{ darvin.moduleName }}</h1></div>
+            <div class="prev-m-title{% if darvin.config.variants[darvin.variant].name %} prev-m-title--column{% endif %}">
+            <h1>{{ darvin.moduleName }}</h1>
+            {% if darvin.config.variants[darvin.variant].name %}<h2>{{ darvin.config.variants[darvin.variant].name }}</h2>{% endif %}</div>
             <nav class="prev-m-servicenav">
               {% if darvin.links.length > 1 %}
                   {% for link in darvin.links %}
