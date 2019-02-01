@@ -31,206 +31,134 @@ const getFileUpdatedDate = (path) => {
   return stats.mtime
 }
 
-const getTemplate = (data) => {
- // console.log("** create TEMPLATE! **");
-  //console.log(data);
 
-  return new HtmlWebpackPlugin({
-    filename: data.targetPathRel,
-    template: `src/templates/${data.sourcePathRel}`,
-    hash: true,
-    cache: true,
-    chunks: [data.sourceChunk],
-    templateParameters: {
-      'sourcePathRel': data.sourcePathRel,
-      'sourcePathInc': data.sourcePathInc,
-      'sourceFilename': data.sourceFilename,
-      'sourceName': data.sourceName,
-      'sourceVariant': data.sourceVariant,
-      'sourceChunk': data.sourceChunk,
-      'sourceVariantLinks': data.sourceVariantLinks,
-      'targetPathRel': data.targetPathRel,
-      'targetFilename': data.targetFilename,
-      'templateType': data.templateType,
-      'lastUpdateDate': data.lastUpdatedPrintDate,
-      'lastUpdateTime': data.lastUpdatedPrintTime,
-      'config': data.config,
-      'file': data.file,
-    }
-  })
-}
-
-
-
-
-let htmlTemplates = glob.sync('**/*.preview*.njk', {
+const htmlTemplates = glob.sync('**/*.preview*.njk', {
   cwd: path.join(basePath, 'src/templates/'),
   root: '/',
   realpath: true
 }).map(page => {
-    let file = page,
-        previewLayout = 'layouts/l00-preview/l00-preview.njk'
-        templateType = 'pagetype',
-        sourceChunk = 'js/main',
-        sourcePathRel = page.split('src/templates/')[1], //  modules/m02-accordion/m02-accordion.preview.2.njk
-        sourcePathInc = sourcePathRel.substring(0, sourcePathRel.lastIndexOf("/")), // modules/m02-accordion
-        sourceFilename = sourcePathRel.replace(/^.*[\\\/]/, ''), // m02-accordion.preview.2.njk
-        targetPathRel = sourcePathRel.replace('.preview', '').replace('njk', 'html'), // modules/m02-accordion/m02-accordion.2.html
-        targetFilename = targetPathRel.replace(/^.*[\\\/]/, ''), // m02-accordion.2.html
-        sourceName = targetFilename.split('.')[0]; // m02-accordion
 
-    console.log("COUNT");
-    console.log(file);
+    let type = 'pagetype',
+        chunkName = 'js/main',
+        modulePath = page.split('src/templates/')[1],
+        incrementalPath = modulePath.substring(0, modulePath.lastIndexOf("/")),
+        fileName = modulePath.replace(/^.*[\\\/]/, ''),
+        modulePathOutput = modulePath.replace('.preview', '').replace('njk', 'html'),
+        fileNameOutput = modulePathOutput.replace(/^.*[\\\/]/, ''),
+        moduleName = fileNameOutput.split('.')[0]; // get string in [string].preview.[number].[ext]
 
-    if(sourcePathRel.includes('modules/')) {
-      file = file.substring(0, file.lastIndexOf("/")) + '/' +sourceName + '.njk'; // /mnt/d/Projekte/darvin-boilerplate/src/templates/modules/m02-accordion/m02-accordion.njk
+    let file = page;
+
+    if(modulePath.includes('modules/')) {
+      file = file.replace('.preview', '');
+      if(file.split('.')[2]) {
+        let split = file.split('.');
+        file = split[0] + '.' + split[2];
+      }
     }
 
     let lastUpdated = new Date(getFileUpdatedDate(file));
     let lastUpdatedPrintDate = lastUpdated.getDate() +'-' + (lastUpdated.getMonth()+1) + '-' + lastUpdated.getFullYear();
     let lastUpdatedPrintTime = lastUpdated.getHours() + ':' + lastUpdated.getMinutes();
 
-    let sourceVariant = '0';
-    let dotSplit = sourceFilename.split('.');
+    let variant = '0';
+    let dotSplit = fileName.split('.');
     let config = {};
 
-
     if(dotSplit[3]) {
-      sourceVariant = sourceFilename.split('.')[2]; // get nummber in [string].preview.[number].[ext]
+      variant = fileName.split('.')[2]; // get nummber in [string].preview.[number].[ext]
     }
 
     // set specific chunk
-    if(sourcePathRel.includes('modules/')||sourcePathRel.includes('components/')) {
-      sourceChunk = sourcePathRel.replace(/.preview.[0-9]{1,3}.njk+$/, '').replace(/.preview.njk+$/, '');
+    if(modulePath.includes('modules/')||modulePath.includes('components/')) {
+      chunkName = modulePath.replace(/.preview.[0-9]{1,3}.njk+$/, '').replace(/.preview.njk+$/, '');
     }
 
-    if(sourcePathRel.includes('index.preview.njk')) {
-      sourceChunk = 'js/preview';
+    if(modulePath.includes('index.preview.njk')) {
+      chunkName = 'js/preview';
     }
 
-    if(sourcePathRel.includes('modules/')) {
-      templateType = 'module';
+    if(modulePath.includes('modules/')) {
+      type = 'module';
     }
 
-    if(sourcePathRel.includes('components/')) {
-      templateType = 'component';
+    if(modulePath.includes('components/')) {
+      type = 'component';
     }
 
-    if(sourcePathRel.includes('page/')) {
-      templateType = 'pagetype';
+    if(modulePath.includes('page/')) {
+      type = 'pagetype';
     }
 
     try {
-      config = require('../' + sourcePathInc + '/config.json');
+      config = require('../' + incrementalPath + '/config.json');
       console.log(JSON.stringify(config));
     } catch (e) {
       if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
-        console.log("Can't load config! -> " + '../' + sourcePathInc + '/config.json');
+        console.log("Can't load config! -> " + '../' + incrementalPath + '/config.json');
       else
         throw e;
     }
 
-    return getTemplate(
-      {
-        'sourcePathRel': sourcePathRel,
-        'sourcePathInc': sourcePathInc,
-        'sourceFilename': sourceFilename,
-        'sourceName': sourceName,
-        'sourceVariant': sourceVariant,
-        'sourceChunk': sourceChunk,
-        'sourceVariantLinks': [],
-        'targetPathRel': targetPathRel,
-        'targetFilename': targetFilename,
-        'templateType': templateType,
+    return new HtmlWebpackPlugin({
+      filename: modulePathOutput,
+      template: `src/templates/${modulePath}`,
+      hash: true,
+      cache: true,
+      chunks: [chunkName],
+      templateParameters: {
+        'modulePath': modulePath,
+        'modulePathOutput': modulePathOutput,
+        'filename': fileName,
+        'filenameOutput': fileNameOutput,
+        'moduleName': moduleName,
+        'variant': variant,
+        'chunk': chunkName,
+        'links': [],
+        'type': type,
         'lastUpdateDate': lastUpdatedPrintDate,
         'lastUpdateTime': lastUpdatedPrintTime,
-        'config': config,
-        'file': file,
+        'config': config
       }
-    );
+    })
 });
-
-console.log("FLAG3");
-
-let createdArr = [];
-let previewEditorArr = [];
 
 htmlTemplates.forEach((htmlTemplate) => {
-  let actualModule = htmlTemplate.options.templateParameters.sourceName;
-  let actualModuleVariant = htmlTemplate.options.templateParameters.sourceVariant;
-  let actualModuleFilename = htmlTemplate.options.templateParameters.sourceName;
+  let actualModule = htmlTemplate.options.templateParameters.moduleName;
+  let actualModuleVariant = htmlTemplate.options.templateParameters.variant;
 
-  if (createdArr.indexOf(actualModule) === -1) {
-    // element first register
-    if(htmlTemplate.options.templateParameters.templateType == 'module') {
-      indexObj.modules.push(htmlTemplate.options.templateParameters);
+  htmlTemplate.options.templateParameters.links.push({
+    name: htmlTemplate.options.templateParameters.moduleName,
+    path: htmlTemplate.options.templateParameters.filenameOutput,
+    variant: htmlTemplate.options.templateParameters.variant,
+    active: false
+  });
 
-      let variantArr = [{
-        name: htmlTemplate.options.templateParameters.sourceName,
-        path: htmlTemplate.options.templateParameters.targetFilename,
-        sourceVariant: htmlTemplate.options.templateParameters.sourceVariant,
-        active: false
-      }];
+  if(htmlTemplate.options.templateParameters.type == 'module') {
+    indexObj.modules.push(htmlTemplate.options.templateParameters);
+  } else if(htmlTemplate.options.templateParameters.type == 'component') {
+    indexObj.components.push(htmlTemplate.options.templateParameters);
+  } else if(htmlTemplate.options.templateParameters.type == 'pagetype') {
+    indexObj.pagetypes.push(htmlTemplate.options.templateParameters);
+  }
 
-      htmlTemplates.forEach((htmlTemplateToCheck) => {
-        // check if same element in different sourceVariant
-        if(htmlTemplateToCheck!==htmlTemplate&&htmlTemplateToCheck.options.templateParameters.sourceName==actualModule&&htmlTemplateToCheck.options.templateParameters.sourceVariant!=actualModuleVariant) {
-          // other variant to register
-          variantArr.push({
-            name: htmlTemplateToCheck.options.templateParameters.sourceName,
-            path: htmlTemplateToCheck.options.templateParameters.targetFilename,
-            sourceVariant: htmlTemplateToCheck.options.templateParameters.sourceVariant,
-            active: true
-          });
-        }
+  htmlTemplates.forEach((htmlTemplateToCheck) => {
+    // check if same element in different variant
+    if(htmlTemplateToCheck!==htmlTemplate&&htmlTemplateToCheck.options.templateParameters.moduleName==actualModule&&htmlTemplateToCheck.options.templateParameters.variant!=actualModuleVariant) {
+      htmlTemplate.options.templateParameters.links.push({
+        name: htmlTemplateToCheck.options.templateParameters.moduleName,
+        path: htmlTemplateToCheck.options.templateParameters.filenameOutput,
+        variant: htmlTemplateToCheck.options.templateParameters.variant,
+        active: true
       });
-
-      let previewEditorTemplate = getTemplate(
-        {
-          'sourcePathRel': 'layouts/l00-preview/l00-preview.njk',
-          'sourcePathInc': 'layouts/l00-preview',
-          'sourceFilename': 'l00-preview.njk',
-          'sourceName': htmlTemplate.options.templateParameters.sourceName,
-          'sourceVariant': 0,
-          'sourceChunk': htmlTemplate.options.templateParameters.sourceChunk, // js/main
-          'sourceVariantLinks': variantArr,
-          'targetPathRel': htmlTemplate.options.templateParameters.sourcePathInc + '/index.html',
-          'targetFilename': 'index.html',
-          'templateType': htmlTemplate.options.templateParameters.templateType,
-          'lastUpdateDate': htmlTemplate.options.templateParameters.lastUpdateDate,
-          'lastUpdateTime': htmlTemplate.options.templateParameters.lastUpdateTime,
-          'config': htmlTemplate.options.templateParameters.config,
-          'file': htmlTemplate.options.templateParameters.file // todo: wrong file, still orgin
-        }
-      );
-
-      previewEditorArr.push(previewEditorTemplate);
-
-    } else if(htmlTemplate.options.templateParameters.templateType == 'component') {
-      indexObj.components.push(htmlTemplate.options.templateParameters);
-    } else if(htmlTemplate.options.templateParameters.templateType == 'pagetype') {
-      indexObj.pagetypes.push(htmlTemplate.options.templateParameters);
     }
-
-  }
-  else {
-    // element already registered
-
-
-  }
-
-  createdArr.push(actualModule);
+  });
 });
 
-
-htmlTemplates = htmlTemplates.concat(previewEditorArr);
-
-
-
 // sort by variants
-/*htmlTemplates.forEach((htmlTemplate) => {
-  htmlTemplate.options.templateParameters.sourceVariantLinks.sort(dynamicSort("sourceVariant"));
-});*/
+htmlTemplates.forEach((htmlTemplate) => {
+  htmlTemplate.options.templateParameters.links.sort(dynamicSort("variant"));
+});
 
 module.exports = {
   imageSrc: '../../assets/images/renditions/',

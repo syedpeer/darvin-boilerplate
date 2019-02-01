@@ -2,5 +2,15 @@
   "update": true,
   "design": "http://someurl",
   "jira": "http://someurl",
-  "confluence": "http://someurl"
+  "confluence": "http://someurl",
+  "variants": {
+    "1": {
+      "name": "Default Accordion",
+      "desc": "Simple Accordion with standard features."
+    },
+    "2": {
+      "name": "Another Accordion",
+      "desc": "Another Accordion in different variant."
+    }
+  }
 }

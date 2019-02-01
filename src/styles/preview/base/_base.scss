@@ -17,7 +17,7 @@ h1 {
   margin: 0;
   padding: $space-medium 0;
   font-weight: 300;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1.2;
 }
 
@@ -26,8 +26,8 @@ h2 {
   @extend %header-base;
   margin: 0;
   padding: $space-small 0;
-  font-weight: 400;
-  font-size: rem(24);
+  font-weight: 300;
+  font-size: rem(23);
   line-height: 1.2;
 }
 

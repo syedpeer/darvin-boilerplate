@@ -61,13 +61,13 @@
                   </div>
                   <div class="prev-m-index__itemrow">
                     {% if component.config.design.length > 2 %}
-                    <a class="prev-m-index__flag prev-m-index__flag--design" href="{{ component.config.design }}">D</a>
+                    <a class="prev-m-index__flag prev-m-index__flag--design" href="{{ component.config.design }}" target="_blank">D</a>
                     {% endif %}
                     {% if component.config.jira.length > 2 %}
-                    <a class="prev-m-index__flag prev-m-index__flag--jira" href="{{ component.config.jira }}">J</a>
+                    <a class="prev-m-index__flag prev-m-index__flag--jira" href="{{ component.config.jira }}" target="_blank">J</a>
                     {% endif %}
                     {% if component.config.confluence.length > 2 %}
-                    <a class="prev-m-index__flag prev-m-index__flag--confluence" href="{{ component.config.confluence }}">C</a>
+                    <a class="prev-m-index__flag prev-m-index__flag--confluence" href="{{ component.config.confluence }}" target="_blank">C</a>
                     {% endif %}
                   </div>
                 </div>
@@ -91,7 +91,7 @@
 
       {% if index.pagetypes.length > 1 %}
         <div class="prev-m-index__col prev-m-index--pagetypes">
-          <h2 class="prev-m-index__title">Components</h2>
+          <h2 class="prev-m-index__title">Pagetypes</h2>
           <div class="prev-m-index__items">
           {% for pagetype in index.pagetypes %}
             {% if pagetype.moduleName != "index" %}
