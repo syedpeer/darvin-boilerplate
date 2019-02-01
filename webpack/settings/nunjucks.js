@@ -3,7 +3,7 @@ const path = require('path');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
 
-const nunjucksContext = require('../../src/templates/config/index');
+const nunjucksContext = require('../libs/nunjucks-context');
 const nunjucksDevConfig = require('../../src/templates/config/config.dev.json');
 const nunjucksProdConfig = require('../../src/templates/config/config.prod.json');
 
@@ -21,7 +21,7 @@ module.exports = {
     rules: [
       {
         test: /\.(njk|nunjucks)$/,
-        loader: ['html-loader', `${path.resolve('src/js/libs/nunjucks-webpack.js')}?${nunjucksOptions}`],
+        loader: ['html-loader', `${path.resolve('webpack/libs/nunjucks-loader.js')}?${nunjucksOptions}`],
       },
     ]
   },

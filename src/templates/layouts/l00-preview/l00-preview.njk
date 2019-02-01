@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <title>{{ darvin.moduleName }}</title>
+      <title>{{ darvin.name }}</title>
       <meta name="description" content="Lorem description">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="format-detection" content="telephone=no">
@@ -14,7 +14,7 @@
         <header id="prev-l-header">
           <div class="prev-l-constrainer">
             <div class="prev-m-title{% if darvin.config.variants[darvin.variant].name %} prev-m-title--column{% endif %}">
-            <h1>{{ darvin.moduleName }}</h1>
+            <h1>{{ darvin.name }}</h1>
             {% if darvin.config.variants[darvin.variant].name %}<h2>{{ darvin.config.variants[darvin.variant].name }}</h2>{% endif %}</div>
             <nav class="prev-m-servicenav">
               {% if darvin.links.length > 1 %}
