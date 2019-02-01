@@ -110,8 +110,8 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
     return new HtmlWebpackPlugin({
       filename: targetPathFullRel,
       template: `src/templates/${pathFullRel}`,
-      hash: true,
-      cache: true,
+      hash: false,
+      cache: false,
       chunks: [chunkName],
       templateParameters: {
         'modulePath': pathFullRel,
