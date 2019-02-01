@@ -40,7 +40,7 @@ modules.forEach((mod) => {
       mainObj[name] = previewDefault;
     }
   } catch(err) {
-    console.log("darvin# can't read fs: module");
+    console.error("darvin# can't read fs: module");
   }
 });
 
@@ -62,7 +62,7 @@ components.forEach((component) => {
       mainObj[name] = previewDefault;
     }
   } catch(err) {
-    console.log("darvin# can't read fs: components");
+    console.error("darvin# can't read fs: components");
   }
 });
 
