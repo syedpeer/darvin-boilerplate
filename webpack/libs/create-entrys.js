@@ -3,7 +3,6 @@ const dirComponents = './src/templates/components';
 
 const fs = require('fs');
 
-
 let modules = [];
 let components = [];
 
@@ -68,7 +67,5 @@ components.forEach((component) => {
 
 mainObj['js/main'] = allElements;
 mainObj['js/preview'] = previewDefault;
-
-console.log(mainObj);
 
 module.exports = mainObj;
