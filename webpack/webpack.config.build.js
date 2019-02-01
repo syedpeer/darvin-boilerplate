@@ -2,17 +2,17 @@ const merge = require('webpack-merge');
 
 const webpackConfig = require('../webpack.config');
 
-const config = require('./settings/config');
-const css = require('./settings/css');
-const js = require('./settings/babel');
-const fonts = require('./settings/fonts');
-const images = require('./settings/images');
-const modernizr = require('./settings/modernizr');
-const nunjucks = require('./settings/nunjucks');
-const vue = require('./settings/vue');
+const config = require('./settings/config/webpack.config.build');
+const css = require('./settings/sass/webpack.config.build');
+const js = require('./settings/babel/webpack.config.build');
+const fonts = require('./settings/fonts/webpack.config.build');
+const images = require('./settings/images/webpack.config.build');
+const modernizr = require('./settings/modernizr/webpack.config.build');
+const nunjucks = require('./settings/nunjucks/webpack.config.build');
+const vue = require('./settings/vue/webpack.config.build');
 
 const settings = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
 };
 
 module.exports = merge(webpackConfig, settings, js, css, config, fonts, images, modernizr, nunjucks, vue);

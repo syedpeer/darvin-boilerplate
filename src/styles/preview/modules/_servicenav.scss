@@ -45,12 +45,7 @@
   text-transform: uppercase;
   opacity: 0;
   transition: color 120ms linear, opacity 240ms ease-in;
-
-  .fontawesome-i2svg-complete & {
-    opacity: 1;
-  }
 }
-
 
 .prev-m-servicenav__link--active {
   color: $color2;
