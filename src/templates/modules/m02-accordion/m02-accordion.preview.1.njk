@@ -2,14 +2,12 @@
 
 {% import "modules/m02-accordion/m02-accordion.njk" as accordion %}
 
-
-
 {% block preview %}
   {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(
         basePath = basePath,
-        label = "Accordion Variant 12"
+        label = "Accordion Variant 1"
   )) %}
-    <p>content.</p>
+    <p>content..</p>
   {% endcall %}
 
 {% endblock %}

@@ -20,13 +20,7 @@ const sprites = require('./settings/sprites/webpack.config.build');
 const clean = require('./settings/clean/webpack.config.build');
 
 const settings = {
-  entry: {
-    'js/main': ['./src/js/base.js', './src/templates/modules/m02-accordion/index.js', './src/templates/modules/m02-accordion/main.js',],
-    'js/preview': ['./src/js/base.js', './src/js/preview.js'],
-    'modules/m01-grid/m01-grid': ['./src/js/base.js', './src/js/preview.js'],
-    'modules/m03-demo/m03-demo': ['./src/js/base.js', './src/templates/modules/m03-demo/index.js', './src/templates/modules/m03-demo/main.js', './src/js/preview.js'],
-    'modules/m02-accordion/m02-accordion': ['./src/js/base.js', './src/templates/modules/m02-accordion/index.js', './src/templates/modules/m02-accordion/main.js', './src/js/preview.js'],
-  },
+  entry: require('./libs/create-entrys'),
   output: {
     devtoolLineToLine: true,
     sourceMapFilename: '[name].[chunkhash].js.map',
