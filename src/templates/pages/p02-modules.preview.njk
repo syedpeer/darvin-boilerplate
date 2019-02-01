@@ -1,11 +1,9 @@
 {% extends "layouts/l01-default/l01-default.njk" %}
 
 {% import "modules/m02-accordion/m02-accordion.njk" as accordion %}
-{% import "components/c03-tab/c03-tab.njk" as tab %}
+{% import "components/c04-tab/c04-tab.njk" as tab %}
 
 {% import "modules/m01-grid_row/m01-grid_row.njk" as grid %}
-
-{% set title = 'Module sd' %}
 
 {% block content %}
    {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(

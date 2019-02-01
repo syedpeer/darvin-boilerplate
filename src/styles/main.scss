@@ -28,8 +28,7 @@ $output-bourbon-deprecation-warnings: false;
 @import "layout/sidebar";
 @import "layout/main";
 // Components
-@import "../templates/components/c03-tab/c03-tab";
-@import "../templates/components/c04-demo/c04-demo";
+@import "../templates/components/c04-tab/c04-tab";
 // Modules
 @import "../templates/modules/m03-demo/m03-demo";
 @import "../templates/modules/m02-accordion/m02-accordion";
