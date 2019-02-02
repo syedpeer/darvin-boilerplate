@@ -16,8 +16,10 @@ const browserSync = require('./settings/browsersync/webpack.config.dev');
 const modernizr = require('./settings/modernizr/webpack.config.dev');
 const nunjucks = require('./settings/nunjucks/webpack.config.dev');
 const vue = require('./settings/vue/webpack.config.dev');
-const sprites = require('./settings/sprites/webpack.config.build');
-const clean = require('./settings/clean/webpack.config.build');
+const sprites = require('./settings/sprites/webpack.config.dev');
+const clean = require('./settings/clean/webpack.config.dev');
+const markdown = require('./settings/markdown/webpack.config.dev');
+const copy = require('./settings/copyassets/webpack.config.dev');
 
 const settings = {
   entry: require('./libs/create-entrys'),
@@ -41,4 +43,4 @@ const settings = {
   },
 };
 
-module.exports = merge(webpackConfig, settings, js, css, config, fonts, images, modernizr, nunjucks, vue, browserSync, sprites, clean);
+module.exports = merge(webpackConfig, settings, clean, copy, js, css, config, fonts, images, modernizr, nunjucks, vue, browserSync, sprites, markdown);

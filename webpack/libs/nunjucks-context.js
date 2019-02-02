@@ -99,10 +99,9 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
     // load element config file
     try {
       config = require('../../src/templates/' + pathRel + '/meta/config.json');
-      console.log(JSON.stringify(config));
     } catch (e) {
       if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
-        console.log("Darvin: Can't load config! -> " + '../../src/templates/' + pathRel + '/meta/config.json');
+        console.log("Darvin: No config for-> " + '../../src/templates/' + pathRel);
       else
         throw e;
     }
@@ -114,6 +113,7 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
       cache: false,
       chunks: [chunkName],
       templateParameters: {
+        'path': pathRel,
         'modulePath': pathFullRel,
         'targetPathFullRel': targetPathFullRel,
         'filename': fileName,

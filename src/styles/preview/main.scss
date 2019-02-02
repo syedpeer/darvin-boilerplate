@@ -4,6 +4,8 @@
 
 $output-bourbon-deprecation-warnings: false;
 
+@import "../../../node_modules/prismjs/themes/prism-okaidia.css";
+
 // Assets
 @import "../tools/functions";
 @import "settings/settings";
@@ -33,6 +35,7 @@ $output-bourbon-deprecation-warnings: false;
 @import "modules/title";
 @import "modules/servicenav";
 @import "modules/index";
+@import "modules/overlay";
 
 // Components
 @import "components/led";

@@ -4,6 +4,26 @@ Base
 
 body.preview {
   font-family: $font-1;
+
+  &.preview__content--off {
+    &[data-active="source"] {
+      .prev-m-overlay__item[data-source] {
+        display: block;
+      }
+    }
+    &[data-active="readme"] {
+      .prev-m-overlay__item[data-readme] {
+        display: block;
+      }
+    }
+
+    #l-content {
+      display: none;
+    }
+    .prev-m-overlay {
+      display: block;
+    }
+  }
 }
 
 ::selection {
@@ -68,6 +88,13 @@ a {
   text-decoration: none;
 }
 
+pre[class*="language-"] {
+  margin: 0;
+  padding: 2rem;
+  font-family: "Arial";
+  border-radius: 0;
+}
+
 .icon {
   width: 1.25rem;
   height: 1.25rem;
@@ -84,7 +111,8 @@ caption {
 }
 
 button {
-  @extend %clean-button;@extend %paragraph-base;
+  @extend %clean-button;
+  @extend %paragraph-base;
 }
 
 hr {

@@ -1,9 +1,9 @@
 ![](http://tobiasfrei.ch/github/darvin-boilerplate/darvin-MIT_(c)TobiasFrei.svg)
 
 Darvin is a webpack boilerplate for developing static sites based on components and modules. HTML rendering with Mozilla Nunjucks templating engine, ES201X transpiler and Sass precompiling with SVG sprites. Git hooks for csscomb and linting, custom modernizr functions and hot load with browsersync.
-Each build creates a preview for components, modules, assets and pagetypes. The scripts are bundled according to these elements for testing in isolation.
+Each build creates a preview for components, modules, assets and pagetypes. Preview elements are isolated by specific chunks.
 
-## Darvin Boilerplate
+## Darvin Boilerplate - Start
 ![](https://img.shields.io/github/issues-closed-raw/tobiasfrei/darvin-boilerplate.svg?style=popout-square)
 ![](https://img.shields.io/github/issues-raw/tobiasfrei/darvin-boilerplate.svg?style=popout-square)
 
@@ -18,16 +18,13 @@ Windows
 
 ### 2. Install node version
 
-1. install node version
-```nvm install 11.7.0```
+1. install node version ```nvm install 11.7.0```
 
-2. load node version from .nvmrc<br>
-```nvm use```<br>
-Note: Not working? try ```nvm use 11.7.0```
+2. load node version from .nvmrc ```nvm use```<br>
+Note: won't work? try ```nvm use 11.7.0```
 
-3. install dependencies<br>
-```npm install```<br>
-<br>
+3. install dependencies ```npm install```
+
 ## Start
 Load installed node version each time you startup the project:<br>
 ```nvm use```
@@ -125,3 +122,6 @@ That behaviour save us responsivness on different layouts.
 
 ## Authors
 Tobias Frei, Christian Sany
+
+## License
+Apache 2.0.
