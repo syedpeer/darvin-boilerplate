@@ -1,66 +1,61 @@
-# Darvin Boilerplate
+![](http://tobiasfrei.ch/github/darvin-boilerplate/darvin-MIT_(c)TobiasFrei.svg)
+
+Darvin is a webpack boilerplate for developing static sites based on components and modules. HTML rendering with Mozilla Nunjucks templating engine, ES201X transpiler and Sass precompiling with SVG sprites. Git hooks for csscomb and linting, custom modernizr functions and hot load with browsersync.
+Each build creates a preview for components, modules, assets and pagetypes. The scripts are bundled according to these elements for testing in isolation.
+
+## Darvin Boilerplate
 ![](https://img.shields.io/github/issues-closed-raw/tobiasfrei/darvin-boilerplate.svg?style=popout-square)
 ![](https://img.shields.io/github/issues-raw/tobiasfrei/darvin-boilerplate.svg?style=popout-square)
 
-Darvin is a non-gulp based leightweight boilerplate to render static HTML. Mozilla Nunjucks templating engine, ES201X transpiler and Sass precompiling with SVG sprites. Features precommit hooks with husky for csscomb, custom modernizr and autofix linting. Hot load based on browsersync.
+Recommended: Node 11.7.0
 
-## Setup
-Node 11.7.0
-
-### 1. Prepare Node Version Manager
+### 1. Manage node Version
 MacOS/Linux
-```
-https://github.com/creationix/nvm
-```
+```https://github.com/creationix/nvm```
 
 Windows
-```
-https://github.com/coreybutler/nvm-windows
-```
+```https://github.com/coreybutler/nvm-windows```
 
 ### 2. Install node version
 
 1. install node version
 ```nvm install 11.7.0```
 
-2. load node version from .nvmrc
-```nvm use```
-Note: If that not work, do ```nvm use 11.7.0```
+2. load node version from .nvmrc<br>
+```nvm use```<br>
+Note: Not working? try ```nvm use 11.7.0```
 
-3. install dependencies
-```npm install```
-
+3. install dependencies<br>
+```npm install```<br>
+<br>
 ## Start
-Load installed node version each time you startup the project:
+Load installed node version each time you startup the project:<br>
 ```nvm use```
 
 ### Develop
-Run watcher and hot load browser on file changes.
+Run watcher and hot load browser on file changes.<br>
 ```npm run dev```
 
 ### Production
-Run this mode for minifyed outstream. Required for SEO purpose and many CMS asset aggregations.
-
+Run this mode for minifyed outstream. Required for SEO purpose and many CMS asset aggregations.<br>
 ```npm run build```
 
 ## Sprites
-SVG Spritemap will be generated referenced to filenames trough this folder:
-```src/assets/images/icons```
-
-There are two ways to integrate them in templates.
+SVG Spritemap will be generated referenced to filenames in:<br>
+```src/assets/images/icons```<br>
+<br>
+There are two ways to integrate them in templates.<br>
 
 ### Inline HTML
-SVG Sprites are prefixed with ```sprite-``` followed by filename.
+SVG Sprites are prefixed with ```sprite-``` followed by filename.<br>
+```src/assets/images/icons/arrow.svg```<br>
 
-e.g for Filename
-```src/assets/images/icons/arrow.svg```
-
+#### Usage
 ```
 <svg class="icon">
     <use xlink:href="/path/to/spritemap.svg#sprite-arrow"></use>
 </svg>
 ```
-
 Note: Render the map in the body and access without filename ```xlink:href="#sprite-arrow"```
 
 ### Generic Sass

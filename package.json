@@ -1,6 +1,6 @@
 {
   "name": "darvin-boilerplate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Darvin is a webpack boilerplate for developing static HTML pages with Nunjucks templates, ES201X transpiler and Sass precompiling with SVG/PNG sprites.",
   "scripts": {
     "start": "npm install; npm run dev",
@@ -15,11 +15,17 @@
   "license": "MIT",
   "homepage": "http://tobiasfrei.ch",
   "keywords": [
-    "webpack4",
+    "webpack",
     "boilerplate",
     "Sass",
+    "ES6",
+    "SVG Sprites",
     "Babel",
-    "SVG Sprite"
+    "Lint",
+    "Git Hooks",
+    "Browsersync",
+    "Starterkit",
+    "Vue.js"
   ],
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -35,7 +41,6 @@
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "csscomb": "4.2.0",
-    "deepmerge": "^3.1.0",
     "es6-promise": "^4.1.1",
     "eslint": "5.7.0",
     "eslint-config-airbnb-base": "13.1.0",
@@ -57,7 +62,6 @@
     "postcss-loader": "^3.0.0",
     "run-once-plugin": "^0.1.1",
     "sass-loader": "^7.0.3",
-    "simple-git": "^1.107.0",
     "speed-measure-webpack-plugin": "^1.3.0",
     "svg-spritemap-webpack-plugin": "^2.7.0",
     "vue-loader": "^15.4.2",
@@ -75,7 +79,7 @@
     "normalize.css": "^8.0.0"
   },
   "engines": {
-    "node": "11.7.0"
+    "node": ">=11.7.0"
   },
   "lint-staged": {
     "*.scss": [

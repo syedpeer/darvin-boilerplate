@@ -1,3 +1,4 @@
+/* eslint-disable */
 const dirModule = './src/templates/modules';
 const dirComponents = './src/templates/components';
 
@@ -41,7 +42,7 @@ modules.forEach((mod) => {
       webpackEntryObj[name] = webpackEntryDefaultPreview;
     }
   } catch(err) {
-    console.error("darvin# can't read fs: module");
+
   }
 });
 
@@ -65,7 +66,7 @@ components.forEach((component) => {
       webpackEntryObj[name] = webpackEntryDefaultPreview;
     }
   } catch(err) {
-    console.error("darvin# can't read fs: components");
+    console.log(err);
   }
 });
 
