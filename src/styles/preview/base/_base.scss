@@ -80,6 +80,21 @@ h6 {
   }
 }
 
+i.ico {
+  display: inline-block;
+  font-weight: normal;
+  font-family: "fontello";
+  text-align: center;
+  text-transform: none;
+  text-decoration: inherit;
+  font-style: normal;
+  font-variant: normal;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+}
+
 p {
   margin: 0;
 }

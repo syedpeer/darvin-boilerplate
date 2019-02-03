@@ -4,7 +4,15 @@ const basePath = process.cwd();
 module.exports = {
   plugins: [
     new CopyWebpackPlugin([{
-      from: basePath + '/src/templates/**/*.md',
+      from: basePath + '/src/templates/modules/**/*.{md,json}',
+      to: '/',
+      flatten: false,
+      transformPath (targetPath) {
+        return targetPath.split('/src/templates/')[1];
+      }
+    },
+    {
+      from: basePath + '/src/templates/components/**/*.{md,json}',
       to: '/',
       flatten: false,
       transformPath (targetPath) {

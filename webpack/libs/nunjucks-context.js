@@ -3,6 +3,7 @@ const glob = require('glob');
 const path = require('path');
 const fs = require('fs');
 
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
@@ -123,8 +124,6 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         'chunk': chunkName,
         'links': [],
         'type': type,
-        'lastUpdateDate': lastUpdatedPrintDate,
-        'lastUpdateTime': lastUpdatedPrintTime,
         'config': config
       }
     })

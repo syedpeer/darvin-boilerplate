@@ -74,13 +74,15 @@
   },
   "dependencies": {
     "@unic/composite-observer": "0.0.10",
+    "git-log-to-json": "^1.1.1",
     "markdown-it": "^8.4.2",
     "markdown-loader": "^5.0.0",
     "mdn-polyfills": "^5.9.0",
     "modernizr": "^3.6.0",
     "normalize.css": "^8.0.0",
     "pretty": "^2.0.0",
-    "prismjs": "^1.15.0"
+    "prismjs": "^1.15.0",
+    "simple-git": "^1.107.0"
   },
   "engines": {
     "node": ">=11.7.0"
