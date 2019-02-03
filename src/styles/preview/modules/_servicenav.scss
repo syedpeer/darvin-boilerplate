@@ -28,6 +28,11 @@
   box-shadow: inset 0 1px 2px rgba($color1,0.39), 0 -1px 1px $color7, 0 1px 0 rgba($color3, 0.3);
   cursor: pointer;
   transition: color 120ms linear;
+  user-select: none;
+
+  &:focus {
+    outline: 0;
+  }
 
   &:hover:not(.prev-m-servicenav__link--active) {
     color: $color3;
@@ -37,6 +42,14 @@
       color: $color2;
     }
   }
+}
+
+.prev-m-servicenav__linklbl {
+  display: flex;
+}
+
+.prev-m-servicenav__linklbl--active {
+  display: none;
 }
 
 .prev-m-servicenav__lbl {
@@ -58,8 +71,27 @@
 }
 
 .prev-m-servicenav__link--bundle {
-  i {
+  i:before {
     width: 44px;
     font-size: 32px;
+    text-align: center;
+  }
+}
+
+.prev-m-servicenav__link {
+  .i:before {
+    margin-top: 6px;
+    font-size: 20px;
+  }
+  .i.i-close:before {
+    margin-top: 2px;
+    font-size: 12px;
+  }
+}
+
+.prev-m-servicenav__link--readme {
+  .i:before {
+    margin-top: 4px;
+    font-size: 17px;
   }
 }

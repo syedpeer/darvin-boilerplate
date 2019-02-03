@@ -4,4 +4,8 @@
 
 .l-main--preview {
   margin-top: 4rem;
+
+  .preview--index & {
+    background-color: darken($color7, 5);
+  }
 }

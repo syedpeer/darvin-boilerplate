@@ -50,9 +50,6 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         targetFileName = targetPathFullRel.replace(/^.*[\\\/]/, ''),
         name = targetFileName.split('.')[0],
         variant = '0',
-        lastUpdated,
-        lastUpdatedPrintDate,
-        lastUpdatedPrintTime,
         config = {},
         isPreviewIndex = pathFullAbs.includes('src/templates/index.preview.njk');
 
@@ -74,14 +71,6 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         let macroFileNameSplit = macroFilename.split('.');
         macroFilename = macroFileNameSplit[0] + '.' + macroFileNameSplit[2];
       }
-
-      // create macro path without preview and variant
-      macroFullpathAbs = macroPathAbs + '/' + macroFilename;
-
-      // get file informations
-      lastUpdated = new Date(getFileUpdatedDate(macroFullpathAbs));
-      lastUpdatedPrintDate = lastUpdated.getDate() +'-' + (lastUpdated.getMonth()+1) + '-' + lastUpdated.getFullYear();
-      lastUpdatedPrintTime = lastUpdated.getHours() + ':' + lastUpdated.getMinutes();
 
       // set chunk
       chunkName = pathFullRel.replace(/.preview.[0-9]{1,3}.njk+$/, '').replace(/.preview.njk+$/, '');

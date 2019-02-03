@@ -7,33 +7,25 @@
  * @module activity
  */
 
-
-
-const instance = {};
-const defaults = {
-  container: '.prev-m-index',
-  days: 20,
-  height: 100,
-  width: 360,
-  maxHeight: '80',
-  colors: {
-    grey1: '#363636',
-    grey2: '#343434',
-    grey3: '#292929'
-  }
-};
-const settings = {};
+let instance = {},
+      defaults = {
+        container: '.prev-m-index',
+        days: 20,
+        height: 100,
+        width: 360,
+        maxHeight: '80',
+        colors: {
+          grey1: '#363636',
+          grey2: '#343434',
+          grey3: '#292929'
+        }
+      };
 
 // Module Variables
-let container,
-moduleCards;
-
-
-var deltaArr =[];
-
-
-
-
+let settings = {},
+    container,
+    moduleCards,
+    deltaArr =[];
 
 // Private Functions
 const initCard = (card) => {
@@ -87,14 +79,22 @@ initGraph = (data, name, type, el) => {
 
   valArr.reverse();
 
-  let latestCommitSplits = data.latest.date.split(' ');
-  let flagRangeStart = new Date(new Date().getTime() - (2 * 24 * 60 * 60 * 1000));
-  let flagRangeEnd = new Date(latestCommitSplits[0]);
+  if(data.latest) {
+    let latestCommitSplits = data.latest.date.split(' ');
+    let flagRangeStart = new Date(new Date().getTime() - (2 * 24 * 60 * 60 * 1000));
+    let flagRangeEnd = new Date(latestCommitSplits[0]);
 
-  if(flagRangeEnd >= flagRangeStart) {
-    el.querySelector('.prev-c-led').classList.add('prev-c-led--green');
+    if(flagRangeEnd >= flagRangeStart) {
+      el.querySelector('.prev-c-led').classList.add('prev-c-led--green');
+    }
+
+    el.querySelector('.prev-m-index__lastupdate[data-update]').innerHTML = 'Last Commit: ' + latestCommitSplits[0] + ' <span>' + latestCommitSplits[1] + '</span>';
+  } else {
+    el.querySelector('.prev-c-led').classList.add('prev-c-led--blue');
+    el.querySelector('.prev-m-index__lastupdate[data-update]').innerHTML = 'New Module';
   }
-  el.querySelector('.prev-m-index__lastupdate [data-update]').innerHTML = latestCommitSplits[0] + ' <span>' + latestCommitSplits[1] + '</span>';
+
+
 
   let pointArr = [];
   setInterval(() => {

@@ -10,16 +10,35 @@ body.preview {
       .prev-m-overlay__item[data-source] {
         display: block;
       }
+      .prev-m-servicenav__link--source {
+        .prev-m-servicenav__linklbl {
+          display: none;
+        }
+        .prev-m-servicenav__linklbl--active {
+          display: flex;
+          margin-top: 4px;
+        }
+      }
     }
     &[data-active="readme"] {
       .prev-m-overlay__item[data-readme] {
         display: block;
+      }
+      .prev-m-servicenav__link--readme {
+        .prev-m-servicenav__linklbl {
+          display: none;
+        }
+        .prev-m-servicenav__linklbl--active {
+          display: flex;
+          margin-top: 3px;
+        }
       }
     }
 
     #l-content {
       display: none;
     }
+
     .prev-m-overlay {
       display: block;
     }
