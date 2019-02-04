@@ -36,43 +36,43 @@ const getFileUpdatedDate = (path) => {
   return stats.mtime
 }
 
-let pages = [];
-
 let htmlTemplates = [];
 
-// fs instead glob
-fs.readdirSync(dirModule).forEach((file) => {
-  create(file, 'src/templates/modules/', 'module');
-});
-
-const create = (file, path, type) => {
+const create = (file, type) => {
 
     // TOdo
     // file check first -> *.njk and *.preview*.njk
 
-    let chunkName = 'js/main',
-        pathFullRel = page.split('src/templates/')[1],
-        pathFullAbs = page,
-        pathRel = pathFullRel.substring(0, pathFullRel.lastIndexOf("/")),
-        pathAbs = pathFullAbs.substring(0, pathFullAbs.lastIndexOf("/")),
-        fileName = pathFullRel.replace(/^.*[\\\/]/, ''),
-        fileNameSplit = fileName.split('.'),
-        targetPathFullRel = pathFullRel.replace('.preview', '').replace('njk', 'html'),
-        targetFileName = targetPathFullRel.replace(/^.*[\\\/]/, ''),
-        name = targetFileName.split('.')[0],
-        variant = '0',
-        config = {},
-        isPreviewIndex = pathFullAbs.includes('src/templates/index.preview.njk');
+    let templatePath = `src/templates/${type}/${file}/${file}.njk`;
+    let tmplPreviews;
 
-
-        pages.push(name);
-
-    // get element type
-    if(page.includes('/src/templates/modules/')) {
-      type = 'module';
-    } else if (page.includes('/src/templates/components/')) {
-      type = 'component';
+    if (!fs.existsSync( path.resolve(basePath, `${templatePath}`))) {
+        console.log("TEMPLATE NOT EXIST! " + path.resolve(basePath, `${templatePath}`));
+        return false;
     }
+
+    // check for previews
+    tmplPreviews = glob.sync('*.preview*.njk', {
+      cwd: path.join(basePath, `src/templates/${type}/${file}/`),
+      realpath: true
+    }).map(page => {
+      console.log("PREVIEW EXIST!" + file);
+    });
+
+    if(tmplPreviews.length<1) {
+      console.log("PREVIEW NOT EXIST!" + file);
+
+    } else {
+      console.log("PREVIEW EXIST! " );
+      return false;
+    }
+
+    // *******************
+
+    /* TODO:
+    /* - create clean path object for html files.
+    /* - create default no-preview page.
+    */
 
     // get main file information
     if(type=='module'||type=='component') {
@@ -133,7 +133,10 @@ const create = (file, path, type) => {
 };
 
 
-
+// fs instead glob
+fs.readdirSync(dirModule).forEach((file) => {
+  create(file, 'modules');
+});
 
 
 // setup variant links for each module
