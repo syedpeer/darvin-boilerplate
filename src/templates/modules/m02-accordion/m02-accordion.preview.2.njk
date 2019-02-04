@@ -2,14 +2,15 @@
 
 {% import "modules/m02-accordion/m02-accordion.njk" as accordion %}
 
+{% macro main() %}
+    {% call accordion.main(basePath = basePath, classes = ['m-accordion'], labelContent = accordion.accordionLabel(
+          basePath = basePath,
+          label = "Accordion Variant 22"
+    )) %}
+      <p>other content.</p>
+    {% endcall %}
+{% endmacro %}
 
 {% block preview %}
-
-  {% call accordion.main(basePath = basePath, classes = ['faq-accordion'], labelContent = accordion.accordionLabel(
-    basePath = basePath,
-    label = "Accordion Variant 2"
-  )) %}
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elits.</p>
-  {% endcall %}
-
+  {{ main() }}
 {% endblock %}

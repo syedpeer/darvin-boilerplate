@@ -102,4 +102,6 @@ components.forEach((component) => {
 webpackEntryObj['js/main'] = webpackEntryDefault;
 webpackEntryObj['js/preview'] = webpackEntryDefaultPreview;
 
+fs.writeFile(`./src/templates/darvin-bundles.json`, JSON.stringify(webpackEntryObj), 'utf8', () => {});
+
 module.exports = webpackEntryObj;

@@ -10,9 +10,8 @@ import observer from '@unic/composite-observer';
 
 const instance = {};
 
-
 const defaults = {
-  container: 'body',
+  container: '#l-content',
   accordionMode: true,
   accordion: 'accordion',
   accordionTrigger: 'accordion__trigger',
@@ -77,8 +76,6 @@ const openAccordion = (accordionRoot, height) => {
 const closeAccordion = (accordionRoot, cb) => {
   // set height from auto to value for transition close
   const animTarget = accordionRoot.querySelector(settings.hooks.accordionContentbox);
-
-
   const openHeight = animTarget.offsetHeight;
 
   animTarget.style.height = `${animTarget.offsetHeight}px`;
@@ -120,22 +117,22 @@ const closeSiblings = (rootElement) => {
 
   let temp;
 
-  // eslint-disable-next-line
-  for (let i = dirs.length; i -= 1;) {
+  // eslint-disable-next-lines
+  for (let i = dirs.length; i--;) {
     rootElement = mainRoot;
 
-    // eslint-disable-next-line
     while ((rootElement = rootElement[dirs[i]]) !== null) {
-      temp = rootElement;
+        temp = rootElement;
 
-      if (!temp.hasAttribute(dataAttr)) {
-        break;
-      } else {
-        // close open sibling
-        closeAccordion(temp, false);
-      }
+        if (!temp.hasAttribute(dataAttr)) {
+            break;
+        } else {
+
+            // close open sibling
+            closeAccordion(temp, false);
+        }
     }
-  }
+}
 };
 
 const toggleClass = (e) => {
