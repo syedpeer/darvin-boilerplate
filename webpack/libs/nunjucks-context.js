@@ -8,6 +8,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
 
+const dirModule = './src/templates/modules';
+const dirComponents = './src/templates/components';
+
+
 let previewIndexObj = {
   modules: [],
   components: [],
@@ -32,14 +36,21 @@ const getFileUpdatedDate = (path) => {
   return stats.mtime
 }
 
-const htmlTemplates = glob.sync('**/*.preview*.njk', {
-  cwd: path.join(basePath, 'src/templates/'),
-  root: '/',
-  realpath: true
-}).map(page => {
+let pages = [];
 
-    let type = 'pagetype',
-        chunkName = 'js/main',
+let htmlTemplates = [];
+
+// fs instead glob
+fs.readdirSync(dirModule).forEach((file) => {
+  create(file, 'src/templates/modules/', 'module');
+});
+
+const create = (file, path, type) => {
+
+    // TOdo
+    // file check first -> *.njk and *.preview*.njk
+
+    let chunkName = 'js/main',
         pathFullRel = page.split('src/templates/')[1],
         pathFullAbs = page,
         pathRel = pathFullRel.substring(0, pathFullRel.lastIndexOf("/")),
@@ -52,6 +63,9 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         variant = '0',
         config = {},
         isPreviewIndex = pathFullAbs.includes('src/templates/index.preview.njk');
+
+
+        pages.push(name);
 
     // get element type
     if(page.includes('/src/templates/modules/')) {
@@ -116,7 +130,11 @@ const htmlTemplates = glob.sync('**/*.preview*.njk', {
         'config': config
       }
     })
-});
+};
+
+
+
+
 
 // setup variant links for each module
 htmlTemplates.forEach((htmlTemplate) => {
