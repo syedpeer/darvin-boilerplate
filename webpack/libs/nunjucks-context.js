@@ -1,23 +1,23 @@
 /* eslint-disable */
 const glob = require('glob');
 const path = require('path');
-const fs = require('fs');
+const { readdirSync, statSync, existsSync } = require('fs')
 
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
+const getDirs = p => readdirSync(p).filter(f => statSync(path.join(p, f)).isDirectory())
 
-const dirModule = './src/templates/modules';
-const dirComponents = './src/templates/components';
-
+const dir = path.resolve(basePath, 'src/templates');
 
 let previewIndexObj = {
-  modules: [],
-  components: [],
-  pagetypes: [],
-  assets: []
+  types: [],
+  payload: {}
 }
+let htmlTemplates = [];
+
+console.log('build template context..');
 
 const dynamicSort = (property) => {
   var sortOrder = 1;
@@ -31,160 +31,144 @@ const dynamicSort = (property) => {
   }
 }
 
-const getFileUpdatedDate = (path) => {
-  const stats = fs.statSync(path)
-  return stats.mtime
-}
+const getTemplateFiles = (type, file) => {
+  let templatePath = `src/templates/${type}/${file}/${file}.njk`;
+  let tmplPreviews = [];
 
-let htmlTemplates = [];
+  if (!existsSync( path.resolve(basePath, `${templatePath}`))) {
+      console.log("TEMPLATE NOT EXIST! " + path.resolve(basePath, `${templatePath}`));
+      return [];
+  }
 
-const create = (file, type) => {
+  // get previews
+  tmplPreviews = glob.sync('*.preview*.njk', {
+    cwd: path.join(basePath, `src/templates/${type}/${file}/`),
+    realpath: false
+  }).map(page => {
+    return page.replace('.njk', '');
+  });
 
-    // TOdo
-    // file check first -> *.njk and *.preview*.njk
+  return {
+    template: templatePath,
+    previews: tmplPreviews
+  }
+};
 
-    let templatePath = `src/templates/${type}/${file}/${file}.njk`;
-    let tmplPreviews;
+// get all categories
+previewIndexObj.types = getDirs(dir);
 
-    if (!fs.existsSync( path.resolve(basePath, `${templatePath}`))) {
-        console.log("TEMPLATE NOT EXIST! " + path.resolve(basePath, `${templatePath}`));
-        return false;
+// exclude config folder from types
+previewIndexObj.types = previewIndexObj.types.filter(type => type !== 'config');
+previewIndexObj.types = previewIndexObj.types.filter(type => type !== 'layouts');
+
+// create payloads by types
+previewIndexObj.types.forEach((type) => {
+  previewIndexObj.payload[type] = {};
+
+  readdirSync(path.resolve(basePath, `src/templates/${type}`)).forEach((file) => {
+    let templateObj = getTemplateFiles(type, file);
+    let tmplPath = templateObj.template.substring(0, templateObj.template.lastIndexOf("/")).replace('src/templates/', '');
+    let config = {};
+
+    previewIndexObj.payload[type][file] = {
+      name: file,
+      type: type,
+      chunkName: `${tmplPath}/${file}`,
+      template: templateObj.template,
+      templateRel: templateObj.template.replace('src/templates/', ''),
+      target: `${tmplPath}/${file}.html`,
+      path: tmplPath,
+      previews: templateObj.previews,
+      variants: templateObj.previews.length
     }
 
-    // check for previews
-    tmplPreviews = glob.sync('*.preview*.njk', {
-      cwd: path.join(basePath, `src/templates/${type}/${file}/`),
-      realpath: true
-    }).map(page => {
-      console.log("PREVIEW EXIST!" + file);
-    });
-
-    if(tmplPreviews.length<1) {
-      console.log("PREVIEW NOT EXIST!" + file);
-
-    } else {
-      console.log("PREVIEW EXIST! " );
-      return false;
+    if(type==='pages') {
+      previewIndexObj.payload[type][file].previews = [`${file}`];
+      previewIndexObj.payload[type][file].variants = 1;
     }
 
-    // *******************
-
-    /* TODO:
-    /* - create clean path object for html files.
-    /* - create default no-preview page.
-    */
-
-    // get main file information
-    if(type=='module'||type=='component') {
-      let macroFullpathAbs = page,
-          macroPathAbs = macroFullpathAbs.substring(0, macroFullpathAbs.lastIndexOf("/"));
-          macroFilename = macroFullpathAbs.replace('.preview', '').replace(/^.*[\\\/]/, '');
-
-      // remove variant in filename
-      if(macroFilename.split('.')[2]) {
-        let macroFileNameSplit = macroFilename.split('.');
-        macroFilename = macroFileNameSplit[0] + '.' + macroFileNameSplit[2];
-      }
-
-      // set chunk
-      chunkName = pathFullRel.replace(/.preview.[0-9]{1,3}.njk+$/, '').replace(/.preview.njk+$/, '');
-    }
-
-    // get variant from filename
-    if(fileNameSplit[3]) {
-      variant = fileNameSplit[2]; // get nummber in [string].preview.[number].[ext]
-    }
-
-    // set main chunk for preview index
-    if(isPreviewIndex) {
-      chunkName = 'js/preview';
+    if(templateObj.previews.length==0) {
+      previewIndexObj.payload[type][file].chunkName = 'js/main';
     }
 
     // load element config file
     try {
-      config = require('../../src/templates/' + pathRel + '/meta/config.json');
+      config = require(path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
     } catch (e) {
-      if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
-        console.log("Darvin: No config for-> " + '../../src/templates/' + pathRel);
-      else
+      if (e instanceof Error && e.code === "MODULE_NOT_FOUND") {
+        console.log("- no config for " + path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
+      } else {
         throw e;
-    }
-
-    return new HtmlWebpackPlugin({
-      filename: targetPathFullRel,
-      template: `src/templates/${pathFullRel}`,
-      hash: false,
-      cache: false,
-      chunks: [chunkName],
-      templateParameters: {
-        'path': pathRel,
-        'modulePath': pathFullRel,
-        'targetPathFullRel': targetPathFullRel,
-        'filename': fileName,
-        'filenameOutput': targetFileName,
-        'name': name,
-        'variant': variant,
-        'chunk': chunkName,
-        'links': [],
-        'type': type,
-        'config': config
       }
-    })
-};
-
-
-// fs instead glob
-fs.readdirSync(dirModule).forEach((file) => {
-  create(file, 'modules');
-});
-
-
-// setup variant links for each module
-htmlTemplates.forEach((htmlTemplate) => {
-  let actualModule = htmlTemplate.options.templateParameters.name,
-      actualModuleVariant = htmlTemplate.options.templateParameters.variant;
-
-  // push self link
-  htmlTemplate.options.templateParameters.links.push({
-    name: htmlTemplate.options.templateParameters.name,
-    path: htmlTemplate.options.templateParameters.filenameOutput,
-    variant: htmlTemplate.options.templateParameters.variant,
-    active: false
-  });
-
-  // push templateParameters to category
-  if(htmlTemplate.options.templateParameters.type == 'module') {
-    previewIndexObj.modules.push(htmlTemplate.options.templateParameters);
-  } else if(htmlTemplate.options.templateParameters.type == 'component') {
-    previewIndexObj.components.push(htmlTemplate.options.templateParameters);
-  } else if(htmlTemplate.options.templateParameters.type == 'pagetype') {
-    previewIndexObj.pagetypes.push(htmlTemplate.options.templateParameters);
-  } else if(htmlTemplate.options.templateParameters.type == 'assets') {
-    previewIndexObj.assets.push(htmlTemplate.options.templateParameters);
-  }
-
-  // loop trough all variants and check if siblings exist
-  htmlTemplates.forEach((htmlTemplateToCheck) => {
-    // check if same element in different variant
-    if(htmlTemplateToCheck!==htmlTemplate&&htmlTemplateToCheck.options.templateParameters.name==actualModule&&htmlTemplateToCheck.options.templateParameters.variant!=actualModuleVariant) {
-      // push link to sibling variant
-      htmlTemplate.options.templateParameters.links.push({
-        name: htmlTemplateToCheck.options.templateParameters.name,
-        path: htmlTemplateToCheck.options.templateParameters.filenameOutput,
-        variant: htmlTemplateToCheck.options.templateParameters.variant,
-        active: true
-      });
     }
+
+    previewIndexObj.payload[type][file].config = config;
+
   });
 });
 
-// sort by variants
-htmlTemplates.forEach((htmlTemplate) => {
-  htmlTemplate.options.templateParameters.links.sort(dynamicSort("variant"));
+// iterate all elements and render previews
+Object.keys(previewIndexObj.payload).forEach(function (key) {
+  let items = previewIndexObj.payload[key];
+
+  Object.keys(items).forEach(function (keyItem) {
+    let elementObj = items[keyItem];
+
+
+      elementObj.previews.forEach(function (preview) {
+        let targetPath = `${elementObj.path}/${preview}`;
+
+        htmlTemplates.push(new HtmlWebpackPlugin({
+          filename: targetPath + '.html',
+          template: 'src/templates/' + targetPath + '.njk',
+          hash: false,
+          cache: false,
+          chunks: [elementObj.chunkName],
+          templateParameters: elementObj
+
+         /* templateParameters: {
+            'path': pathRel,
+            'modulePath': pathFullRel,
+            'targetPathFullRel': targetPathFullRel,
+            'filename': fileName,
+            'filenameOutput': targetFileName,
+            'name': name,
+            'variant': elementObj,
+            'chunk': chunkName,
+            'links': [],
+            'type': type,
+            'config': config
+          }*/
+        }))
+      })
+
+  });
 });
+
+// add index
+htmlTemplates.push(new HtmlWebpackPlugin({
+  filename: 'index.html',
+  template: 'src/templates/index.njk',
+  hash: false,
+  cache: false,
+  chunks: ['js/preview'],
+  templateParameters: {
+    name: 'index',
+    type: 'preview',
+    chunkName: 'js/preview',
+    template: 'src/templates/index.njk',
+    templateRel: 'index.njk',
+    target: 'index.html',
+    path: '/',
+    previews: 'index',
+    variants: 1
+  }
+}))
+
+
 
 module.exports = {
-  imageSrc: '../../assets/images/renditions/',
+  imageSrc: '/assets/images/renditions/',
   htmlTemplates: htmlTemplates, // export html templates for context binding in nunjuck loader
   index: previewIndexObj        // for generating index file
 };

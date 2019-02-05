@@ -34,6 +34,8 @@ let modules = [],
       return retArr;
     };
 
+console.log('create entrypoints..');
+
 // store modules
 fs.readdirSync(dirModule).forEach((file) => {
   modules.push(file);

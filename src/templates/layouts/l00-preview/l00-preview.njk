@@ -8,8 +8,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="format-detection" content="telephone=no">
    </head>
-   <body class="preview" data-name="{{ darvin.name }}" data-path="{{ darvin.path }}">
+   <body class="preview" data-name="{{ darvin.name }}" data-filepath="{{ darvin.filepath }}" data-path="{{ darvin.path }}">
       <article id="l-pagewrapper">
+
         <!-- start preview header -->
         <header id="prev-l-header">
           <div class="prev-l-constrainer">
@@ -17,13 +18,14 @@
             <h1>{{ darvin.name }}</h1>
             {% if darvin.config.variants[darvin.variant].name %}<h2>{{ darvin.config.variants[darvin.variant].name }}</h2>{% endif %}</div>
             <nav class="prev-m-servicenav">
-              {% if darvin.links.length > 1 %}
-                  {% for link in darvin.links %}
+              {% if darvin.previews.length > 1 %}
+                  {% for link in darvin.previews %}
+                    {% set linkNumber = loop.index %}
                     <div class="prev-m-servicenav__item">
-                      {% if link.active %}
-                        <a class="prev-m-servicenav__link" href="{{ link.path }}">{{link.variant}}</a>
+                      {% if link!=darvin.filepath %}
+                        <a class="prev-m-servicenav__link" href="{{ link }}.html">{{ linkNumber }}</a>
                       {% else %}
-                        <span class="prev-m-servicenav__link prev-m-servicenav__link--active">{{link.variant}}</span>
+                        <span class="prev-m-servicenav__link prev-m-servicenav__link--active">{{ linkNumber }}</span>
                       {% endif %}
                     </div>
                   {% endfor %}
@@ -49,6 +51,9 @@
         <!-- start main -->
         <main id="l-main" class="l-main--preview">
           <div id="l-content">
+
+            {{ darvin.dep|dump }}
+
             {% block preview %}
             {% endblock %}
           </div>

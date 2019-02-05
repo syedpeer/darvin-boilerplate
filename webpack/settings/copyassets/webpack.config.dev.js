@@ -20,7 +20,23 @@ module.exports = {
       }
     },
     {
-      from: basePath + '/src/templates/**/*[!.preview].njk',
+      from: basePath + '/src/templates/modules/**/*[!.preview].njk',
+      to: '/',
+      flatten: false,
+      transformPath (targetPath) {
+        return targetPath.split('/src/templates/')[1];
+      }
+    },
+    {
+      from: basePath + '/src/templates/components/**/*[!.preview].njk',
+      to: '/',
+      flatten: false,
+      transformPath (targetPath) {
+        return targetPath.split('/src/templates/')[1];
+      }
+    },
+    {
+      from: basePath + '/src/templates/pages/**/*[!.preview].njk',
       to: '/',
       flatten: false,
       transformPath (targetPath) {

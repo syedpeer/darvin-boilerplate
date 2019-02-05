@@ -3,6 +3,7 @@
 {% import "modules/m02-accordion/m02-accordion.njk" as accordion %}
 
 {% macro main() %}
+
     {% call accordion.main(basePath = basePath, classes = ['m-accordion'], labelContent = accordion.accordionLabel(
           basePath = basePath,
           label = "Accordion Variant 1"

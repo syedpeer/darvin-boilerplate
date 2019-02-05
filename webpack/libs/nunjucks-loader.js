@@ -57,21 +57,42 @@ module.exports = function(content) {
   this.cacheable();
 
   // const loaderFilename = this.resourcePath.replace(/^.*[\\\/]/, '');
-  const loaderPath = this.resourcePath.split('templates/')[1];
+  const loaderPath = this.resourcePath.split('src/templates/')[1];
+  const loaderPathRel = loaderPath.substring(0, loaderPath.lastIndexOf("/"));
+  const moduleType = loaderPath.split('/')[0];
+  const moduleName = loaderPath.replace(/^.*[\\\/]/, '').split('.')[0];
 
   const callback = this.async();
   const opt = utils.parseQuery(this.query);
-  const nunjucksContext = opt.context;
+  let nunjucksContext = opt.context;
   const nunjucksSearchPaths = opt.searchPaths;
 
+  nunjucksContext.darvin = {};
+
+  console.log("LOADER: " + loaderPath);
+
+  // bind specific template param context
   nunjucksContext.htmlTemplates.forEach((htmlTemplates) => {
-    if (htmlTemplates.options.templateParameters.modulePath === loaderPath) {
-      const context = htmlTemplates.options.templateParameters;
-      nunjucksContext.darvin = context;
+    if (htmlTemplates.options.templateParameters.path === loaderPathRel) {
+      nunjucksContext.darvin = htmlTemplates.options.templateParameters;
     }
   });
 
+  nunjucksContext.darvin.filepath = loaderPath.replace(/^.*[\\\/]/, '').replace('.njk', ''); // remove file extension
+  nunjucksContext.darvin.dep = [];
+
   const loader = new NunjucksLoader(nunjucksSearchPaths, ((filePath) => {
+
+    // exclude layout files from dependencies
+    if(!filePath.includes('layouts/')) {
+      nunjucksContext.darvin.dep.push(filePath.split('/src/templates/')[1]);
+
+      if(loaderPath.includes('.preview.')) {
+        fs.writeFile(`./src/templates/modules/${moduleName}/meta/dependencies.json`, JSON.stringify(nunjucksContext.darvin.dep), 'utf8', () => {});
+      }
+
+    }
+
     this.addDependency(filePath);
   }));
 
