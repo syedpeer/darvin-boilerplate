@@ -19,11 +19,11 @@
 .prev-m-index__itemcol {
   display: flex;
   flex-direction: column;
+  padding: 4px 11px 10px;
 }
 
 .prev-m-index__itemcol--grow {
   flex: 1;
-  padding: 4px 11px 10px;
 }
 
 .prev-m-index__itemcol--meta {
@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .prev-m-index__item {
@@ -138,5 +139,19 @@
 
   &:hover {
     background-color: darken(#003366, 10);
+  }
+}
+
+.prev-m-index__minibtn {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: darken($color7, 10);
+  cursor: pointer;
+
+  &:hover {
+    color: $color5;
   }
 }

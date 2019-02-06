@@ -88,7 +88,7 @@ module.exports = function(content) {
       nunjucksContext.darvin.dep.push(filePath.split('/src/templates/')[1]);
 
       if(loaderPath.includes('.preview.')) {
-        fs.writeFile(`./src/templates/modules/${moduleName}/meta/dependencies.json`, JSON.stringify(nunjucksContext.darvin.dep), 'utf8', () => {});
+        fs.writeFile(`./src/templates/modules/${moduleName}/meta/dependencies.json`, nunjucksContext.darvin.dep.join(","), 'utf8', () => {});
       }
 
     }

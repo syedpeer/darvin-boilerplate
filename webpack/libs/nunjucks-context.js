@@ -66,43 +66,47 @@ previewIndexObj.types.forEach((type) => {
   previewIndexObj.payload[type] = {};
 
   readdirSync(path.resolve(basePath, `src/templates/${type}`)).forEach((file) => {
-    let templateObj = getTemplateFiles(type, file);
-    let tmplPath = templateObj.template.substring(0, templateObj.template.lastIndexOf("/")).replace('src/templates/', '');
-    let config = {};
 
-    previewIndexObj.payload[type][file] = {
-      name: file,
-      type: type,
-      chunkName: `${tmplPath}/${file}`,
-      template: templateObj.template,
-      templateRel: templateObj.template.replace('src/templates/', ''),
-      target: `${tmplPath}/${file}.html`,
-      path: tmplPath,
-      previews: templateObj.previews,
-      variants: templateObj.previews.length
-    }
+    // only accept files not starting with _ or .
+    if(file.charAt(0)!=='_'&&file.charAt(0)!=='.') {
+      let templateObj = getTemplateFiles(type, file);
+      let tmplPath = templateObj.template.substring(0, templateObj.template.lastIndexOf("/")).replace('src/templates/', '');
+      let config = {};
 
-    if(type==='pages') {
-      previewIndexObj.payload[type][file].previews = [`${file}`];
-      previewIndexObj.payload[type][file].variants = 1;
-    }
-
-    if(templateObj.previews.length==0) {
-      previewIndexObj.payload[type][file].chunkName = 'js/main';
-    }
-
-    // load element config file
-    try {
-      config = require(path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
-    } catch (e) {
-      if (e instanceof Error && e.code === "MODULE_NOT_FOUND") {
-        console.log("- no config for " + path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
-      } else {
-        throw e;
+      previewIndexObj.payload[type][file] = {
+        name: file,
+        type: type,
+        chunkName: `${tmplPath}/${file}`,
+        template: templateObj.template,
+        templateRel: templateObj.template.replace('src/templates/', ''),
+        target: `${tmplPath}/${file}.html`,
+        path: tmplPath,
+        previews: templateObj.previews,
+        variants: templateObj.previews.length
       }
-    }
 
-    previewIndexObj.payload[type][file].config = config;
+      if(type==='pages') {
+        previewIndexObj.payload[type][file].previews = [`${file}`];
+        previewIndexObj.payload[type][file].variants = 1;
+      }
+
+      if(templateObj.previews.length==0) {
+        previewIndexObj.payload[type][file].chunkName = 'js/main';
+      }
+
+      // load element config file
+      try {
+        config = require(path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
+      } catch (e) {
+        if (e instanceof Error && e.code === "MODULE_NOT_FOUND") {
+          console.log("- no config for " + path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
+        } else {
+          throw e;
+        }
+      }
+
+      previewIndexObj.payload[type][file].config = config;
+    }
 
   });
 });

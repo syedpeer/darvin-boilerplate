@@ -5,8 +5,6 @@
 
 {% block preview %}
 
-{{ darvin.dep }}
-
   <div class="prev-m-index">
 
   {% for category, catObj in index.payload %}
@@ -15,7 +13,7 @@
       <div class="prev-m-index__items">
 
       {% for itemKey, item in catObj %}
-      {{ item|dump}}
+
         <article class="prev-m-index__item" data-name="{{ item.name }}" data-type="{{ item.type }}" data-path="{{ item.path }}" data-dep="{{ item.dep }}">
           {% if item.variants > 0 %}
           <a href="{{  item.path }}/{{  item.previews[0] }}.html"><canvas class="canvas" width="360" height="100"></canvas></a>
@@ -41,6 +39,11 @@
                 {% if item.config.confluence.length > 2 %}
                 <a class="prev-m-index__flag prev-m-index__flag--confluence" href="{{ item.config.confluence }}" target="_blank">C</a>
                 {% endif %}
+              </div>
+            </div>
+            <div class="prev-m-index__itemcol">
+              <div class="prev-m-index__itemrow">
+                <a class="prev-m-index__minibtn" data-dep><i class="i i-target"></i></a>
               </div>
             </div>
           </div>

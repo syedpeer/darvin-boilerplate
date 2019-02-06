@@ -57,7 +57,7 @@ loadJson = (url, name, type, el, path) => {
     .then((data) => {
       //pointArr[name] = [];
 
-      let dataArr = JSON.parse(data);
+      let dataArr = data.split(',');
       let pathArr = [];
 
       let source = document.querySelector('.prev-m-index__item[data-path="' + path + '"]');
