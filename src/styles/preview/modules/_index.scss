@@ -2,6 +2,8 @@
    Layout / Servicenav
    ======================= */
 
+$preview-index-spacer: 0.5rem;
+
 .prev-m-index {
   display: flex;
   padding: 0 2rem;
@@ -33,6 +35,8 @@
 .prev-m-index__items {
   display: flex;
   flex-wrap: wrap;
+  width: calc(100% + 2 * #{$preview-index-spacer});
+  margin-left: -$preview-index-spacer;
 }
 
 .prev-m-index__panel {
@@ -50,8 +54,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 360px;
-  margin: 0 1rem 1rem 0;
+  width: calc(50% - 2 * #{$preview-index-spacer});
+  margin: 0 $preview-index-spacer 1rem $preview-index-spacer;
   background-color: $color7;
   border-bottom: 1px solid $color6;
 
@@ -64,6 +68,7 @@
   }
 
   canvas {
+    width: 100%;
     opacity: 1;
   }
 }
@@ -143,15 +148,20 @@
 }
 
 .prev-m-index__minibtn {
-  width: 20px;
-  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: darken($color7, 10);
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 
+  i {
+    color: lighten($color7, 6);
+  }
+
   &:hover {
-    color: $color5;
+    i {
+      color: $color5;
+    }
   }
 }

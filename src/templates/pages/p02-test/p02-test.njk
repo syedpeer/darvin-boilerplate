@@ -1,0 +1,11 @@
+{% extends "layouts/l01-default/l01-default.njk" %}
+
+{% import "modules/m02-accordion/m02-accordion.preview.1.njk" as accordion01 %}
+{% import "modules/m02-accordion/m02-accordion.preview.2.njk" as accordion02 %}
+
+{% set title = 'Preview Test Page' %}
+
+{% block content %}
+  {{ accordion01.main() }}
+  {{ accordion02.main() }}
+{% endblock %}

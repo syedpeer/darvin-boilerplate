@@ -24,8 +24,17 @@ let instance = {},
 // Module Variables
 let settings = {},
     container,
+    colors = ['#e8175d','#cc527a'],
+    anchors = [["Top", "Top"], ["Bottom", "Bottom"]],
     moduleCards,
-    j;
+    counter = 0;
+
+let j = require("../../../node_modules/jsplumb/dist/js/jsplumb.js").jsPlumb.getInstance({
+  Connector: ["Flowchart", {curviness: 1, stub: 7}, {cssClass:"connectorClass", lineWidth:2, strokeStyle:'blue'}],
+  Anchor: "Bottom",
+  endpoint:[ "Dot", { radius: 5 } ],
+  paintStyle:{ lineWidth:2, strokeStyle:'green' }
+});
 
 // Private Functions
 const initCard = (card) => {
@@ -34,16 +43,23 @@ const initCard = (card) => {
   }
 },
 initClick = (e) => {
-  let card = e.currentTarget.closest('.prev-m-index__item'),
+  let button = e.currentTarget,
+      card = button.closest('.prev-m-index__item'),
       path = card.getAttribute('data-path'),
       url = `${path}/meta/dependencies.json`,
       name = card.getAttribute('data-name'),
       type = card.getAttribute('data-type');
 
 
-  loadJson(url, name, type, card, path);
+  if(button.getAttribute('data-init')==null) {
+    console.log(card.getAttribute('data-init'));
+    loadFile(url, name, type, card, path, button);
+  } else {
+    console.log('data in attribute');
+    prepareData(card.getAttribute('data-dep').split(','), card);
+  }
 },
-loadJson = (url, name, type, el, path) => {
+loadFile = (url, name, type, el, path, button) => {
   fetch(url)
     .then(response => {
       if (response.ok) {
@@ -54,49 +70,64 @@ loadJson = (url, name, type, el, path) => {
       }
     })
     .then(response => response.text())
-    .then((data) => {
-      //pointArr[name] = [];
-
-      let dataArr = data.split(',');
+    .then((csv) => {
+      let dataArr = csv.split(',');
       let pathArr = [];
 
-      let source = document.querySelector('.prev-m-index__item[data-path="' + path + '"]');
-
       dataArr.forEach((dataItem) => {
-        dataItem = dataItem.substring(0, dataItem.lastIndexOf("/"));
-
-        if(path!==dataItem) {
+        let dataItemPath = dataItem.substring(0, dataItem.lastIndexOf("/"));
+        if(path !== dataItemPath) {
+          dataItem = dataItemPath;
           pathArr.push(dataItem);
-          let target = document.querySelector('.prev-m-index__item[data-path="' + dataItem + '"]');
-
-          connect(source, target);
         }
       });
 
-      el.setAttribute('data-dep', pathArr);
+      let newArr = [...new Set(pathArr)];
+      el.setAttribute('data-dep', newArr);
+      button.setAttribute('data-init', '');
+
+      prepareData(newArr, el);
     })
     .catch(function(error) {
       console.error(`Error: ${error.message}`);
     });
 
 },
+prepareData = (depArr, card) => {
+
+
+  let source = card.getAttribute('data-path');
+
+  depArr.forEach((dep) => {
+    connect(source, dep);
+  });
+},
 connect = (source, target) => {
 
-  j = require("../../../node_modules/jsplumb/dist/js/jsplumb.js").jsPlumb.getInstance({
-    Connector: ["Flowchart", {lineWidth:2, strokeStyle:'green'}, {cssClass:"connectorClass", lineWidth:2, strokeStyle:'green'}],
-    Anchor: "Bottom",
-    Endpoint: [ "Dot", { radius: 1 }],
-    paintStyle:{ lineWidth:2, strokeStyle:'green' },
-    ConnectionOverlays: [
-        [ "Arrow", { location: 0, width: 6, length: 10, foldbackPoint: 0.62, direction:-1 }]
-    ]
-  });
-
+  source = document.querySelector('.prev-m-index__item[data-path="' + source + '"]');
+  target = document.querySelector('.prev-m-index__item[data-path="' + target + '"]');
 
   console.log("Connect Elements!");
   console.log(source);
   console.log(target);
-  j.connect({paintStyle:{ stroke:"#e8175d", strokeWidth:1 }, source: source, target: target });
+
+  counter++;
+
+  let settings = {
+    paintStyle:{
+      stroke: colors[counter%2],
+      strokeWidth:1,
+      curviness: 1350
+    },
+    anchors: anchors[counter%2],
+    endpoint:[ "Dot", { radius: 3 } ],
+    source: source,
+    target: target
+  };
+
+
+  j.connect(settings);
+
 };
 
 
@@ -122,6 +153,8 @@ instance.init = (options) => {
   [...moduleCards].forEach((moduleCard) => {
     initCard(moduleCard);
   });
+
+  j.setContainer(document.querySelector('.prev-m-index'));
 
   return instance;
 };
