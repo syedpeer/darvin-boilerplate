@@ -121,10 +121,10 @@ That behaviour save us responsivness on different layouts.
 ```.l-constrainer```
 
 ## Author
-Tobias Frei
+[https://github.com/tobiasfrei](https://github.com/tobiasfrei)
 
 ## Contributors
-Christian Sany
+[https://github.com/christiansany](https://github.com/christiansany)
 
 ## License
 Apache 2.0.
