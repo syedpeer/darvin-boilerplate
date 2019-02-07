@@ -28,28 +28,6 @@ module.exports = {
     ]
   },
   plugins: [
-    ...htmlTemplates,
-    new FaviconsWebpackPlugin({
-      logo: path.resolve('src/assets/images/favicons/favicon.png'),
-      prefix: 'images/icons/',
-      emitStats: false,
-      statsFilename: 'iconstats-[hash].json',
-      persistentCache: true,
-      inject: true,
-      background: '#000',
-      title: 'Darvin',
-      icons: {
-        android: true,
-        appleIcon: true,
-        appleStartup: true,
-        coast: false,
-        favicons: true,
-        firefox: true,
-        opengraph: false,
-        twitter: false,
-        yandex: false,
-        windows: false
-      }
-    })
+    ...htmlTemplates
   ],
 };

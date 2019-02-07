@@ -21,6 +21,14 @@ module.exports = {
         }
       },
       {
+        from: basePath + '/src/templates/components/**/*.{md,json}',
+        to: '/',
+        flatten: false,
+        transformPath (targetPath) {
+          return targetPath.split('/src/templates/')[1];
+        }
+      },
+      {
         from: basePath + '/src/templates/**/*[!.preview].njk',
         to: '/',
         flatten: false,

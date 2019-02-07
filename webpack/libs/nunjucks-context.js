@@ -1,23 +1,21 @@
 /* eslint-disable */
 const glob = require('glob');
 const path = require('path');
-const { readdirSync, statSync, existsSync } = require('fs')
 
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = process.cwd();
 const isDev = (process.env.NODE_ENV === 'dev');
-const getDirs = p => readdirSync(p).filter(f => statSync(path.join(p, f)).isDirectory())
 
-const dir = path.resolve(basePath, 'src/templates');
+const { readdirSync, statSync, existsSync } = require('fs')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let previewIndexObj = {
-  types: [],
-  payload: {}
-}
-let htmlTemplates = [];
+      types: [],
+      payload: {}
+    },
+    htmlTemplates = [],
+    dir = path.resolve(basePath, 'src/templates');
 
-console.log('build template context..');
+const getDirs = p => readdirSync(p).filter(f => statSync(path.join(p, f)).isDirectory());
 
 const dynamicSort = (property) => {
   var sortOrder = 1;
@@ -36,7 +34,7 @@ const getTemplateFiles = (type, file) => {
   let tmplPreviews = [];
 
   if (!existsSync( path.resolve(basePath, `${templatePath}`))) {
-      console.log("TEMPLATE NOT EXIST! " + path.resolve(basePath, `${templatePath}`));
+      console.error("TEMPLATE NOT EXIST! " + path.resolve(basePath, `${templatePath}`));
       return [];
   }
 
@@ -53,6 +51,8 @@ const getTemplateFiles = (type, file) => {
     previews: tmplPreviews
   }
 };
+
+console.log('build template context..');
 
 // get all categories
 previewIndexObj.types = getDirs(dir);
@@ -99,7 +99,7 @@ previewIndexObj.types.forEach((type) => {
         config = require(path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
       } catch (e) {
         if (e instanceof Error && e.code === "MODULE_NOT_FOUND") {
-          console.log("- no config for " + path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
+          console.error("no config for " + path.resolve(basePath, `src/templates/${tmplPath}/meta/config.json`));
         } else {
           throw e;
         }
@@ -118,7 +118,6 @@ Object.keys(previewIndexObj.payload).forEach(function (key) {
   Object.keys(items).forEach(function (keyItem) {
     let elementObj = items[keyItem];
 
-
       elementObj.previews.forEach(function (preview) {
         let targetPath = `${elementObj.path}/${preview}`;
 
@@ -129,20 +128,6 @@ Object.keys(previewIndexObj.payload).forEach(function (key) {
           cache: false,
           chunks: [elementObj.chunkName],
           templateParameters: elementObj
-
-         /* templateParameters: {
-            'path': pathRel,
-            'modulePath': pathFullRel,
-            'targetPathFullRel': targetPathFullRel,
-            'filename': fileName,
-            'filenameOutput': targetFileName,
-            'name': name,
-            'variant': elementObj,
-            'chunk': chunkName,
-            'links': [],
-            'type': type,
-            'config': config
-          }*/
         }))
       })
 
@@ -169,10 +154,8 @@ htmlTemplates.push(new HtmlWebpackPlugin({
   }
 }))
 
-
-
 module.exports = {
   imageSrc: '/assets/images/renditions/',
-  htmlTemplates: htmlTemplates, // export html templates for context binding in nunjuck loader
-  index: previewIndexObj        // for generating index file
+  htmlTemplates: htmlTemplates, // nunjuck loader
+  index: previewIndexObj //  index generator
 };

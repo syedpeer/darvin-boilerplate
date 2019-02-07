@@ -21,6 +21,8 @@ const clean = require('./settings/clean/webpack.config.dev');
 const markdown = require('./settings/markdown/webpack.config.dev');
 const copy = require('./settings/copyassets/webpack.config.dev');
 
+let entrys = require('./libs/create-entrys');
+
 const settings = {
   entry: require('./libs/create-entrys'),
   output: {

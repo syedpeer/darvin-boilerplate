@@ -177,7 +177,7 @@ instance.init = (options) => {
 
   if(!container) return;
 
-  moduleCards = container.querySelectorAll('.prev-m-index--modules .prev-m-index__items .prev-m-index__item, .prev-m-index--components .prev-m-index__items .prev-m-index__item');
+  moduleCards = container.querySelectorAll('.prev-m-index--modules .prev-m-index__items .prev-m-index__item, .prev-m-index--components .prev-m-index__items .prev-m-index__item, .prev-m-index--pages .prev-m-index__items .prev-m-index__item');
 
   if(!moduleCards) return;
 

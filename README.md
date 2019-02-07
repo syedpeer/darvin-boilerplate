@@ -120,8 +120,11 @@ Modules are mostly fullwidth and constrained by layout constrained element.
 That behaviour save us responsivness on different layouts.
 ```.l-constrainer```
 
-## Authors
-Tobias Frei, Christian Sany
+## Author
+Tobias Frei
+
+## Contributors
+Christian Sany
 
 ## License
 Apache 2.0.

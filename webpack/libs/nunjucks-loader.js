@@ -77,17 +77,8 @@ module.exports = function(content) {
   });
 
   nunjucksContext.darvin.filepath = loaderPath.replace(/^.*[\\\/]/, '').replace('.njk', ''); // remove file extension
-  nunjucksContext.darvin.dep = [];
 
   const loader = new NunjucksLoader(nunjucksSearchPaths, ((filePath) => {
-    let depPath = filePath.split('/src/templates/')[1];
-
-    // exclude layout files from dependencies
-    if(!filePath.includes('layouts/') && loaderPath.includes('.preview.')) {
-      nunjucksContext.darvin.dep.push(depPath);
-      fs.writeFile(`./src/templates/modules/${moduleName}/meta/dependencies.json`, nunjucksContext.darvin.dep.join(","), 'utf8', () => {});
-    }
-
     this.addDependency(filePath);
   }));
 

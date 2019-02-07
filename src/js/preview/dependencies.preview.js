@@ -52,10 +52,8 @@ initClick = (e) => {
 
 
   if(button.getAttribute('data-init')==null) {
-    console.log(card.getAttribute('data-init'));
     loadFile(url, name, type, card, path, button);
   } else {
-    console.log('data in attribute');
     prepareData(card.getAttribute('data-dep').split(','), card);
   }
 },
@@ -107,10 +105,6 @@ connect = (source, target) => {
   source = document.querySelector('.prev-m-index__item[data-path="' + source + '"]');
   target = document.querySelector('.prev-m-index__item[data-path="' + target + '"]');
 
-  console.log("Connect Elements!");
-  console.log(source);
-  console.log(target);
-
   counter++;
 
   let settings = {
@@ -125,9 +119,7 @@ connect = (source, target) => {
     target: target
   };
 
-
   j.connect(settings);
-
 };
 
 
